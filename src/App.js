@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { DialogContentContainer } from "monday-ui-react-core";
+import "monday-ui-react-core/dist/main.css";
+import "./App.css";
+import Header from "./Components/Header/Header";
+import Addition from "./Components/Addition/Addition";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header></Header>
+      <DialogContentContainer className="container">
+        <div>graph of expenses vs income</div>
+        <div>pie chart of expenses</div>
+      </DialogContentContainer>
+      <DialogContentContainer className="container container2">
+        <div>progrees bar to goals</div>
+        <div>detailed expesnes</div>
+      </DialogContentContainer>
+      <Addition></Addition>
+    </>
   );
 }
 
