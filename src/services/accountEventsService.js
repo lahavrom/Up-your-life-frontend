@@ -11,6 +11,16 @@ const submitAccountEvent = async (values) => {
   }
 };
 
+const fetchAllAccountEvents = async (uId) => {
+  try {
+    const { data } = await accountEventsClient.get(`${uId}`);
+    return data;
+  } catch (error) {
+    throw handleError(error);
+  }
+};
+
 export default {
   submitAccountEvent,
+  fetchAllAccountEvents,
 };
