@@ -5,8 +5,6 @@ import "./Header.css";
 function Header() {
   return (
     <div className="topBar">
-      <div>Logo</div>
-      <Divider direction={Divider.directions.VERTICAL} />
       <Steps
         activeStepIndex={2}
         steps={[<Tab>Aug 2022</Tab>, <Tab>Sept 2022</Tab>]}
