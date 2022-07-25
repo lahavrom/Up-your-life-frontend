@@ -8,7 +8,7 @@ const FormTextField = ({
   size = TextField.sizes.MEDIUM,
   ...otherProps
 }) => {
-  const { values, handleChange, errors } = useFormikContext();
+  const { values, handleChange, errors, touched } = useFormikContext();
 
   return (
     <TextField
@@ -16,7 +16,10 @@ const FormTextField = ({
       size={size}
       value={values[field]}
       onChange={handleChange(field)}
-      validation={errors[field] && { status: "error", text: errors[field] }}
+      validation={
+        errors[field] &&
+        touched[field] && { status: "error", text: errors[field] }
+      }
       {...otherProps}
     />
   );
