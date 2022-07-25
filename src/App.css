@@ -9,10 +9,12 @@
 
 .content {
   display: inline-block;
+  min-width: 720px;
+  width: 57%;
+  text-align: -webkit-center;
 }
 
 .container {
-  width: 40%;
   min-height: 350px;
   min-width: 506px;
   margin-top: 30px;
