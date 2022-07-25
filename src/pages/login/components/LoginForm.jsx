@@ -8,6 +8,7 @@ import {
   FormTextField,
   FormSubmitButton,
 } from "../../../Components/forms";
+import { loginUser } from "../../../redux/users/actions/loginUser";
 
 const initialValues = {
   email: "",
@@ -24,7 +25,7 @@ const LoginForm = () => {
 
   const onLoginUser = useCallback(
     (values) => {
-      dispatch();
+      dispatch(loginUser(values));
     },
     [dispatch]
   );
