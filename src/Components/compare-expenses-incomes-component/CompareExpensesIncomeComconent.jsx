@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Compare-expenes-income-component.module.scss";
+import styles from "./CompareExpenesIncomeComponent.module.scss";
 
 import {
 	BarChart,

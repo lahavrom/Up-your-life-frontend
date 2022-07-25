@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import RegisterPage from "./pages/register/RegisterPage";
 import LoginPage from "./pages/login/LoginPage";
 import ChartAllExpenses from "./Components/chart-all-expenses/Chart-all-expenses";
+import BarGoal from "./Components/Bar-goal-component/BarGoalComponent";
 
 import { useDispatch } from "react-redux";
 import { fetchAllFixedEvents } from "./redux/fixedEvents/actions/fetchAllFixedEvents";
@@ -30,7 +31,7 @@ function App() {
 				<ChartAllExpenses />
 			</DialogContentContainer>
 			<DialogContentContainer className="container container2">
-				<div>progrees bar to goals</div>
+						<BarGoal />
 				<div>detailed expesnes</div>
 			</DialogContentContainer>
         </div>
