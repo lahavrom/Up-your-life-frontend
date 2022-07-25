@@ -1,0 +1,17 @@
+.sideBar {
+    height: 100%;
+    width: 29%;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    align-items: end;
+  }
+
+  .funcBtn {
+    width: 200px;
+    margin-top: 20px;
+    border-radius: 20px;
+    height: 40px;
+    border: 1px solid;
+  }
