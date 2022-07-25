@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import { Button } from "monday-ui-react-core";
 
-const FormSubmitButton = ({ label, icon }) => {
+const FormSubmitButton = ({ label, icon, isLoading }) => {
   return (
-    <Button type={Button.inputTags.SUBMIT} leftIcon={icon}>
+    <Button type={Button.inputTags.SUBMIT} leftIcon={icon} loading={isLoading}>
       {label}
     </Button>
   );
