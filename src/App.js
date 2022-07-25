@@ -4,8 +4,20 @@ import "./App.css";
 import Header from "./Components/Header/Header";
 import Sidebar from "./Components/Sidebar/Sidebar";
 import CompareExpenesIncomes from "./Components/compare-expenses-incomes-component/Compare-expenses-income-comconent";
+import { useEffect } from "react";
+import RegisterPage from "./pages/register/RegisterPage";
+import LoginPage from "./pages/login/LoginPage";
+
+import { useDispatch } from "react-redux";
+import { fetchAllFixedEvents } from "./redux/fixedEvents/actions/fetchAllFixedEvents";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchAllFixedEvents("5"));
+  }, [dispatch]);
+
   return (
     <>
       <Header></Header>
@@ -22,6 +34,7 @@ function App() {
           </DialogContentContainer>
         </div>
       </div>
+      <RegisterPage />
     </>
   );
 }
