@@ -2,9 +2,9 @@ import { DialogContentContainer } from "monday-ui-react-core";
 
 import Header from "./Components/Header/Header";
 import Sidebar from "./Components/Sidebar/Sidebar";
-import CompareExpenesIncomes from "./Components/compare-expenses-incomes-component/Compare-expenses-income-comconent";
+import CompareExpenesIncomes from "./Components/compareExpensesIncomes/CompareExpensesIncome";
 import ChartAllExpenses from "./Components/chart-all-expenses/Chart-all-expenses";
-import BarGoal from "./Components/Bar-goal-component/BarGoalComponent";
+import BarGoal from "./Components/barGoal/BarGoal";
 import "./App.css";
 
 function App() {
