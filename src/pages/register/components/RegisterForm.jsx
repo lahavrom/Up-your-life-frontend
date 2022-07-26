@@ -40,7 +40,7 @@ const RegisterForm = () => {
     <Form
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={(values) => onRegisterUser(values)}
+      onSubmit={onRegisterUser}
     >
       <Flex gap={Flex.gaps.SMALL} direction={Flex.directions.COLUMN}>
         <FormTextField field="firstName" placeholder="First name" autoFocus />
@@ -51,7 +51,7 @@ const RegisterForm = () => {
           placeholder="Password"
           type="password"
         />
-        <FormSubmitButton label="Submit" isLoading={isLoading} />
+        <FormSubmitButton label="Register" isLoading={isLoading} />
       </Flex>
     </Form>
   );

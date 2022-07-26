@@ -36,7 +36,7 @@ const LoginForm = () => {
     <Form
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={(values) => onLoginUser(values)}
+      onSubmit={onLoginUser}
     >
       <Flex gap={Flex.gaps.SMALL} direction={Flex.directions.COLUMN}>
         <FormTextField field="email" placeholder="Email" autoFocus />
@@ -45,7 +45,7 @@ const LoginForm = () => {
           placeholder="Password"
           type="password"
         />
-        <FormSubmitButton label="Submit" isLoading={isLoading} />
+        <FormSubmitButton label="Login" isLoading={isLoading} />
       </Flex>
     </Form>
   );
