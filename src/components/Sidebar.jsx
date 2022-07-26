@@ -1,14 +1,20 @@
-import { Menu, MenuItem, MenuDivider } from "monday-ui-react-core";
+import { Heading, Menu, MenuItem, MenuDivider } from "monday-ui-react-core";
 
 const Sidebar = () => {
   return (
-    <Menu>
-      <MenuItem title="Up Your Life" />
-      <MenuDivider />
-      <MenuItem title="Dashboard" />
-      <MenuDivider />
-      <MenuItem title="Profile" />
-    </Menu>
+    <>
+      <Heading value="Logo" />
+      <Menu>
+        <MenuDivider />
+        <MenuItem title="Dashboard" />
+        <MenuDivider />
+        <MenuItem title="Incomes" />
+        <MenuDivider />
+        <MenuItem title="Expenses" />
+        <MenuDivider />
+        <MenuItem title="Profile" />
+      </Menu>
+    </>
   );
 };
 

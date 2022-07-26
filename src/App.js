@@ -1,9 +1,7 @@
-import { DialogContentContainer } from "monday-ui-react-core";
-
 import Sidebar from "./components/Sidebar";
-import CompareExpenesIncomes from "./components/compareExpensesIncomes/CompareExpensesIncome";
-import ChartAllExpenses from "./components/chart-all-expenses/Chart-all-expenses";
-import BarGoal from "./components/barGoal/BarGoal";
+import Dashboard from "./components/dashboard/Dashboard";
+import Incomes from "./components/incomes/Incomes";
+import Expenses from "./components/expenses/Expenses";
 import "./App.css";
 
 function App() {
@@ -13,15 +11,9 @@ function App() {
         <Sidebar />
       </div>
       <div className="content">
-        <DialogContentContainer className="dialog-content-container">
-          <CompareExpenesIncomes />
-        </DialogContentContainer>
-        <DialogContentContainer>
-          <ChartAllExpenses />
-        </DialogContentContainer>
-        <DialogContentContainer>
-          <BarGoal />
-        </DialogContentContainer>
+        <Dashboard />
+        <Incomes />
+        <Expenses />
       </div>
     </div>
   );
