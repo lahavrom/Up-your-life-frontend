@@ -1,30 +1,29 @@
 import { DialogContentContainer } from "monday-ui-react-core";
 
-import Header from "./Components/Header/Header";
-import Sidebar from "./Components/Sidebar/Sidebar";
-import CompareExpenesIncomes from "./Components/compareExpensesIncomes/CompareExpensesIncome";
-import ChartAllExpenses from "./Components/chart-all-expenses/Chart-all-expenses";
-import BarGoal from "./Components/barGoal/BarGoal";
+import Sidebar from "./components/Sidebar";
+import CompareExpenesIncomes from "./components/compareExpensesIncomes/CompareExpensesIncome";
+import ChartAllExpenses from "./components/chart-all-expenses/Chart-all-expenses";
+import BarGoal from "./components/barGoal/BarGoal";
 import "./App.css";
 
 function App() {
   return (
-    <>
-      <Header></Header>
-      <div className="main">
+    <div className="container">
+      <div className="sidebar">
         <Sidebar />
-        <div className="content">
-          <DialogContentContainer className="container">
-            <CompareExpenesIncomes />
-            <ChartAllExpenses />
-          </DialogContentContainer>
-          <DialogContentContainer className="container container2">
-            <BarGoal />
-            <div>detailed expesnes</div>
-          </DialogContentContainer>
-        </div>
       </div>
-    </>
+      <div className="content">
+        <DialogContentContainer className="dialog-content-container">
+          <CompareExpenesIncomes />
+        </DialogContentContainer>
+        <DialogContentContainer>
+          <ChartAllExpenses />
+        </DialogContentContainer>
+        <DialogContentContainer>
+          <BarGoal />
+        </DialogContentContainer>
+      </div>
+    </div>
   );
 }
 
