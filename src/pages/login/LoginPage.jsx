@@ -4,6 +4,7 @@ import { Heading } from "monday-ui-react-core";
 
 import ErrorToast from "../../components/ErrorToast";
 import LoginForm from "./components/LoginForm";
+import { AUTH_ROUTES } from "../../routes/AuthRoutes";
 import styles from "./loginPage.module.css";
 
 const LoginPage = () => {
@@ -14,8 +15,12 @@ const LoginPage = () => {
     <div className={styles.container}>
       <ErrorToast isVisible={isError} message={errorMessage} />
       <Heading value="Login" />
-      <LoginForm />
-      <Link to="/register">Need to register?</Link>
+      <div className={styles.formContainer}>
+        <LoginForm />
+      </div>
+      <div className={styles.linkContainer}>
+        <Link to={AUTH_ROUTES.REGISTER}>Need to register?</Link>
+      </div>
     </div>
   );
 };
