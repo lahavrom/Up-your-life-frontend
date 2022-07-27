@@ -152,6 +152,7 @@ function NewAddition({ addType, fixed, modalVisible, setModalVisible }) {
               <RadioButtonWrapper
                 icon={radioBtn.icon}
                 name={radioBtn.name}
+                key={radioBtn.name}
                 onClick={() =>
                   setSubmition({ ...submition, category: radioBtn.name })
                 }
