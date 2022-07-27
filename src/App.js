@@ -1,22 +1,12 @@
-import Sidebar from "./components/Sidebar";
-import Dashboard from "./components/dashboard/Dashboard";
-import Incomes from "./components/incomes/Incomes";
-import Expenses from "./components/expenses/Expenses";
-import "./App.css";
+import { useSelector } from "react-redux";
 
-function App() {
-  return (
-    <div className="container">
-      <div className="sidebar">
-        <Sidebar />
-      </div>
-      <div className="content">
-        <Dashboard />
-        <Incomes />
-        <Expenses />
-      </div>
-    </div>
-  );
-}
+import AuthRoutes from "./routes/AuthRoutes";
+import UpYourLifePage from "./pages/upYourLife/UpYourLifePage";
+
+const App = () => {
+  const user = useSelector(({ usersState }) => usersState.user);
+
+  return <>{!user ? <AuthRoutes /> : <UpYourLifePage />}</>;
+};
 
 export default App;
