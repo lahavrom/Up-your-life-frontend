@@ -4,6 +4,7 @@ import IncomeExpenseCard from "./components/incomeExpenseCard/IncomeExpenseCard"
 import "./App.css";
 import { useState } from "react";
 import NewAddition from "./components/NewAddition/NewAddition";
+import { useSelector } from "react-redux";
 
 function App() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -41,5 +42,13 @@ function App() {
     </>
   );
 }
+import AuthRoutes from "./routes/AuthRoutes";
+import UpYourLifePage from "./pages/upYourLife/UpYourLifePage";
+
+const App = () => {
+  const user = useSelector(({ usersState }) => usersState.user);
+
+  return <>{!user ? <AuthRoutes /> : <UpYourLifePage />}</>;
+};
 
 export default App;
