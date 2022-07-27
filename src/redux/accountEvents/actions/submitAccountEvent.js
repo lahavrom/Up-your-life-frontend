@@ -15,9 +15,8 @@ const submitAccountEventActionFail = (errorMessage) => ({
   payload: { errorMessage },
 });
 
-// values -> type, value, description, effectiveDate
 export const submitAccountEvent = (values) => async (dispatch, getState) => {
-  const { uId } = getState().usersState;
+  const { uId } = getState().usersState.user;
   try {
     dispatch(submitAccountEventAction());
     const accountEvent = await accountEventsService.submitAccountEvent({

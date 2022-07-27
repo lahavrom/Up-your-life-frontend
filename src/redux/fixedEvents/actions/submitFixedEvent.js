@@ -15,9 +15,8 @@ const submitFixedEventActionFail = (errorMessage) => ({
   payload: { errorMessage },
 });
 
-// values -> type, value, description, dayOfMonth
 export const submitFixedEvent = (values) => async (dispatch, getState) => {
-  const { uId } = getState().usersState;
+  const { uId } = getState().usersState.user;
   try {
     dispatch(submitFixedEventAction());
     const fixedEvent = await fixedEventsService.submitFixedEvent({

@@ -15,7 +15,8 @@ const fetchAllAccountEventsActionFail = (errorMessage) => ({
   payload: { errorMessage },
 });
 
-export const fetchAllAccountEvents = (uId) => async (dispatch) => {
+export const fetchAllAccountEvents = () => async (dispatch, getState) => {
+  const { uId } = getState().usersState.user;
   try {
     dispatch(fetchAllAccountEventsAction());
     const accountEvents = await accountEventsService.fetchAllAccountEvents(uId);
