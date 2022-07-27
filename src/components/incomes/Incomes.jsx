@@ -4,7 +4,7 @@ import styles from "./incomes.module.css";
 const Incomes = () => {
   return (
     <>
-      <Heading value="Incomes" type={Heading.types.h2} />
+      <Heading id="incomes" value="Incomes" type={Heading.types.h2} />
       <div className={styles.cardContentContainer}>
         <DialogContentContainer className={styles.cardStartContentContainer}>
           <Flex>

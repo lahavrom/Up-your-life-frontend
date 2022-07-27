@@ -9,7 +9,7 @@ import styles from "./expenses.module.css";
 const Expenses = () => {
   return (
     <>
-      <Heading value="Expenses" type={Heading.types.h2} />
+      <Heading id="expenses" value="Expenses" type={Heading.types.h2} />
       <div className={styles.cardContentContainer}>
         <DialogContentContainer className={styles.cardStartContentContainer}>
           <Flex align={Flex.align.CENTER} justify={Flex.justify.SPACE_BETWEEN}>

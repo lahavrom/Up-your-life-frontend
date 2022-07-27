@@ -1,4 +1,4 @@
-import Sidebar from "../../components/Sidebar";
+import Sidebar from "../../components/sidebar/Sidebar";
 import Dashboard from "../../components/dashboard/Dashboard";
 import Incomes from "../../components/incomes/Incomes";
 import Expenses from "../../components/expenses/Expenses";
