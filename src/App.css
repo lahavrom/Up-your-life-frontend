@@ -1,7 +1,6 @@
 .container {
   display: flex;
   flex-direction: row;
-  height: 100vh;
   width: 100%;
 }
 
@@ -9,9 +8,12 @@
   display: flex;
   flex-direction: column;
   flex: 0.2;
-  margin-top: 100px;
   padding: 10px;
   align-items: center;
+  position: sticky;
+  top: 0;
+  height: 45%;
+  min-height: 343px;
 }
 
 .content {
