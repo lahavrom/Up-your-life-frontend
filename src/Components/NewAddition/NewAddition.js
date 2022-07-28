@@ -23,7 +23,7 @@ import { useState, useCallback } from "react";
 function NewAddition({ addType, fixed, modalVisible, setModalVisible }) {
   const [submition, setSubmition] = useState({
     description: null,
-    amount: null,
+    value: null,
     category: null,
     startDate: null,
     endDate: null,
@@ -113,9 +113,7 @@ function NewAddition({ addType, fixed, modalVisible, setModalVisible }) {
               size={TextField.sizes.MEDIUM}
               iconName={AttachMoneyIcon}
               loading={loadingSubmit}
-              onChange={(value) =>
-                setSubmition({ ...submition, amount: value })
-              }
+              onChange={(value) => setSubmition({ ...submition, value: value })}
             />
           </div>
 
