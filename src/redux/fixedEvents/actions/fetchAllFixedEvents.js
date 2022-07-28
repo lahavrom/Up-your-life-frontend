@@ -15,7 +15,8 @@ const fetchAllFixedEventsActionFail = (errorMessage) => ({
   payload: { errorMessage },
 });
 
-export const fetchAllFixedEvents = (uId) => async (dispatch) => {
+export const fetchAllFixedEvents = () => async (dispatch, getState) => {
+  const { uId } = getState().usersState.user;
   try {
     dispatch(fetchAllFixedEventsAction());
     const fixedEvents = await fixedEventsService.fetchAllFixedEvents(uId);

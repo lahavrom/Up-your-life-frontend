@@ -14,3 +14,7 @@ export const CATEGORIES = {
   VACATION: "Vacation",
   OTHER: "Other",
 };
+
+export const STORAGE_KEYS = {
+  AUTH_TOKEN: "AUTH_TOKEN",
+};

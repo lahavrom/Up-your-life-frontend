@@ -7,7 +7,7 @@ import {
   Form,
   FormTextField,
   FormSubmitButton,
-} from "../../../Components/forms";
+} from "../../../components/forms";
 import { registerUser } from "../../../redux/users/actions/registerUser";
 
 const initialValues = {
@@ -51,7 +51,7 @@ const RegisterForm = () => {
           placeholder="Password"
           type="password"
         />
-        <FormSubmitButton label="Register" isLoading={isLoading} />
+        <FormSubmitButton label="Submit" isLoading={isLoading} />
       </Flex>
     </Form>
   );
