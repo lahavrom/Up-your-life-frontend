@@ -1,21 +1,44 @@
-import Sidebar from "./components/Sidebar";
+import Sidebar from "./components/Sidebar/Sidebar";
 import Dashboard from "./components/dashboard/Dashboard";
-import Incomes from "./components/incomes/Incomes";
-import Expenses from "./components/expenses/Expenses";
+import IncomeExpenseCard from "./components/incomeExpenseCard/IncomeExpenseCard";
 import "./App.css";
+import { useState } from "react";
+import NewAddition from "./components/NewAddition/NewAddition";
 
 function App() {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [addType, setAddType] = useState("");
+  const [fixed, setFixed] = useState();
+
   return (
-    <div className="container">
-      <div className="sidebar">
-        <Sidebar />
+    <>
+      <div className="container">
+        <div className="sidebar">
+          <Sidebar />
+        </div>
+        <div className="content">
+          <Dashboard />
+          <IncomeExpenseCard
+            flowType={"Incomes"}
+            setModalVisible={setModalVisible}
+            setAddType={setAddType}
+            setFixed={setFixed}
+          />
+          <IncomeExpenseCard
+            flowType={"Expenses"}
+            setModalVisible={setModalVisible}
+            setAddType={setAddType}
+            setFixed={setFixed}
+          />
+        </div>
       </div>
-      <div className="content">
-        <Dashboard />
-        <Incomes />
-        <Expenses />
-      </div>
-    </div>
+      <NewAddition
+        addType={addType}
+        fixed={fixed}
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+      />
+    </>
   );
 }
 
