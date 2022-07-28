@@ -1,0 +1,11 @@
+.img {
+	align-items: center;
+	width: 130px;
+	height: 80px;
+
+	&:hover {
+		cursor: default;
+		transform: rotate(360deg);
+		transition: all 0.3s ease-in-out 0s;
+	}
+}

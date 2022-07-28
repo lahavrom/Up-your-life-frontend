@@ -1,24 +1,26 @@
 .cardContainer {
-  margin-bottom: 10px;
-  padding: 10px;
+	margin-bottom: 10px;
+	padding: 10px;
 }
 
 .cardContentContainer {
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 20px;
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 20px;
 }
 
 .cardStartContentContainer {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  margin-right: 10px;
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	margin-right: 10px;
+	align-items: center;
 }
 
 .cardEndContentContainer {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  margin-left: 10px;
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	margin-left: 10px;
+	align-items: center;
 }

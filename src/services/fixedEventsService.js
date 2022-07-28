@@ -4,12 +4,12 @@ import handleError from "../helpers/errorHandler";
 import { STORAGE_KEYS } from "../helpers/constants";
 
 const submitFixedEvent = async (values) => {
-  try {
-    const { data } = await fixedEventsClient.post("", values);
-    return data;
-  } catch (error) {
-    throw handleError(error);
-  }
+	try {
+		const { data } = await fixedEventsClient.post("", values);
+		return data;
+	} catch (error) {
+		throw handleError(error);
+	}
 };
 
 const fetchAllFixedEvents = async (uId) => {
@@ -26,6 +26,6 @@ const fetchAllFixedEvents = async (uId) => {
 };
 
 export default {
-  submitFixedEvent,
-  fetchAllFixedEvents,
+	submitFixedEvent,
+	fetchAllFixedEvents,
 };

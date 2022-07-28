@@ -1,19 +1,11 @@
 import React, { useCallback, useState, useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { PieChart, Pie, Sector } from "recharts";
+import { PieChart, Pie, Cell, Sector } from "recharts";
 import { Heading } from "monday-ui-react-core";
 
 import { fetchAllFixedEvents } from "../../redux/fixedEvents/actions/fetchAllFixedEvents";
 
 import styles from "./chartAllExpenses.module.css";
-
-// const CompareExpenes = () => {
-// const data = [
-// 	{ name: "Food", value: 400 },
-// 	{ name: "Shopping", value: 300 },
-// 	{ name: "Clothes", value: 300 },
-// 	{ name: "Rent", value: 200 },
-// ];
 
 function ChartAllExpenses() {
 	const [activeIndex, setActiveIndex] = useState(0);
@@ -62,7 +54,7 @@ function ChartAllExpenses() {
 		() => calculateOfFixedEvents(fixedEvents),
 		[fixedEvents]
 	);
-
+	const COLORS = ["#D9ED92", "#76C893", "#168AAD", "#1A759F", "#184E77"];
 	useEffect(() => {
 		dispatch(fetchAllFixedEvents("1"));
 	}, [dispatch]);
@@ -70,6 +62,11 @@ function ChartAllExpenses() {
 	return (
 		<div className={styles.container}>
 			<Heading value="Expenses amount by catagories" type={Heading.types.h2} />
+			<Heading
+				type={Heading.types.h2}
+				value="This month you spend your money on :"
+				size="small"
+			/>
 			<PieChart width={500} height={360}>
 				<Pie
 					activeIndex={activeIndex}
@@ -79,10 +76,14 @@ function ChartAllExpenses() {
 					cy={200}
 					innerRadius={60}
 					outerRadius={80}
-					fill="rgba(77, 230, 110, 0.514)"
+					fill={COLORS[COLORS.length]}
 					dataKey="value"
 					onMouseEnter={onPieEnter}
-				/>
+				>
+					{sumOfExpensesByCategory.map((entry, index) => (
+						<Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+					))}
+				</Pie>
 			</PieChart>
 		</div>
 	);
