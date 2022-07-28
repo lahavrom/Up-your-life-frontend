@@ -18,7 +18,20 @@ import PetsOutlinedIcon from "@mui/icons-material/PetsOutlined";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import ConstructionOutlinedIcon from "@mui/icons-material/ConstructionOutlined";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
+import { CATEGORIES } from "../../helpers/constants";
 import { useState, useCallback } from "react";
+
+const radioButtons = [
+  { icon: HomeOutlinedIcon, name: CATEGORIES.RENT },
+  { icon: FastfoodOutlinedIcon, name: CATEGORIES.FOOD },
+  { icon: DirectionsCarFilledOutlinedIcon, name: CATEGORIES.CAR },
+  { icon: ConstructionOutlinedIcon, name: CATEGORIES.CONSTRUCTION },
+  { icon: PetsOutlinedIcon, name: CATEGORIES.PETS },
+  { icon: SchoolOutlinedIcon, name: CATEGORIES.SCHOOL },
+  { icon: ShoppingBagOutlinedIcon, name: CATEGORIES.SHOPPING },
+  { icon: LuggageOutlinedIcon, name: CATEGORIES.VACATION },
+  { icon: MoreHorizIcon, name: CATEGORIES.OTHER },
+];
 
 function NewAddition({ addType, fixed, modalVisible, setModalVisible }) {
   const [submition, setSubmition] = useState({
@@ -38,18 +51,6 @@ function NewAddition({ addType, fixed, modalVisible, setModalVisible }) {
     () => setOpenToast(false),
     [setOpenToast]
   );
-
-  const radioButtons = [
-    { icon: HomeOutlinedIcon, name: "Rent" },
-    { icon: FastfoodOutlinedIcon, name: "Food" },
-    { icon: DirectionsCarFilledOutlinedIcon, name: "Car" },
-    { icon: ConstructionOutlinedIcon, name: "Construction" },
-    { icon: PetsOutlinedIcon, name: "Pets" },
-    { icon: SchoolOutlinedIcon, name: "School" },
-    { icon: ShoppingBagOutlinedIcon, name: "Shopping" },
-    { icon: LuggageOutlinedIcon, name: "Vacation" },
-    { icon: MoreHorizIcon, name: "Other" },
-  ];
 
   const handleSubmit = async () => {
     setLoadingSubmit(true);
@@ -140,23 +141,29 @@ function NewAddition({ addType, fixed, modalVisible, setModalVisible }) {
             <></>
           )}
 
-          <Heading
-            value="Pick the Category:"
-            className="modalTitle"
-            type={Heading.types.h4}
-          />
-          <div className="typeSelection">
-            {radioButtons.map((radioBtn) => (
-              <RadioButtonWrapper
-                icon={radioBtn.icon}
-                name={radioBtn.name}
-                key={radioBtn.name}
-                onClick={() =>
-                  setSubmition({ ...submition, category: radioBtn.name })
-                }
+          {addType === "Expenses" ? (
+            <>
+              <Heading
+                value="Pick the Category:"
+                className="modalTitle"
+                type={Heading.types.h4}
               />
-            ))}
-          </div>
+              <div className="typeSelection">
+                {radioButtons.map((radioBtn) => (
+                  <RadioButtonWrapper
+                    icon={radioBtn.icon}
+                    name={radioBtn.name}
+                    key={radioBtn.name}
+                    onClick={() =>
+                      setSubmition({ ...submition, category: radioBtn.name })
+                    }
+                  />
+                ))}
+              </div>{" "}
+            </>
+          ) : (
+            <></>
+          )}
 
           <div className="modalButtons">
             <Button className="modalActionBtn" onClick={() => handleSubmit()}>
