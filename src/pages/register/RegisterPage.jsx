@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Heading } from "monday-ui-react-core";
 
-import ErrorToast from "../../components/ErrorToast";
+import ErrorToast from "../../components/toasts/ErrorToast";
 import RegisterForm from "./components/RegisterForm";
 import { AUTH_ROUTES } from "../../routes/AuthRoutes";
 import styles from "./registerPage.module.css";

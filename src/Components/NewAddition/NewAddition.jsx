@@ -4,7 +4,6 @@ import {
   Heading,
   Button,
   TextField,
-  Toast,
 } from "monday-ui-react-core";
 import { Description } from "monday-ui-react-core/dist/allIcons";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
@@ -20,6 +19,7 @@ import ConstructionOutlinedIcon from "@mui/icons-material/ConstructionOutlined";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import { CATEGORIES } from "../../helpers/constants";
 import { useState, useCallback } from "react";
+import ErrorToast from "../toasts/ErrorToast";
 
 const radioButtons = [
   { icon: HomeOutlinedIcon, name: CATEGORIES.RENT },
@@ -47,10 +47,6 @@ function NewAddition({ addType, fixed, modalVisible, setModalVisible }) {
     setLoadingSubmit(false);
     setOpenToast((openToast) => !openToast);
   }, [setOpenToast]);
-  const toastCloseCallback = useCallback(
-    () => setOpenToast(false),
-    [setOpenToast]
-  );
 
   const handleSubmit = async () => {
     setLoadingSubmit(true);
@@ -77,16 +73,7 @@ function NewAddition({ addType, fixed, modalVisible, setModalVisible }) {
 
   return modalVisible ? (
     <>
-      <Toast
-        open={openToast}
-        type={Toast.types.NEGATIVE}
-        autoHideDuration={5000}
-        onClose={toastCloseCallback}
-        className="monday-storybook-toast_wrapper"
-      >
-        Invalid input!
-      </Toast>
-
+      <ErrorToast isVisible={openToast} message="Invalid Input!" />
       <div className="darkBG" onClick={() => setModalVisible(false)} />
       <div className="modal">
         <DialogContentContainer

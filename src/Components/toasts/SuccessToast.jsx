@@ -1,8 +1,9 @@
 import PropTypes from "prop-types";
 import { useEffect, useState, useCallback } from "react";
 import { Toast } from "monday-ui-react-core";
+import styles from './toast.module.css';
 
-const ErrorToast = ({ isVisible, message }) => {
+const SuccessToast = ({ isVisible, message }) => {
   const [isToastOpen, setIsToastOpen] = useState(false);
 
   const onOpenToast = useCallback(() => {
@@ -14,13 +15,14 @@ const ErrorToast = ({ isVisible, message }) => {
   }, [setIsToastOpen]);
 
   useEffect(() => {
-    isVisible ? onOpenToast() : onCloseToast();
-  }, [isVisible, onOpenToast, onCloseToast]);
+    isVisible && message ? onOpenToast() : onCloseToast();
+  }, [isVisible, message, onOpenToast, onCloseToast]);
 
   return (
     <Toast
+      className={styles.toast}
       open={isToastOpen}
-      type={Toast.types.NEGATIVE}
+      type={Toast.types.POSITIVE}
       autoHideDuration={10000}
       onClose={onCloseToast}
     >
@@ -29,9 +31,9 @@ const ErrorToast = ({ isVisible, message }) => {
   );
 };
 
-ErrorToast.propTypes = {
+SuccessToast.propTypes = {
   isVisible: PropTypes.bool,
   message: PropTypes.string,
 };
 
-export default ErrorToast;
+export default SuccessToast;
