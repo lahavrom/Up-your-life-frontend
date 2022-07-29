@@ -1,0 +1,20 @@
+.img {
+	margin-top: 100px;
+	align-items: center;
+	width: 100px;
+	height: 60px;
+
+	&:hover {
+		cursor: default;
+		transform: rotate(360deg);
+		transition: all 0.3s ease-in-out 0s;
+	}
+}
+
+.logo {
+	width: 40px;
+	height: 40px;
+}
+.svd {
+	height: 50px;
+}

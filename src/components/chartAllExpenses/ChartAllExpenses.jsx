@@ -2,6 +2,9 @@ import React, { useCallback, useState } from "react";
 import { PieChart, Pie, Cell, Sector } from "recharts";
 import { Heading } from "monday-ui-react-core";
 
+import { fetchAllFixedEvents } from "../../redux/fixedEvents/actions/fetchAllFixedEvents";
+import { fetchAllAccountEvents } from "../../redux/accountEvents/actions/fetchAllAccountEvents";
+
 import styles from "./chartAllExpenses.module.css";
 
 function ChartAllExpenses() {
@@ -15,34 +18,107 @@ function ChartAllExpenses() {
 
   const COLORS = ["#D9ED92", "#76C893", "#168AAD", "#1A759F", "#184E77"];
 
-  return (
-    <div className={styles.container}>
-      <Heading value="Expenses amount by catagories" type={Heading.types.h2} />
-      <Heading
-        type={Heading.types.h2}
-        value="This month you spend your money on :"
-        size="small"
-      />
-      <PieChart width={500} height={360}>
-        <Pie
-          activeIndex={activeIndex}
-          activeShape={renderActiveShape}
-          data={[]}
-          cx={200}
-          cy={200}
-          innerRadius={60}
-          outerRadius={80}
-          fill={COLORS[COLORS.length]}
-          dataKey="value"
-          onMouseEnter={onPieEnter}
-        >
-          {[].map((_, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-          ))}
-        </Pie>
-      </PieChart>
-    </div>
-  );
+	const fixedEvents = useSelector(
+		(state) => state.fixedEventsState.fixedEvents
+	);
+	const acountEvents = useSelector(
+		(state) => state.accountEventsState.accountEvents
+	);
+
+	const calculateOfFixedEvents = (fixedEvents, acountEvents) => {
+		const sumOfExpensesByCategory = {
+			Food: 0,
+			Rent: 0,
+			Construction: 0,
+			Shopping: 0,
+			Pets: 0,
+			Vacation: 0,
+			Car: 0,
+			School: 0,
+			Other: 0,
+		};
+
+		fixedEvents
+			.filter(({ type }) => type === "expense")
+			.forEach(({ category, value }) => {
+				if (category === "Food") {
+					sumOfExpensesByCategory[category] += value;
+				} else if (category === "Rent") {
+					sumOfExpensesByCategory[category] += value;
+				} else if (category === "Construction") {
+					sumOfExpensesByCategory[category] += value;
+				} else if (category === "Shopping") {
+					sumOfExpensesByCategory[category] += value;
+				} else if (category === "Pets") {
+					sumOfExpensesByCategory[category] += value;
+				} else if (category === "Car") {
+					sumOfExpensesByCategory[category] += value;
+				} else if (category === "Vacation") {
+					sumOfExpensesByCategory[category] += value;
+				} else if (category === "School") {
+					sumOfExpensesByCategory[category] += value;
+				} else if (category === "Other") {
+					sumOfExpensesByCategory[category] += value;
+				}
+			});
+
+		let arr = [];
+		for (const [key, value] of Object.entries(sumOfExpensesByCategory)) {
+			arr.push({ name: key, value });
+		}
+
+		return arr;
+	};
+	//
+
+	const sumOfExpensesByCategory = useMemo(
+		() => calculateOfFixedEvents(fixedEvents),
+		[fixedEvents]
+	);
+	const COLORS = ["#D9ED92", "#76C893", "#168AAD", "#1A759F", "#184E77"];
+
+	const handleFetchAllData = useCallback(async () => {
+		await Promise.all([
+			dispatch(fetchAllFixedEvents()),
+			dispatch(fetchAllAccountEvents()),
+		]);
+	}, [dispatch]);
+
+	useEffect(() => {
+		handleFetchAllData();
+	}, [handleFetchAllData]);
+
+	// Promise.all([fixedEvents, acountEvents]).then((values) => {
+
+	// })
+	return (
+		<div className={styles.container}>
+			<Heading value="Expenses amount by catagories" type={Heading.types.h2} />
+			<Heading
+				type={Heading.types.h2}
+				value="This month you spend your money on :"
+				size="small"
+			/>
+			<PieChart width={500} height={360}>
+				<Pie
+					activeIndex={activeIndex}
+					activeShape={renderActiveShape}
+					data={sumOfExpensesByCategory}
+					cx={250}
+					cy={150}
+					innerRadius={60}
+					outerRadius={80}
+					fill={COLORS[COLORS.length]}
+					dataKey="value"
+					onMouseEnter={onPieEnter}
+				>
+					{sumOfExpensesByCategory.map((entry, index) => (
+						<Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+					))}
+				</Pie>
+			</PieChart>
+		</div>
+	);
 }
 
 export default ChartAllExpenses;
