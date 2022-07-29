@@ -62,14 +62,14 @@ function ChartAllExpenses() {
 				}
 			});
 
-		let arr = [];
-		for (const [key, value] of Object.entries(sumOfExpensesByCategory)) {
-			arr.push({ name: key, value });
-		}
+    let arr = [];
+    for (const [key, value] of Object.entries(sumOfExpensesByCategory)) {
+      arr.push({ name: key, value });
+    }
 
-		return arr;
-	};
-	//
+    return arr;
+  };
+  //
 
 	const sumOfExpensesByCategory = useMemo(
 		() => calculateOfFixedEvents(fixedEvents),
