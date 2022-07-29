@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { useEffect, useState, useCallback } from "react";
 import { Toast } from "monday-ui-react-core";
+
 import styles from "./toast.module.css";
 
 const ErrorToast = ({ isVisible, message }) => {

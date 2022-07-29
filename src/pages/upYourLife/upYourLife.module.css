@@ -4,19 +4,19 @@
   width: 100%;
 }
 
-.sidebar {
+.sidebarContainer {
   display: flex;
   flex-direction: column;
   flex: 0.2;
-  padding: 10px;
   align-items: center;
   position: sticky;
   top: 0;
   height: 45%;
   min-height: 343px;
+  margin-left: 10px;
 }
 
-.content {
+.contentContainer {
+  margin-top: 10px;
   flex: 1;
-  padding: 20px;
 }

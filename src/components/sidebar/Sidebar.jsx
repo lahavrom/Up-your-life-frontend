@@ -6,7 +6,7 @@ import {
   NavigationChevronDown,
 } from "monday-ui-react-core/dist/allIcons";
 
-import SidebarItem from "./components/SidebarItem";
+import SidebarItem from "../sidebarItem/SidebarItem";
 
 const Sidebar = () => {
   return (

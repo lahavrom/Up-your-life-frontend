@@ -7,7 +7,7 @@ import {
   Form,
   FormTextField,
   FormSubmitButton,
-} from "../../../components/forms";
+} from "../../../components/form";
 import { loginUser } from "../../../redux/users/actions/loginUser";
 
 const initialValues = {

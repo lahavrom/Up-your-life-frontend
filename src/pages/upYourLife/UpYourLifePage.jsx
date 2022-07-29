@@ -1,45 +1,23 @@
-import { useState } from "react";
-
 import Sidebar from "../../components/sidebar/Sidebar";
-import Dashboard from "../../components/dashboard/Dashboard";
-import IncomeExpenseCard from "../../components/incomeExpenseCard/IncomeExpenseCard";
-import NewAddition from "../../components/NewAddition/NewAddition";
+import Dashboard from "../../components/Dashboard";
+import IncomeCards from "../../components/IncomeCards";
 import styles from "./upYourLife.module.css";
 
 const UpYourLifePage = () => {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [addType, setAddType] = useState("");
-  const [fixed, setFixed] = useState();
-
   return (
-    <>
-      <div className={styles.container}>
-        <div className={styles.sidebar}>
-          <Sidebar />
-        </div>
-        <div className={styles.content}>
+    <div className={styles.container}>
+      <div className={styles.sidebarContainer}>
+        <Sidebar />
+      </div>
+      <div className={styles.contentContainer}>
+        <div id="dashboard">
           <Dashboard />
-          <IncomeExpenseCard
-            flowType={"Incomes"}
-            setModalVisible={setModalVisible}
-            setAddType={setAddType}
-            setFixed={setFixed}
-          />
-          <IncomeExpenseCard
-            flowType={"Expenses"}
-            setModalVisible={setModalVisible}
-            setAddType={setAddType}
-            setFixed={setFixed}
-          />
+        </div>
+        <div id="incomes">
+          <IncomeCards />
         </div>
       </div>
-      <NewAddition
-        addType={addType}
-        fixed={fixed}
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
-      />
-    </>
+    </div>
   );
 };
 
