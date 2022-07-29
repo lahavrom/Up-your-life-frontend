@@ -1,6 +1,5 @@
 import Sidebar from "../../components/sidebar/Sidebar";
 import Dashboard from "../../components/Dashboard";
-import IncomeCards from "../../components/IncomeCards";
 import styles from "./upYourLife.module.css";
 
 const UpYourLifePage = () => {
@@ -12,9 +11,6 @@ const UpYourLifePage = () => {
       <div className={styles.contentContainer}>
         <div id="dashboard">
           <Dashboard />
-        </div>
-        <div id="incomes">
-          <IncomeCards />
         </div>
       </div>
     </div>

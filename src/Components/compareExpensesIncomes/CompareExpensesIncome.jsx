@@ -9,7 +9,7 @@ import {
 } from "recharts";
 import { Heading } from "monday-ui-react-core";
 
-import styles from "./compareExpenesIncome.module.scss";
+import styles from "./compareExpenesIncome.module.css";
 
 const CompareExpenesIncomes = () => {
   return (
