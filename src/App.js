@@ -3,24 +3,29 @@ import { useDispatch, useSelector } from "react-redux";
 
 import AuthRoutes from "./routes/AuthRoutes";
 import UpYourLifePage from "./pages/upYourLife/UpYourLifePage";
-import { fetchUser } from "./redux/users/actions/fetchUser";
-import { STORAGE_KEYS } from "./helpers/constants";
-
-const token = localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN);
+import { initialize } from "./redux/app/actions/initialize";
 
 const App = () => {
   const dispatch = useDispatch();
 
-  const user = useSelector(({ usersState }) => usersState.user);
+  const isLoading = useSelector(({ appState }) => appState.isLoading);
+  const isReady = useSelector(({ appState }) => appState.isReady);
 
   useEffect(() => {
-    if (!token) {
-      return;
-    }
-    dispatch(fetchUser());
+    dispatch(initialize());
   }, [dispatch]);
 
-  return <>{user ? <UpYourLifePage /> : <AuthRoutes />}</>;
+  return (
+    <>
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : isReady ? (
+        <UpYourLifePage />
+      ) : (
+        <AuthRoutes />
+      )}
+    </>
+  );
 };
 
 export default App;

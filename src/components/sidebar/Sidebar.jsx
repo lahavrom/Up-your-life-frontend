@@ -1,4 +1,4 @@
-import { Heading, List } from "monday-ui-react-core";
+import { Heading } from "monday-ui-react-core";
 import {
   Dashboard,
   Person,
@@ -6,26 +6,20 @@ import {
   NavigationChevronDown,
 } from "monday-ui-react-core/dist/allIcons";
 
-import SidebarListItem from "./components/SidebarListItem";
+import SidebarItem from "../sidebarItem/SidebarItem";
 
 const Sidebar = () => {
   return (
     <>
       <Heading value="Logo" />
-      <List>
-        <SidebarListItem value="Dashboard" href="#dashboard" icon={Dashboard} />
-        <SidebarListItem value="Incomes" href="#incomes" icon={Person} />
-        <SidebarListItem
-          value="Expenses"
-          href="#expenses"
-          icon={NavigationChevronUp}
-        />
-        <SidebarListItem
-          value="Profile"
-          href="#profile"
-          icon={NavigationChevronDown}
-        />
-      </List>
+      <SidebarItem title="Dashboard" href="#dashboard" icon={Dashboard} />
+      <SidebarItem title="Incomes" href="#incomes" icon={NavigationChevronUp} />
+      <SidebarItem
+        title="Expenses"
+        href="#expenses"
+        icon={NavigationChevronDown}
+      />
+      <SidebarItem title="Profile" href="#profile" icon={Person} />
     </>
   );
 };
