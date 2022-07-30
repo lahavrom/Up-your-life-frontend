@@ -92,21 +92,21 @@ const TransactionForm = ({ type }) => {
             />
             {/** category */}
             <>
-              <span style={{ width: 200 }}>
-                <Dropdown
-                  id="category"
-                  placeholder="Category"
-                  options={Object.values(CATEGORIES).map((category) => ({
-                    label: category,
-                    value: category,
-                  }))}
-                  onChange={(selectedOption) =>
-                    selectedOption?.value &&
-                    setFieldValue("category", selectedOption.value)
-                  }
-                  onClear={() => setFieldValue("category", "")}
-                />
-              </span>
+              <Dropdown
+                className={styles.dropdown}
+                id="category"
+                placeholder="Category"
+                options={Object.values(CATEGORIES).map((category) => ({
+                  label: category,
+                  value: category,
+                }))}
+                onChange={(selectedOption) =>
+                  selectedOption?.value &&
+                  setFieldValue("category", selectedOption.value)
+                }
+                onClear={() => setFieldValue("category", "")}
+              />
+
               {errors.category && touched.category && (
                 <span className={styles.errorMessage}>{errors.category}</span>
               )}
@@ -130,8 +130,9 @@ const TransactionForm = ({ type }) => {
             <>
               <TextField
                 id="value"
-                placeholder="Value"
+                placeholder="0.00"
                 size={TextField.sizes.MEDIUM}
+                type="number"
                 value={values.value}
                 onChange={handleChange("value")}
               />
@@ -142,24 +143,23 @@ const TransactionForm = ({ type }) => {
             {/** day of month / effective date */}
             {values.isFixed ? (
               <>
-                <span style={{ width: 200 }}>
-                  <Dropdown
-                    id="dayOfMonth"
-                    placeholder="Day of month"
-                    options={DAYS_OF_MONTH.map((day) => ({
-                      label: day,
-                      value: day,
-                    }))}
-                    onChange={(selectedOption) => {
-                      if (selectedOption?.value) {
-                        setFieldValue("dayOfMonth", selectedOption.value);
-                        setFieldValue("effectiveDate", generateEffectiveDate());
-                      }
-                    }}
-                    onBlur={handleBlur("dayOfMonth")}
-                    onClear={() => setFieldValue("dayOfMonth", "")}
-                  />
-                </span>
+                <Dropdown
+                  className={styles.dropdown}
+                  id="dayOfMonth"
+                  placeholder="Day of month"
+                  options={DAYS_OF_MONTH.map((day) => ({
+                    label: day,
+                    value: day,
+                  }))}
+                  onChange={(selectedOption) => {
+                    if (selectedOption?.value) {
+                      setFieldValue("dayOfMonth", selectedOption.value);
+                      setFieldValue("effectiveDate", generateEffectiveDate());
+                    }
+                  }}
+                  onBlur={handleBlur("dayOfMonth")}
+                  onClear={() => setFieldValue("dayOfMonth", "")}
+                />
                 {errors.dayOfMonth && touched.dayOfMonth && (
                   <span className={styles.errorMessage}>
                     {errors.dayOfMonth}
