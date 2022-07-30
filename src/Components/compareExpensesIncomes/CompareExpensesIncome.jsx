@@ -7,6 +7,8 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import { useMemo } from "react";
+import { useSelector } from "react-redux";
 import { Heading } from "monday-ui-react-core";
 import { useDispatch, useSelector } from "react-redux";
 import { useMemo, useEffect } from "react";

@@ -1,22 +1,21 @@
-import { DialogContentContainer } from "monday-ui-react-core";
+import { DialogContentContainer, IconButton } from "monday-ui-react-core";
+import CloseSmall from "monday-ui-react-core/dist/icons/CloseSmall";
 
 import styles from "./modal.module.css";
 
 const Modal = ({ isOpen, onClose, children }) => {
   return (
     <>
-      {isOpen ? (
+      {isOpen && (
         <div className={styles.overlay}>
           <div className={styles.container}>
-            <DialogContentContainer
-              className={styles.contentContainer}
-              size={DialogContentContainer.sizes.LARGE}
-            >
+            <DialogContentContainer className={styles.contentContainer}>
+              <IconButton icon={CloseSmall} onClick={onClose} />
               {children}
             </DialogContentContainer>
           </div>
         </div>
-      ) : null}
+      )}
     </>
   );
 };

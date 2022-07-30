@@ -16,7 +16,9 @@ function ChartAllExpenses() {
     [setActiveIndex]
   );
 
-  const COLORS = ["#D9ED92", "#76C893", "#168AAD", "#1A759F", "#184E77"];
+  const acountEvents = useSelector(
+    (state) => state.accountEventsState.accountEvents
+  );
 
   const accountEvents = useSelector(
     (state) => state.accountEventsState.accountEvents
