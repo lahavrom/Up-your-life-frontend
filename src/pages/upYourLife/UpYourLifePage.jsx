@@ -25,12 +25,12 @@ const UpYourLifePage = () => {
           <TransactionLog />
         </div>
         <Button onClick={onOpenModal}>Add income</Button>
-        <TransactionFormModal
-          type="Expense"
-          isOpen={isModalOpen}
-          onClose={onCloseModal}
-        />
       </div>
+      <TransactionFormModal
+        type="Expense"
+        isOpen={isModalOpen}
+        onClose={onCloseModal}
+      />
     </div>
   );
 };

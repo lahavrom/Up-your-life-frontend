@@ -6,7 +6,7 @@ const Transaction = ({ description, value, date, type }) => {
   return (
     <>
       <div className={styles.transactions}>
-        {type === "income" ? (
+        {type === "Income" ? (
           <IconButton icon={Add} className={styles.addIcon} />
         ) : (
           <IconButton icon={Remove} className={styles.removeIcon} />
@@ -15,7 +15,7 @@ const Transaction = ({ description, value, date, type }) => {
           return (
             <Heading
               className={styles.currentTrans}
-              customColor={type === "expense" ? "#d83a52" : "#258750"}
+              customColor={type === "Expense" ? "#d83a52" : "#258750"}
               value={value}
               type={Heading.types.h5}
             />
