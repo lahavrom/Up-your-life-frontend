@@ -4,11 +4,11 @@ import Transaction from "../transaction/Transaction";
 const ListTransactions = ({ transactions }) => {
   return (
     <ul className={styles.listTransactions}>
-      {transactions.map(({ description, amount, date, type }) => (
+      {transactions.map(({ description, value, date, type }) => (
         <li>
           <Transaction
             description={description}
-            amount={amount}
+            value={value}
             date={date}
             type={type}
           />

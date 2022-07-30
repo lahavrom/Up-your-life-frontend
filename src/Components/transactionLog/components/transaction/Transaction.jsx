@@ -2,7 +2,7 @@ import styles from "./transaction.module.css";
 import { Heading, Divider, IconButton } from "monday-ui-react-core";
 import { Add, Remove } from "monday-ui-react-core/dist/allIcons";
 
-const Transaction = ({ description, amount, date, type }) => {
+const Transaction = ({ description, value, date, type }) => {
   return (
     <>
       <div className={styles.transactions}>
@@ -11,7 +11,7 @@ const Transaction = ({ description, amount, date, type }) => {
         ) : (
           <IconButton icon={Remove} className={styles.removeIcon} />
         )}
-        {[date, description, `${amount}$`].map((value) => {
+        {[date, description, `${value}$`].map((value) => {
           return (
             <Heading
               className={styles.currentTrans}

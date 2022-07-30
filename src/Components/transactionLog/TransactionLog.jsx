@@ -1,97 +1,66 @@
-import { useState } from "react";
-import { makeDate } from "../../helpers/utils";
+import { useState, useMemo } from "react";
+import { useSelector } from "react-redux";
+import { makeDateTimestamp, makeDateFromDay } from "../../helpers/utils";
 import CardsContainer from "../cardsContainer/CardsContainer";
 import Card from "../card/Card";
 import TransactionLogHeader from "./components/transactionLogHeader/TransactionLogHeader";
 import FutureTransactions from "./components/futureTransactions/FutureTransactions";
 import ListTransactions from "./components/listTransactions/ListTransactions";
 
-const TransactionLog = ({ transactions }) => {
-  const mockTransactions = [
-    {
-      description: "abccccccc",
-      date: 1659086419316,
-      amount: 40,
-      type: "expense",
-    },
-    {
-      description: "abccccccc",
-      date: 1659083419316,
-      amount: 50,
-      type: "income",
-    },
-    {
-      description: "abcfgshdfc",
-      date: 1355076419316,
-      amount: 10,
-      type: "income",
-    },
-    {
-      description: "buy a dog",
-      date: 1659086412316,
-      amount: 20,
-      type: "expense",
-    },
-    {
-      description: "buy a dog",
-      date: 1659086412316,
-      amount: 20,
-      type: "expense",
-    },
-    {
-      description: "buy a dog",
-      date: 1659086412316,
-      amount: 20,
-      type: "expense",
-    },
-    {
-      description: "buy a dog",
-      date: 1659086412316,
-      amount: 20,
-      type: "expense",
-    },
-    {
-      description: "buy a dog",
-      date: 1659086412316,
-      amount: 20,
-      type: "income",
-    },
-    {
-      description: "buy a dog",
-      date: 1659086412316,
-      amount: 20,
-      type: "expense",
-    },
-    {
-      description: "buy a dog",
-      date: 1659086412316,
-      amount: 20,
-      type: "expense",
-    },
-    {
-      description: "buy a dog",
-      date: 1659086412316,
-      amount: 20,
-      type: "expense",
-    },
-  ];
+const filterFutureTransactions = (transactions) => {
+  return transactions.filter((elem) => elem.dayOfMonth > new Date().getDate());
+};
 
-  const mockTransactionsTmp = mockTransactions.map((elem) => {
-    return { ...elem, date: makeDate(elem.date) };
-  });
+const TransactionLog = () => {
+  const fixedTransactions = useSelector(
+    ({ fixedEventsState }) => fixedEventsState.fixedEvents
+  );
+  const accountTransactions = useSelector(
+    ({ accountEventsState }) => accountEventsState.accountEvents
+  );
+
+  // const currentMonth = useSelector( () => currentMonth);
+  // makeDateFromDay(currentMonth)
+
+  const futureTransactions = useMemo(
+    () =>
+      filterFutureTransactions(
+        fixedTransactions.map((elem) => {
+          return {
+            ...elem,
+            date: `${elem.dayOfMonth}/${
+              new Date().getMonth() + 1
+            }/${new Date().getFullYear()}`,
+          };
+        })
+      ),
+    [fixedTransactions]
+  );
+
+  const transactions = useMemo(
+    () => [
+      ...fixedTransactions.filter(
+        (elem) => elem.dayOfMonth <= new Date().getDate()
+      ),
+      ...accountTransactions.map((elem) => {
+        return { ...elem, date: makeDateTimestamp(elem.effectiveDate) };
+      }),
+    ],
+    [fixedTransactions, accountTransactions]
+  );
 
   const [filteredTransactions, setFilteredTransactions] = useState([
-    ...mockTransactionsTmp,
+    ...transactions,
   ]);
 
   const handleFilter = (value) => {
     switch (value) {
       case "all":
-        setFilteredTransactions([...mockTransactionsTmp]);
+        setFilteredTransactions([...transactions]);
         break;
       default:
         setFilteredTransactions(
-          [...mockTransactionsTmp].filter((elem) => elem.type === value)
+          [...transactions].filter((elem) => elem.type === value)
         );
     }
   };
@@ -100,7 +69,7 @@ const TransactionLog = ({ transactions }) => {
     <CardsContainer>
       <Card>
         <TransactionLogHeader handleFilter={handleFilter} />
-        <FutureTransactions futureTransactions={filteredTransactions} />
+        <FutureTransactions futureTransactions={futureTransactions} />
         <ListTransactions transactions={filteredTransactions} />
       </Card>
     </CardsContainer>
