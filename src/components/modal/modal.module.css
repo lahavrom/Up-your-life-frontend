@@ -22,6 +22,10 @@
   flex-direction: column;
 }
 
+.closeButtonContainer {
+  align-self: flex-end;
+}
+
 .overlay {
   background-color: rgba(0, 0, 0, 0.5);
   width: 100%;

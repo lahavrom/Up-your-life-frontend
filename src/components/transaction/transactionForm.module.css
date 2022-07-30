@@ -2,8 +2,8 @@
   align-self: flex-start;
 }
 
-.submitButton {
-  align-self: flex-end;
+.dropdown {
+  width: 100%;
 }
 
 .errorMessage {

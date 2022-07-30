@@ -10,7 +10,9 @@ const Modal = ({ isOpen, onClose, children }) => {
         <div className={styles.overlay}>
           <div className={styles.container}>
             <DialogContentContainer className={styles.contentContainer}>
-              <IconButton icon={CloseSmall} onClick={onClose} />
+              <div className={styles.closeButtonContainer}>
+                <IconButton icon={CloseSmall} onClick={onClose} />
+              </div>
               {children}
             </DialogContentContainer>
           </div>
