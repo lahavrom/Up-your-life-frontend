@@ -39,9 +39,16 @@ const TransactionLog = () => {
 
   const transactions = useMemo(
     () => [
-      ...fixedTransactions.filter(
-        (elem) => elem.dayOfMonth <= new Date().getDate()
-      ),
+      ...fixedTransactions
+        .filter((elem) => elem.dayOfMonth <= new Date().getDate())
+        .map((elem) => {
+          return {
+            ...elem,
+            date: `${elem.dayOfMonth}/${
+              new Date().getMonth() + 1
+            }/${new Date().getFullYear()}`,
+          };
+        }),
       ...accountTransactions.map((elem) => {
         return { ...elem, date: makeDateTimestamp(elem.effectiveDate) };
       }),

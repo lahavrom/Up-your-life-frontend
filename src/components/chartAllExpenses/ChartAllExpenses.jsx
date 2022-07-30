@@ -16,8 +16,6 @@ function ChartAllExpenses() {
     [setActiveIndex]
   );
 
-  const COLORS = ["#D9ED92", "#76C893", "#168AAD", "#1A759F", "#184E77"];
-
   const accountEvents = useSelector(
     (state) => state.accountEventsState.accountEvents
   );
@@ -66,7 +64,6 @@ function ChartAllExpenses() {
 
     return arr;
   };
-  //
 
   const sumOfExpensesByCategory = useMemo(
     () => calculateOfFixedEvents(accountEvents),
@@ -81,9 +78,8 @@ function ChartAllExpenses() {
     handleFetchAllData();
   }, [handleFetchAllData]);
 
-  // Promise.all([fixedEvents, acountEvents]).then((values) => {
+  const COLORS = ["#D9ED92", "#76C893", "#168AAD", "#1A759F", "#184E77"];
 
-  // })
   return (
     <div className={styles.container}>
       <Heading value="Expenses amount by catagories" type={Heading.types.h2} />

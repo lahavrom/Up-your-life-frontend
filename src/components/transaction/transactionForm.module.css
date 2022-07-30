@@ -1,0 +1,12 @@
+.checkbox {
+  align-self: flex-start;
+}
+
+.submitButton {
+  align-self: flex-end;
+}
+
+.errorMessage {
+  align-self: flex-start;
+  color: red;
+}
