@@ -1,6 +1,8 @@
+
 import { useState, useCallback } from "react";
 import { Button } from "monday-ui-react-core";
 
+import TopBar from "../../components/topBar/TopBar";
 import Dashboard from "../../components/Dashboard";
 import TransactionLog from "../../components/transactionLog/TransactionLog";
 import TransactionFormModal from "../../components/transaction/TransactionFormModal";
@@ -20,10 +22,11 @@ const UpYourLifePage = () => {
   return (
     <div className={styles.container}>
       <div className={styles.contentContainer}>
-        <div id="dashboard">
+      <TopBar />
+        
           <Dashboard />
           <TransactionLog />
-        </div>
+        
         <Button onClick={onOpenModal}>Add income</Button>
       </div>
       <TransactionFormModal
@@ -33,6 +36,7 @@ const UpYourLifePage = () => {
       />
     </div>
   );
+
 };
 
 export default UpYourLifePage;
