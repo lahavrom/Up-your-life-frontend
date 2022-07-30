@@ -1,6 +1,4 @@
-
 import { useState, useCallback } from "react";
-import { Button } from "monday-ui-react-core";
 
 import TopBar from "../../components/topBar/TopBar";
 import Dashboard from "../../components/Dashboard";
@@ -10,6 +8,7 @@ import styles from "./upYourLife.module.css";
 
 const UpYourLifePage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [transactionType, setTransactionType] = useState(null);
 
   const onOpenModal = useCallback(() => {
     setIsModalOpen(true);
@@ -19,24 +18,28 @@ const UpYourLifePage = () => {
     setIsModalOpen(false);
   }, [setIsModalOpen]);
 
+  const handleAddTransaction = useCallback(
+    (type) => {
+      setTransactionType(type);
+      onOpenModal();
+    },
+    [setTransactionType, onOpenModal]
+  );
+
   return (
     <div className={styles.container}>
+      <TopBar onAddTransaction={handleAddTransaction} />
       <div className={styles.contentContainer}>
-      <TopBar />
-        
-          <Dashboard />
-          <TransactionLog />
-        
-        <Button onClick={onOpenModal}>Add income</Button>
+        <Dashboard />
+        <TransactionLog />
       </div>
       <TransactionFormModal
-        type="Expense"
+        type={transactionType}
         isOpen={isModalOpen}
         onClose={onCloseModal}
       />
     </div>
   );
-
 };
 
 export default UpYourLifePage;

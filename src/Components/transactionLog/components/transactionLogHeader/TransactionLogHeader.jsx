@@ -6,8 +6,8 @@ const TransactionLogHeader = ({ handleFilter }) => {
   const options = useMemo(
     () => [
       { value: "all", label: "Show All" },
-      { value: "expense", label: "Expenses" },
-      { value: "income", label: "Incomes" },
+      { value: "Expense", label: "Expenses" },
+      { value: "Income", label: "Incomes" },
     ],
     []
   );
