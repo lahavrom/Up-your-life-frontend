@@ -1,0 +1,17 @@
+.topBar {
+	background-color: whitesmoke;
+	padding: 10px;
+	margin-bottom: 5px;
+	position: sticky;
+}
+
+
+.logo {
+	width: 70px;
+	height: 50px;
+	transition: transform 0.7s ease-in-out;
+	margin-bottom: 0px;
+}
+.logo:hover {
+	transform: rotate(360deg);
+}

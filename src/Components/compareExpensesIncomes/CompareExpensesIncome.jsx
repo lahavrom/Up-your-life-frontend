@@ -1,13 +1,18 @@
 import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
+	BarChart,
+	Bar,
+	XAxis,
+	YAxis,
+	CartesianGrid,
+	Tooltip,
+	Legend,
 } from "recharts";
+import React, { useCallback, useState, useMemo, useEffect } from "react";
 import { Heading } from "monday-ui-react-core";
+import { useDispatch, useSelector } from "react-redux";
+
+import { fetchAllFixedEvents } from "../../redux/fixedEvents/actions/fetchAllFixedEvents";
+import { fetchAllAccountEvents } from "../../redux/accountEvents/actions/fetchAllAccountEvents";
 
 import styles from "./compareExpenesIncome.module.css";
 
