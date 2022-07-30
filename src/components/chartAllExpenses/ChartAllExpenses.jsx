@@ -1,14 +1,14 @@
+
 import React, { useCallback, useState, useMemo, useEffect } from "react";
 import { PieChart, Pie, Cell, Sector } from "recharts";
 import { Heading } from "monday-ui-react-core";
 import { useDispatch, useSelector } from "react-redux";
 
 import { fetchAllFixedEvents } from "../../redux/fixedEvents/actions/fetchAllFixedEvents";
-import { fetchAllAccountEvents } from "../../redux/accountEvents/actions/fetchAllAccountEvents";
-
 import styles from "./chartAllExpenses.module.css";
 
 function ChartAllExpenses() {
+
 	const dispatch = useDispatch();
 	const [activeIndex, setActiveIndex] = useState(0);
 	const onPieEnter = useCallback(
@@ -82,41 +82,52 @@ function ChartAllExpenses() {
 		]);
 	}, [dispatch]);
 
-	useEffect(() => {
-		handleFetchAllData();
-	}, [handleFetchAllData]);
+  
 
-	// Promise.all([fixedEvents, acountEvents]).then((values) => {
+  const sumOfExpensesByCategory = useMemo(
+    () => calculateOfFixedEvents(accountEvents),
+    [accountEvents]
+  );
 
-	// })
-	return (
-		<div className={styles.container}>
-			<Heading value="Expenses amount by catagories" type={Heading.types.h2} />
-			<Heading
-				type={Heading.types.h2}
-				value="This month you spend your money on :"
-				size="small"
-			/>
-			<PieChart width={500} height={360}>
-				<Pie
-					activeIndex={activeIndex}
-					activeShape={renderActiveShape}
-					data={sumOfExpensesByCategory}
-					cx={250}
-					cy={150}
-					innerRadius={60}
-					outerRadius={80}
-					fill={COLORS[COLORS.length]}
-					dataKey="value"
-					onMouseEnter={onPieEnter}
-				>
-					{sumOfExpensesByCategory.map((entry, index) => (
-						<Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-					))}
-				</Pie>
-			</PieChart>
-		</div>
-	);
+  const handleFetchAllData = useCallback(async () => {
+    await Promise.all([dispatch(fetchAllAccountEvents())]);
+  }, [dispatch]);
+
+
+  useEffect(() => {
+    handleFetchAllData();
+  }, [handleFetchAllData]);
+
+  const COLORS = ["#D9ED92", "#76C893", "#168AAD", "#1A759F", "#184E77"];
+
+  return (
+    <div className={styles.container}>
+      <Heading value="Expenses amount by catagories" type={Heading.types.h2} />
+      <Heading
+        type={Heading.types.h2}
+        value="This month you spend your money on :"
+        size="small"
+      />
+      <PieChart width={500} height={360}>
+        <Pie
+          activeIndex={activeIndex}
+          activeShape={renderActiveShape}
+          data={sumOfExpensesByCategory}
+          cx={250}
+          cy={150}
+          innerRadius={60}
+          outerRadius={80}
+          fill={COLORS[COLORS.length]}
+          dataKey="value"
+          onMouseEnter={onPieEnter}
+        >
+          {sumOfExpensesByCategory.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+          ))}
+        </Pie>
+      </PieChart>
+    </div>
+  );
 }
 
 export default ChartAllExpenses;

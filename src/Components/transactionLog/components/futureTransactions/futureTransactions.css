@@ -1,0 +1,7 @@
+.futureTrans {
+  background-color: #dcdfec45;
+}
+
+div#expand-collapse--monday-accordion--item-0-controls {
+  animation: expandContentAnimation 1s cubic-bezier(0, 0, 0.35, 1);
+}
