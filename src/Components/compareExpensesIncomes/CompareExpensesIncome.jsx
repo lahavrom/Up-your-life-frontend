@@ -1,47 +1,54 @@
+import React, { useMemo } from "react";
+import { useSelector } from "react-redux";
 import {
-	BarChart,
-	Bar,
-	XAxis,
-	YAxis,
-	CartesianGrid,
-	Tooltip,
-	Legend,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
 } from "recharts";
-import React, { useCallback, useState, useMemo, useEffect } from "react";
 import { Heading } from "monday-ui-react-core";
-import { useDispatch, useSelector } from "react-redux";
+import { getDayOfMonth } from "../../helpers/utils";
 
 import styles from "./compareExpenesIncome.module.css";
-import { fetchAllFixedEvents } from "../../redux/fixedEvents/actions/fetchAllFixedEvents";
+
+const calculateSumOfTransactionsByType = (transactions) => {
+  let incomes = 0;
+  let expenses = 0;
+  transactions.forEach(({ type, value }) => {
+    if (type === "Income") {
+      incomes += parseFloat(value);
+    } else {
+      expenses += parseFloat(value);
+    }
+  });
+  return { incomes, expenses };
+};
 
 const CompareExpenesIncomes = () => {
-  const dispatch = useDispatch();
-
   const fixedEvents = useSelector(
-    (state) => state.fixedEventsState.fixedEvents
+    ({ fixedEventsState }) => fixedEventsState.fixedEvents
   );
 
-  const calculateSumOfFixedEvents = (fixedEvents) => {
-    let sumOfExpenses = 0;
-    let sumOfIncomes = 0;
-    fixedEvents.forEach(({ type, value }) => {
-      if (type === "expense") {
-        sumOfExpenses += value;
-      } else {
-        sumOfIncomes += value;
-      }
-    });
-    return [sumOfExpenses, sumOfIncomes];
-  };
-
-  const [sumOfExpenses, sumOfIncomes] = useMemo(
-    () => calculateSumOfFixedEvents(fixedEvents),
-    [fixedEvents]
+  const accountEvents = useSelector(
+    ({ accountEventsState }) => accountEventsState.accountEvents
   );
 
-  useEffect(() => {
-    dispatch(fetchAllFixedEvents());
-  }, [dispatch]);
+  const currDayOfMonth = getDayOfMonth();
+  const futureFixedEvents = fixedEvents.filter(
+    (fixedEvent) => fixedEvent.dayOfMonth > currDayOfMonth
+  );
+  const sumsOfFutureFixedEvents = useMemo(
+    () => calculateSumOfTransactionsByType(futureFixedEvents),
+    [futureFixedEvents]
+  );
+
+  const sumsOfAccountEvents = useMemo(
+    () => calculateSumOfTransactionsByType(accountEvents),
+    [accountEvents]
+  );
 
   return (
     <div className={styles.container}>
@@ -56,9 +63,10 @@ const CompareExpenesIncomes = () => {
         height={300}
         data={[
           {
-            name: "Month",
-            Expenses: sumOfExpenses,
-            Incomes: sumOfIncomes,
+            Incomes:
+              sumsOfFutureFixedEvents.incomes + sumsOfAccountEvents.incomes,
+            Expenses:
+              sumsOfFutureFixedEvents.expenses + sumsOfAccountEvents.expenses,
             amt: 1000,
           },
         ]}
@@ -74,8 +82,8 @@ const CompareExpenesIncomes = () => {
         <YAxis />
         <Tooltip />
         <Legend />
-        <Bar dataKey="Expenses" fill="#D57E7E" />
-        <Bar dataKey="Incomes" fill="#82ca9d" />
+        <Bar dataKey="Incomes" fill="#82ca9d" radius={[10, 10, 0, 0]} />
+        <Bar dataKey="Expenses" fill="#D57E7E" radius={[10, 10, 0, 0]} />
       </BarChart>
     </div>
   );
