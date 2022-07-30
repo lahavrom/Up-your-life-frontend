@@ -1,15 +1,10 @@
-import {
-  Accordion,
-  AccordionItem,
-  Heading,
-  Dropdown,
-} from "monday-ui-react-core";
+import { useState } from "react";
+import { makeDate } from "../../helpers/utils";
 import CardsContainer from "../cardsContainer/CardsContainer";
 import Card from "../card/Card";
-import styles from "./transactionLog.module.css";
-import { useMemo, useState } from "react";
-import Transaction from "../transaction/Transaction";
-import { makeDate } from "../../helpers/utils";
+import TransactionLogHeader from "./components/transactionLogHeader/TransactionLogHeader";
+import FutureTransactions from "./components/futureTransactions/FutureTransactions";
+import ListTransactions from "./components/listTransactions/ListTransactions";
 
 const TransactionLog = ({ transactions }) => {
   const mockTransactions = [
@@ -89,21 +84,11 @@ const TransactionLog = ({ transactions }) => {
     ...mockTransactionsTmp,
   ]);
 
-  const optionsIcons = useMemo(
-    () => [
-      { value: "all", label: "Show All" },
-      { value: "expense", label: "Expenses" },
-      { value: "income", label: "Incomes" },
-    ],
-    []
-  );
-
   const handleFilter = (value) => {
     switch (value) {
       case "all":
         setFilteredTransactions([...mockTransactionsTmp]);
         break;
-
       default:
         setFilteredTransactions(
           [...mockTransactionsTmp].filter((elem) => elem.type === value)
@@ -114,61 +99,9 @@ const TransactionLog = ({ transactions }) => {
   return (
     <CardsContainer>
       <Card>
-        <div className={styles.cardHeader}>
-          <Heading value="Transactions" type={Heading.types.h3} />
-          <Dropdown
-            clearable={true}
-            className={styles.filter}
-            placeholder="Filter By"
-            options={optionsIcons}
-            searchable={false}
-            onChange={(value) => handleFilter(value.value)}
-          />
-        </div>
-        <div className={styles.transactionsHeader}>
-          {["Date", "Description", "Amount"].map((value) => (
-            <Heading
-              value={value}
-              type={Heading.types.h4}
-              className={styles.detailedTransHeader}
-            />
-          ))}
-        </div>
-        <ul className={styles.listTransactions}>
-          {filteredTransactions.map(({ description, amount, date, type }) => (
-            <li>
-              <Transaction
-                description={description}
-                amount={amount}
-                date={date}
-                type={type}
-              />
-            </li>
-          ))}
-        </ul>
-
-        {/* <Accordion className="monday-storybook-accordion_small-wrapepr">
-          <AccordionItem title="Future Transactions">
-            {mockTransactionsTmp.map(({ description, amount, date, type }) => (
-              <Transaction
-                description={description}
-                amount={amount}
-                date={date}
-                type={type}
-              />
-            ))}
-          </AccordionItem>
-          {mockTransactionsTmp.map(({ description, amount, date, type }) => (
-            <>
-              <Transaction
-                description={description}
-                amount={amount}
-                date={date}
-                type={type}
-              />
-            </>
-          ))}
-        </Accordion> */}
+        <TransactionLogHeader handleFilter={handleFilter} />
+        <FutureTransactions futureTransactions={filteredTransactions} />
+        <ListTransactions transactions={filteredTransactions} />
       </Card>
     </CardsContainer>
   );
