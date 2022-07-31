@@ -1,5 +1,5 @@
 import ACTION_TYPES from "./constants/actionTypes";
-import fixedEventsService from "../../../services/fixedEventsService";
+import fixedTransactionsService from "../../../services/fixedTransactionsService";
 
 const fetchAllFixedTransactionsAction = () => ({
   type: ACTION_TYPES.FETCH_ALL_FIXED_TRANSACTIONS,
@@ -23,9 +23,8 @@ export const fetchAllFixedTransactions = () => async (dispatch, getState) => {
   const { accountId } = getState().usersState.user;
   try {
     dispatch(fetchAllFixedTransactionsAction());
-    const transactions = await fixedEventsService.fetchAllFixedEvents(
-      accountId
-    );
+    const transactions =
+      await fixedTransactionsService.fetchAllFixedTransactions(accountId);
     dispatch(fetchAllFixedTransactionsActionSuccess(transactions));
   } catch ({ message }) {
     dispatch(fetchAllFixedTransactionsActionFail(message));

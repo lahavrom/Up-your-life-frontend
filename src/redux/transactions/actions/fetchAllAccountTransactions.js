@@ -1,5 +1,5 @@
 import ACTION_TYPES from "./constants/actionTypes";
-import accountEventsService from "../../../services/accountEventsService";
+import accountTransactionsService from "../../../services/accountTransactionsService";
 
 const fetchAllAccountTransactionsAction = () => ({
   type: ACTION_TYPES.FETCH_ALL_ACCOUNT_TRANSACTIONS,
@@ -23,9 +23,8 @@ export const fetchAllAccountTransactions = () => async (dispatch, getState) => {
   const { accountId } = getState().usersState.user;
   try {
     dispatch(fetchAllAccountTransactionsAction());
-    const transactions = await accountEventsService.fetchAllAccountEvents(
-      accountId
-    );
+    const transactions =
+      await accountTransactionsService.fetchAllAccountTransactions(accountId);
     dispatch(fetchAllAccountTransactionsActionSuccess(transactions));
   } catch ({ message }) {
     dispatch(fetchAllAccountTransactionsActionFail(message));
