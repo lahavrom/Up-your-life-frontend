@@ -5,12 +5,12 @@ import { fetchAllFixedTransactions } from "../../redux/transactions/actions/fetc
 import { fetchAllAccountTransactions } from "../../redux/transactions/actions/fetchAllAccountTransactions";
 import TopBar from "../../components/topBar/TopBar";
 import Dashboard from "../../components/Dashboard";
-import AboutContainer from "../../components/AboutContainer";
 import TransactionLog from "../../components/transactionLog/TransactionLog";
 import TransactionFormModal from "../../components/transactionForm/TransactionFormModal";
 import SuccessToast from "../../components/toasts/SuccessToast";
 import ErrorToast from "../../components/toasts/ErrorToast";
 import styles from "./upYourLife.module.css";
+import AboutComponent from "../../components/aboutComponent/AboutComponent";
 
 const UpYourLifePage = () => {
   const dispatch = useDispatch();
@@ -66,7 +66,7 @@ const UpYourLifePage = () => {
 			<div className={styles.contentContainer}>
 				<Dashboard />
 				<TransactionLog />
-				<AboutContainer />
+				<AboutComponent />
 			</div>
 			<TransactionFormModal
 				type={transactionType}
