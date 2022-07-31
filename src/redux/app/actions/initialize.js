@@ -1,8 +1,8 @@
 import ACTION_TYPES from "./constants/actionTypes";
 import { STORAGE_KEYS } from "../../../helpers/constants";
 import { fetchUser } from "../../users/actions/fetchUser";
-import { fetchAllFixedEvents } from "../../fixedEvents/actions/fetchAllFixedEvents";
-import { fetchAllAccountEvents } from "../../accountEvents/actions/fetchAllAccountEvents";
+import { fetchAllFixedTransactions } from "../../transactions/actions/fetchAllFixedTransactions";
+import { fetchAllAccountTransactions } from "../../transactions/actions/fetchAllAccountTransactions";
 
 const initializeAction = () => ({
   type: ACTION_TYPES.INITIALIZE,
@@ -22,8 +22,8 @@ export const initialize = () => async (dispatch) => {
   if (!token) return dispatch(initializeActionFail());
   await Promise.all([dispatch(fetchUser())]);
   await Promise.all([
-    dispatch(fetchAllFixedEvents()),
-    dispatch(fetchAllAccountEvents()),
+    dispatch(fetchAllFixedTransactions()),
+    dispatch(fetchAllAccountTransactions()),
   ]);
   dispatch(initializeActionFinish());
 };

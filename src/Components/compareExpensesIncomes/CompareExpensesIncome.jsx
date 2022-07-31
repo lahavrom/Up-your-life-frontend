@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import {
   BarChart,
@@ -10,8 +10,8 @@ import {
   Legend,
 } from "recharts";
 import { Heading } from "monday-ui-react-core";
-import { getDayOfMonth } from "../../helpers/utils";
 
+import { getDayOfMonth } from "../../helpers/utils";
 import styles from "./compareExpenesIncome.module.css";
 
 const calculateSumOfTransactionsByType = (transactions) => {
@@ -19,25 +19,23 @@ const calculateSumOfTransactionsByType = (transactions) => {
   let expenses = 0;
   transactions.forEach(({ type, value }) => {
     if (type === "Income") {
-      incomes += parseFloat(value);
+      incomes += value;
     } else {
-      expenses += parseFloat(value);
+      expenses += value;
     }
   });
   return { incomes, expenses };
 };
 
 const CompareExpenesIncomes = () => {
-  const fixedEvents = useSelector(
-    ({ fixedEventsState }) => fixedEventsState.fixedEvents
-  );
+  const fixed = useSelector(({ transactionsState }) => transactionsState.fixed);
 
-  const accountEvents = useSelector(
-    ({ accountEventsState }) => accountEventsState.accountEvents
+  const account = useSelector(
+    ({ transactionsState }) => transactionsState.account
   );
 
   const currDayOfMonth = getDayOfMonth();
-  const futureFixedEvents = fixedEvents.filter(
+  const futureFixedEvents = fixed.filter(
     (fixedEvent) => fixedEvent.dayOfMonth > currDayOfMonth
   );
   const sumsOfFutureFixedEvents = useMemo(
@@ -46,8 +44,8 @@ const CompareExpenesIncomes = () => {
   );
 
   const sumsOfAccountEvents = useMemo(
-    () => calculateSumOfTransactionsByType(accountEvents),
-    [accountEvents]
+    () => calculateSumOfTransactionsByType(account),
+    [account]
   );
 
   return (

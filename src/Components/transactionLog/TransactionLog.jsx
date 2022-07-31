@@ -1,6 +1,6 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { makeDateTimestamp, makeDateFromDay } from "../../helpers/utils";
+import { makeDateTimestamp } from "../../helpers/utils";
 import CardsContainer from "../cardsContainer/CardsContainer";
 import Card from "../card/Card";
 import TransactionLogHeader from "./components/transactionLogHeader/TransactionLogHeader";
@@ -12,20 +12,18 @@ const filterFutureTransactions = (transactions) => {
 };
 
 const TransactionLog = () => {
-  const fixedTransactions = useSelector(
-    ({ fixedEventsState }) => fixedEventsState.fixedEvents
-  );
-  const accountTransactions = useSelector(
-    ({ accountEventsState }) => accountEventsState.accountEvents
+  const fixed = useSelector(({ transactionsState }) => transactionsState.fixed);
+
+  const account = useSelector(
+    ({ transactionsState }) => transactionsState.account
   );
 
-  // const currentMonth = useSelector( () => currentMonth);
-  // makeDateFromDay(currentMonth)
+  const [filteredTransactions, setFilteredTransactions] = useState([]);
 
   const futureTransactions = useMemo(
     () =>
       filterFutureTransactions(
-        fixedTransactions.map((elem) => {
+        fixed.map((elem) => {
           return {
             ...elem,
             date: `${elem.dayOfMonth}/${
@@ -34,12 +32,12 @@ const TransactionLog = () => {
           };
         })
       ),
-    [fixedTransactions]
+    [fixed]
   );
 
   const transactions = useMemo(
     () => [
-      ...fixedTransactions
+      ...fixed
         .filter((elem) => elem.dayOfMonth <= new Date().getDate())
         .map((elem) => {
           return {
@@ -49,16 +47,12 @@ const TransactionLog = () => {
             }/${new Date().getFullYear()}`,
           };
         }),
-      ...accountTransactions.map((elem) => {
+      ...account.map((elem) => {
         return { ...elem, date: makeDateTimestamp(elem.effectiveDate) };
       }),
     ],
-    [fixedTransactions, accountTransactions]
+    [fixed, account]
   );
-
-  const [filteredTransactions, setFilteredTransactions] = useState([
-    ...transactions,
-  ]);
 
   const handleFilter = (value) => {
     switch (value) {
@@ -71,6 +65,10 @@ const TransactionLog = () => {
         );
     }
   };
+
+  useEffect(() => {
+    setFilteredTransactions(transactions);
+  }, [transactions]);
 
   return (
     <CardsContainer>

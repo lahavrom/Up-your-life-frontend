@@ -12,9 +12,9 @@ const submitFixedEvent = async (values) => {
   }
 };
 
-const fetchAllFixedEvents = async (uId) => {
+const fetchAllFixedEvents = async (accountId) => {
   try {
-    const { data } = await fixedEventsClient.get(`${uId}`, {
+    const { data } = await fixedEventsClient.get(`${accountId}`, {
       headers: {
         "x-auth-token": localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN),
       },

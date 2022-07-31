@@ -5,11 +5,11 @@ const usersClient = axios.create({
 });
 
 const accountEventsClient = axios.create({
-  baseURL: "http://localhost:3001/account-events",
+  baseURL: "http://localhost:3001/account-transactions",
 });
 
 const fixedEventsClient = axios.create({
-  baseURL: "http://localhost:3001/fixed-events",
+  baseURL: "http://localhost:3001/fixed-transactions",
 });
 
 export { usersClient, accountEventsClient, fixedEventsClient };

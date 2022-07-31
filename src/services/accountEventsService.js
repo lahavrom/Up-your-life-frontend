@@ -12,9 +12,9 @@ const submitAccountEvent = async (values) => {
   }
 };
 
-const fetchAllAccountEvents = async (uId) => {
+const fetchAllAccountEvents = async (accountId) => {
   try {
-    const { data } = await accountEventsClient.get(`${uId}`, {
+    const { data } = await accountEventsClient.get(`${accountId}`, {
       headers: {
         "x-auth-token": localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN),
       },

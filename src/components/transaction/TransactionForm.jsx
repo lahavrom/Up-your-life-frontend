@@ -8,12 +8,10 @@ import {
   Button,
 } from "monday-ui-react-core";
 import { Formik } from "formik";
-import _ from "lodash";
 import * as Yup from "yup";
 
 import { CATEGORIES, DAYS_OF_MONTH } from "../../helpers/constants";
-import { submitAccountEvent } from "../../redux/accountEvents/actions/submitAccountEvent";
-import { submitFixedEvent } from "../../redux/fixedEvents/actions/submitFixedEvent";
+import { submitTransaction } from "../../redux/transactions/actions/submitTransaction";
 import { generateEffectiveDate, getDayOfMonth } from "../../helpers/utils";
 import styles from "./transactionForm.module.css";
 
@@ -41,23 +39,15 @@ const validationSchema = Yup.object().shape({
 const TransactionForm = ({ type }) => {
   const dispatch = useDispatch();
 
-  const fixedIsLoading = useSelector(
-    ({ fixedEventsState }) => fixedEventsState.isLoading
-  );
-  const accountIsLoading = useSelector(
-    ({ accountEventsState }) => accountEventsState.isLoading
+  const isLoading = useSelector(
+    ({ transactionsState }) => transactionsState.isLoading
   );
 
   const onSubmitTransaction = useCallback(
     (values) => {
-      const event = {
-        type,
-        ..._.pick(values, ["category", "description", "value"]),
-      };
-      const { dayOfMonth, effectiveDate } = values;
-      values.isFixed
-        ? dispatch(submitFixedEvent({ ...event, dayOfMonth }))
-        : dispatch(submitAccountEvent({ ...event, effectiveDate }));
+      dispatch(
+        submitTransaction(type, { ...values, value: parseFloat(values.value) })
+      );
     },
     [dispatch, type]
   );
@@ -190,7 +180,7 @@ const TransactionForm = ({ type }) => {
             <Button
               className={styles.submitButton}
               type={Button.inputTags.SUBMIT}
-              loading={fixedIsLoading || accountIsLoading}
+              loading={isLoading}
             >
               Submit
             </Button>

@@ -3,6 +3,10 @@ export const ERROR_MESSAGES = {
     "Something went wrong, please try again in a few minutes or contact support",
 };
 
+export const SUCCESS_MESSAGES = {
+  SUBMIT_TRANSACTION: "Transaction added successfully!",
+};
+
 export const MONTHS = [
   "January",
   "February",
