@@ -4,12 +4,12 @@ const usersClient = axios.create({
   baseURL: "http://localhost:3001/users",
 });
 
-const accountEventsClient = axios.create({
+const accountTransactionsClient = axios.create({
   baseURL: "http://localhost:3001/account-transactions",
 });
 
-const fixedEventsClient = axios.create({
+const fixedTransactionsClient = axios.create({
   baseURL: "http://localhost:3001/fixed-transactions",
 });
 
-export { usersClient, accountEventsClient, fixedEventsClient };
+export { usersClient, accountTransactionsClient, fixedTransactionsClient };

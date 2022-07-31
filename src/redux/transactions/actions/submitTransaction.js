@@ -1,8 +1,8 @@
 import _ from "lodash";
 
 import ACTION_TYPES from "./constants/actionTypes";
-import fixedEventsService from "../../../services/fixedEventsService";
-import accountEventsService from "../../../services/accountEventsService";
+import fixedTransactionsService from "../../../services/fixedTransactionsService";
+import accountTransactionsService from "../../../services/accountTransactionsService";
 import { SUCCESS_MESSAGES } from "../../../helpers/constants";
 
 const submitTransactionAction = () => ({
@@ -37,8 +37,10 @@ export const submitTransaction =
       dispatch(submitTransactionAction());
       const transaction = createTransaction(type, values, accountId, userId);
       const newTransaction = values.isFixed
-        ? await fixedEventsService.submitFixedEvent(transaction)
-        : await accountEventsService.submitAccountEvent(transaction);
+        ? await fixedTransactionsService.submitFixedTransaction(transaction)
+        : await accountTransactionsService.submitAccountTransaction(
+            transaction
+          );
       values.isFixed
         ? dispatch(submitFixedTransactionActionSuccess(newTransaction))
         : dispatch(submitAccountTransactionActionSuccess(newTransaction));

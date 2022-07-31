@@ -1,20 +1,20 @@
-import { fixedEventsClient } from "../clients";
+import { fixedTransactionsClient } from "../clients";
 import handleError from "../helpers/errorHandler";
 
 import { STORAGE_KEYS } from "../helpers/constants";
 
-const submitFixedEvent = async (values) => {
+const submitFixedTransaction = async (values) => {
   try {
-    const { data } = await fixedEventsClient.post("", values);
+    const { data } = await fixedTransactionsClient.post("", values);
     return data;
   } catch (error) {
     throw handleError(error);
   }
 };
 
-const fetchAllFixedEvents = async (accountId) => {
+const fetchAllFixedTransactions = async (accountId) => {
   try {
-    const { data } = await fixedEventsClient.get(`${accountId}`, {
+    const { data } = await fixedTransactionsClient.get(`${accountId}`, {
       headers: {
         "x-auth-token": localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN),
       },
@@ -26,6 +26,6 @@ const fetchAllFixedEvents = async (accountId) => {
 };
 
 export default {
-  submitFixedEvent,
-  fetchAllFixedEvents,
+  submitFixedTransaction,
+  fetchAllFixedTransactions,
 };

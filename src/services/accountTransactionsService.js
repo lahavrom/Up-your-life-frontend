@@ -1,20 +1,20 @@
-import { accountEventsClient } from "../clients";
+import { accountTransactionsClient } from "../clients";
 import handleError from "../helpers/errorHandler";
 
 import { STORAGE_KEYS } from "../helpers/constants";
 
-const submitAccountEvent = async (values) => {
+const submitAccountTransaction = async (values) => {
   try {
-    const { data } = await accountEventsClient.post("", values);
+    const { data } = await accountTransactionsClient.post("", values);
     return data;
   } catch (error) {
     throw handleError(error);
   }
 };
 
-const fetchAllAccountEvents = async (accountId) => {
+const fetchAllAccountTransactions = async (accountId) => {
   try {
-    const { data } = await accountEventsClient.get(`${accountId}`, {
+    const { data } = await accountTransactionsClient.get(`${accountId}`, {
       headers: {
         "x-auth-token": localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN),
       },
@@ -26,6 +26,6 @@ const fetchAllAccountEvents = async (accountId) => {
 };
 
 export default {
-  submitAccountEvent,
-  fetchAllAccountEvents,
+  submitAccountTransaction,
+  fetchAllAccountTransactions,
 };
