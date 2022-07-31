@@ -3,7 +3,6 @@ import { PieChart, Pie, Cell, Sector } from "recharts";
 import { Heading } from "monday-ui-react-core";
 import { useSelector } from "react-redux";
 
-import { CATEGORIES } from "../../helpers/constants";
 import styles from "./chartAllExpenses.module.css";
 
 const calculateOfFixedEvents = (acountEvents) => {
@@ -52,13 +51,13 @@ const calculateOfFixedEvents = (acountEvents) => {
 };
 
 const ChartAllExpenses = () => {
-  const acountEvents = useSelector(
-    ({ accountEventsState }) => accountEventsState.accountEvents
+  const account = useSelector(
+    ({ transactionsState }) => transactionsState.account
   );
 
   const sumOfExpensesByCategory = useMemo(
-    () => calculateOfFixedEvents(acountEvents),
-    [acountEvents]
+    () => calculateOfFixedEvents(account),
+    [account]
   );
 
   const [activeIndex, setActiveIndex] = useState(0);
