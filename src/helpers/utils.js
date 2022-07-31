@@ -24,3 +24,12 @@ export const getDayOfMonth = () => {
   const today = new Date();
   return today.getDate();
 };
+
+// sorting dates that are in this format: "31/07/2022"
+export const compareDates = (a, b) => {
+  const aDate = a.split("/");
+  const bDate = b.split("/");
+  return (
+    parseInt(bDate[0]) + bDate[1] * 31 - (parseInt(aDate[0]) + aDate[1] * 31)
+  );
+};

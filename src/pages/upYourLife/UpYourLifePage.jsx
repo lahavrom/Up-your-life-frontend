@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import TopBar from "../../components/topBar/TopBar";
 import Dashboard from "../../components/Dashboard";
 import TransactionLog from "../../components/transactionLog/TransactionLog";
-import TransactionFormModal from "../../components/transaction/TransactionFormModal";
+import TransactionFormModal from "../../components/transactionForm/TransactionFormModal";
 import SuccessToast from "../../components/toasts/SuccessToast";
 import ErrorToast from "../../components/toasts/ErrorToast";
 import styles from "./upYourLife.module.css";
