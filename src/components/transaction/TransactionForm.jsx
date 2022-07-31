@@ -45,7 +45,9 @@ const TransactionForm = ({ type }) => {
 
   const onSubmitTransaction = useCallback(
     (values) => {
-      dispatch(submitTransaction(type, values));
+      dispatch(
+        submitTransaction(type, { ...values, value: parseFloat(values.value) })
+      );
     },
     [dispatch, type]
   );

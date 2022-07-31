@@ -19,9 +19,9 @@ const calculateSumOfTransactionsByType = (transactions) => {
   let expenses = 0;
   transactions.forEach(({ type, value }) => {
     if (type === "Income") {
-      incomes += parseFloat(value);
+      incomes += value;
     } else {
-      expenses += parseFloat(value);
+      expenses += value;
     }
   });
   return { incomes, expenses };

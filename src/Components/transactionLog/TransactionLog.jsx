@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { makeDateTimestamp } from "../../helpers/utils";
 import CardsContainer from "../cardsContainer/CardsContainer";
@@ -17,6 +17,8 @@ const TransactionLog = () => {
   const account = useSelector(
     ({ transactionsState }) => transactionsState.account
   );
+
+  const [filteredTransactions, setFilteredTransactions] = useState([]);
 
   const futureTransactions = useMemo(
     () =>
@@ -52,10 +54,6 @@ const TransactionLog = () => {
     [fixed, account]
   );
 
-  const [filteredTransactions, setFilteredTransactions] = useState([
-    ...transactions,
-  ]);
-
   const handleFilter = (value) => {
     switch (value) {
       case "all":
@@ -67,6 +65,10 @@ const TransactionLog = () => {
         );
     }
   };
+
+  useEffect(() => {
+    setFilteredTransactions(transactions);
+  }, [transactions]);
 
   return (
     <CardsContainer>
