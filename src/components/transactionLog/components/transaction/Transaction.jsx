@@ -18,6 +18,7 @@ const Transaction = ({ description, value, date, type }) => {
               customColor={type === "Expense" ? "#d83a52" : "#258750"}
               value={value}
               type={Heading.types.h5}
+              key={value}
             />
           );
         })}

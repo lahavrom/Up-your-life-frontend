@@ -31,6 +31,7 @@ const TransactionLogHeader = ({ handleFilter }) => {
             value={value}
             type={Heading.types.h4}
             className={styles.detailedTransHeader}
+            key={value}
           />
         ))}
       </div>

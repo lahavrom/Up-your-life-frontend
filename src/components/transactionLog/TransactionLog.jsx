@@ -19,6 +19,9 @@ const TransactionLog = () => {
   );
 
   const [filteredTransactions, setFilteredTransactions] = useState([]);
+  const [filteredFutureTransactions, setFilteredFutureTransactions] = useState(
+    []
+  );
 
   const futureTransactions = useMemo(
     () =>
@@ -58,10 +61,14 @@ const TransactionLog = () => {
     switch (value) {
       case "all":
         setFilteredTransactions([...transactions]);
+        setFilteredFutureTransactions([...futureTransactions]);
         break;
       default:
         setFilteredTransactions(
           [...transactions].filter((elem) => elem.type === value)
+        );
+        setFilteredFutureTransactions(
+          [...futureTransactions].filter((elem) => elem.type === value)
         );
     }
   };
@@ -74,7 +81,7 @@ const TransactionLog = () => {
     <CardsContainer>
       <Card>
         <TransactionLogHeader handleFilter={handleFilter} />
-        <FutureTransactions futureTransactions={futureTransactions} />
+        <FutureTransactions futureTransactions={filteredFutureTransactions} />
         <ListTransactions transactions={filteredTransactions} />
       </Card>
     </CardsContainer>
