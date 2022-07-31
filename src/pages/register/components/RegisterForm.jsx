@@ -11,6 +11,7 @@ import {
 import { registerUser } from "../../../redux/users/actions/registerUser";
 
 const initialValues = {
+  accountId: 1,
   firstName: "",
   lastName: "",
   email: "",
