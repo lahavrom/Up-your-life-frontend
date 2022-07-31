@@ -5,6 +5,7 @@ import { fetchAllFixedTransactions } from "../../redux/transactions/actions/fetc
 import { fetchAllAccountTransactions } from "../../redux/transactions/actions/fetchAllAccountTransactions";
 import TopBar from "../../components/topBar/TopBar";
 import Dashboard from "../../components/Dashboard";
+import AboutContainer from "../../components/AboutContainer";
 import TransactionLog from "../../components/transactionLog/TransactionLog";
 import TransactionFormModal from "../../components/transactionForm/TransactionFormModal";
 import SuccessToast from "../../components/toasts/SuccessToast";
@@ -30,13 +31,13 @@ const UpYourLifePage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [transactionType, setTransactionType] = useState(null);
 
-  const onOpenModal = useCallback(() => {
-    setIsModalOpen(true);
-  }, [setIsModalOpen]);
+	const onOpenModal = useCallback(() => {
+		setIsModalOpen(true);
+	}, [setIsModalOpen]);
 
-  const onCloseModal = useCallback(() => {
-    setIsModalOpen(false);
-  }, [setIsModalOpen]);
+	const onCloseModal = useCallback(() => {
+		setIsModalOpen(false);
+	}, [setIsModalOpen]);
 
   const onAddTransaction = useCallback(
     (type) => {
@@ -62,17 +63,18 @@ const UpYourLifePage = () => {
       <SuccessToast isVisible={isSuccess} message={successMessage} />
       <ErrorToast isVisible={isError} message={errorMessage} />
       <TopBar onAddTransaction={onAddTransaction} />
-      <div className={styles.contentContainer}>
-        <Dashboard />
-        <TransactionLog />
-      </div>
-      <TransactionFormModal
-        type={transactionType}
-        isOpen={isModalOpen}
-        onClose={onCloseModal}
-      />
-    </div>
-  );
+			<div className={styles.contentContainer}>
+				<Dashboard />
+				<TransactionLog />
+				<AboutContainer />
+			</div>
+			<TransactionFormModal
+				type={transactionType}
+				isOpen={isModalOpen}
+				onClose={onCloseModal}
+			/>
+		</div>
+	);
 };
 
 export default UpYourLifePage;

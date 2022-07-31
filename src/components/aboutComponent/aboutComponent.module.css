@@ -1,0 +1,19 @@
+.container {
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	align-content: space-between;
+	padding-right: 50px;
+	padding-left: 50px;
+	font-size: 20px;
+}
+.Heading {
+	color: #5e9c4b;
+	margin-bottom: 2px;
+}
+.img {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
