@@ -1,0 +1,6 @@
+.listTransactions {
+  max-height: 400px;
+  overflow-y: scroll;
+  list-style-type: none;
+  padding-inline-start: 0;
+}

@@ -1,0 +1,30 @@
+.transactions {
+  grid-auto-flow: row;
+  grid-template-columns: 0fr 1fr 1fr 1fr;
+  display: grid;
+  justify-items: center;
+}
+
+.transactions:hover {
+  background-color: #dcdfec;
+}
+
+.currentTrans {
+  margin: 10px;
+}
+
+.addIcon {
+  color: #258750;
+  align-self: center;
+  cursor: auto;
+}
+
+.removeIcon {
+  color: #d83a52;
+  align-self: center;
+  cursor: auto;
+}
+
+.text {
+  cursor: auto;
+}
