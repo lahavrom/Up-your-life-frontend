@@ -1,25 +1,32 @@
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Heading } from "monday-ui-react-core";
 
-import ErrorToast from "../../components/toasts/ErrorToast";
 import RegisterForm from "./components/RegisterForm";
-import { AUTH_ROUTES } from "../../routes/AuthRoutes";
+import { ROUTES } from "../../routes/AppRouter";
 import styles from "./registerPage.module.css";
 
 const RegisterPage = () => {
-  const isError = useSelector(({ usersState }) => usersState.isError);
-  const errorMessage = useSelector(({ usersState }) => usersState.errorMessage);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const isSuccess = useSelector(({ usersState }) => usersState.isSuccess);
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigate(ROUTES.UP_YOUR_LIFE);
+    }
+  }, [dispatch, navigate, isSuccess]);
 
   return (
     <div className={styles.container}>
-      <ErrorToast isVisible={isError} message={errorMessage} />
       <Heading value="Register" />
       <div className={styles.formContainer}>
         <RegisterForm />
       </div>
       <div className={styles.linkContainer}>
-        <Link to={AUTH_ROUTES.LOGIN}>Back to login</Link>
+        <NavLink to={ROUTES.LOGIN}>Back to login</NavLink>
       </div>
     </div>
   );

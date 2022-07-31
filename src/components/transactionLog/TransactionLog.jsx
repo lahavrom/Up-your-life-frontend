@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { makeDateTimestamp } from "../../helpers/utils";
+
+import { makeDateTimestamp } from "../../helpers/dateTimeUtils";
 import CardsContainer from "../cardsContainer/CardsContainer";
 import Card from "../card/Card";
 import TransactionLogHeader from "./components/transactionLogHeader/TransactionLogHeader";

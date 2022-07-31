@@ -2,6 +2,7 @@ import ACTION_TYPES from "./actions/constants/actionTypes";
 
 const initialState = {
   isLoading: false,
+  isSuccess: false,
   isError: false,
   errorMessage: "",
   user: null,
@@ -15,6 +16,7 @@ const usersReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         isLoading: true,
+        isSuccess: false,
         isError: false,
         errorMessage: "",
       };
@@ -27,6 +29,7 @@ const usersReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         isLoading: false,
+        isSuccess: true,
         isError: false,
         errorMessage: "",
         user,
@@ -40,6 +43,7 @@ const usersReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         isLoading: false,
+        isSuccess: false,
         isError: true,
         errorMessage,
       };

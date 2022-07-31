@@ -1,6 +1,6 @@
 import ACTION_TYPES from "./constants/actionTypes";
 import usersService from "../../../services/usersService";
-import { STORAGE_KEYS } from "../../../helpers/constants";
+import { setAuthToken } from "../../../helpers/authTokenUtils";
 
 const loginUserAction = () => ({
   type: ACTION_TYPES.LOGIN_USER,
@@ -20,7 +20,7 @@ export const loginUser = (values) => async (dispatch) => {
   try {
     dispatch(loginUserAction());
     const { token, user } = await usersService.loginUser(values);
-    localStorage.setItem(STORAGE_KEYS.AUTH_TOKEN, token);
+    setAuthToken(token);
     dispatch(loginUserActionSuccess(user));
   } catch ({ message }) {
     dispatch(loginUserActionFail(message));

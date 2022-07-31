@@ -12,7 +12,10 @@ import * as Yup from "yup";
 
 import { CATEGORIES, DAYS_OF_MONTH } from "../../helpers/constants";
 import { submitTransaction } from "../../redux/transactions/actions/submitTransaction";
-import { generateEffectiveDate, getDayOfMonth } from "../../helpers/utils";
+import {
+  generateEffectiveDate,
+  getDayOfMonth,
+} from "../../helpers/dateTimeUtils";
 import styles from "./transactionForm.module.css";
 
 const initialValues = {
@@ -122,7 +125,6 @@ const TransactionForm = ({ type }) => {
                 id="value"
                 placeholder="0.00"
                 size={TextField.sizes.MEDIUM}
-                type="number"
                 value={values.value}
                 onChange={handleChange("value")}
               />
