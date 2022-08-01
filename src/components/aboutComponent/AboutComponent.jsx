@@ -40,7 +40,12 @@ const AboutComponent = () => {
 						value="And thanks to our amazing mentor"
 						brandFont
 					/>
-					<Avatar ariaLabel="Nitzan Ezra" src={nitzanPic} type="img" />
+					<Avatar
+						ariaLabel="Nitzan Ezra"
+						src={nitzanPic}
+						type="img"
+						className={styles.img}
+					/>
 					<Heading
 						type={Heading.types.h3}
 						size="small"

@@ -19,10 +19,9 @@ const TopBar = ({ onAddTransaction }) => {
 	const handleAssigneeOnClickRight = () => {
 		setMonthSelected((prev) => {
 			if (prev === MONTHS.length - 1) {
-				return 0;
-			} else {
-				return prev + 1;
+				return prev;
 			}
+			return prev + 1;
 		});
 	};
 
@@ -31,30 +30,36 @@ const TopBar = ({ onAddTransaction }) => {
 			if (prev > 0) {
 				return prev - 1;
 			}
+			return 0;
 		});
 	};
 
 	return (
 		<div className={styles.topBar}>
 			<img src={logo} alt="Logo" className={styles.logo} />
-			<span>
-				<Icon
-					iconType={Icon.type.SVG}
-					icon={NavigationChevronLeft}
-					iconLabel="arrowLeft"
-					iconSize={20}
-					onClick={handleAssigneeOnClickLeft}
-				/>
+			<Icon
+				iconType={Icon.type.SVG}
+				icon={NavigationChevronLeft}
+				iconLabel="arrowLeft"
+				iconSize={20}
+				onClick={handleAssigneeOnClickLeft}
+			/>
+			<span className={styles.monthPicker}>
 				<Tab>{`${MONTHS[monthSelected]} 2022`}</Tab>
-				<Icon
-					iconType={Icon.type.SVG}
-					icon={NavigationChevronRight}
-					iconLabel="arrowRight"
-					iconSize={20}
-					onClick={handleAssigneeOnClickRight}
-				/>
 			</span>
-			<MenuButton component={Add} title="Add Transaction">
+			<Icon
+				iconType={Icon.type.SVG}
+				icon={NavigationChevronRight}
+				iconLabel="arrowRight"
+				iconSize={20}
+				onClick={handleAssigneeOnClickRight}
+			/>
+			<MenuButton
+				component={Add}
+				text="New Transaction"
+				className={styles.addButton}
+				
+			>
 				<Menu id="menu" size={Menu.sizes.MEDIUM}>
 					<MenuItem
 						icon={Download}
