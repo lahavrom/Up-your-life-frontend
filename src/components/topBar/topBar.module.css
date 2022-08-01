@@ -1,25 +1,46 @@
 .topBar {
-  background-color: white;
-  padding: 10px;
-  margin-bottom: 5px;
-  position: sticky;
-  justify-content: space-evenly;
-  top: 0;
-  border-bottom: 1px solid #dcdfec;
-  z-index: 1;
-  display: grid;
-  align-items: center;
-  grid-auto-flow: row;
-  grid-template-columns: 1fr 1fr 1fr;
-  justify-items: center;
+	background-color: white;
+	padding: 10px;
+	margin-bottom: 5px;
+	position: sticky;
+	justify-content: space-evenly;
+	top: 0;
+	border-bottom: 1px solid #dcdfec;
+	z-index: 1;
+	display: grid;
+	align-items: center;
+	grid-auto-flow: row;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	justify-items: center;
+	min-width: 10px;
+}
+.monthPicker {
+	align-items: center;
+	/* justify-content: center; */
+	display: grid;
+	grid-auto-flow: row;
+	/* grid-template-columns: 1fr 3fr 1fr; */
+	justify-items: center;
 }
 
 .logo {
-  width: 70px;
-  height: 50px;
-  transition: transform 0.7s ease-in-out;
-  margin-bottom: 0px;
+	width: 70px;
+	height: 50px;
+	transition: transform 0.7s ease-in-out;
+	margin-bottom: 0px;
 }
 .logo:hover {
-  transform: rotate(360deg);
+	transform: rotate(360deg);
+}
+
+.addButton {
+	width: 200px;
+	height: 50px;
+	border-radius: 4px;
+	background-color: rgb(41, 95, 78);
+	color: #dcdfec;
+}
+
+.addButton:hover {
+	color: rgb(41, 95, 78);
 }

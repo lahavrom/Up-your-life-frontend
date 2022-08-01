@@ -4,16 +4,16 @@ import CompareExpensesIncome from "../components/compareExpensesIncomes/CompareE
 import ChartAllExpenses from "../components/chartAllExpenses/ChartAllExpenses";
 
 const Dashboard = () => {
-  return (
-    <CardsContainer>
-      <Card>
-        <CompareExpensesIncome />
-      </Card>
-      <Card>
-        <ChartAllExpenses />
-      </Card>
-    </CardsContainer>
-  );
+	return (
+		<CardsContainer>
+			<Card>
+				<CompareExpensesIncome />
+			</Card>
+			<Card>
+				<ChartAllExpenses />
+			</Card>
+		</CardsContainer>
+	);
 };
 
 export default Dashboard;

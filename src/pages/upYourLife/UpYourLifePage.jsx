@@ -10,6 +10,7 @@ import TransactionFormModal from "../../components/transactionForm/TransactionFo
 import SuccessToast from "../../components/toasts/SuccessToast";
 import ErrorToast from "../../components/toasts/ErrorToast";
 import styles from "./upYourLife.module.css";
+import AboutComponent from "../../components/aboutComponent/AboutComponent";
 
 const UpYourLifePage = () => {
   const dispatch = useDispatch();
@@ -30,13 +31,13 @@ const UpYourLifePage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [transactionType, setTransactionType] = useState(null);
 
-  const onOpenModal = useCallback(() => {
-    setIsModalOpen(true);
-  }, [setIsModalOpen]);
+	const onOpenModal = useCallback(() => {
+		setIsModalOpen(true);
+	}, [setIsModalOpen]);
 
-  const onCloseModal = useCallback(() => {
-    setIsModalOpen(false);
-  }, [setIsModalOpen]);
+	const onCloseModal = useCallback(() => {
+		setIsModalOpen(false);
+	}, [setIsModalOpen]);
 
   const onAddTransaction = useCallback(
     (type) => {
@@ -62,17 +63,18 @@ const UpYourLifePage = () => {
       <SuccessToast isVisible={isSuccess} message={successMessage} />
       <ErrorToast isVisible={isError} message={errorMessage} />
       <TopBar onAddTransaction={onAddTransaction} />
-      <div className={styles.contentContainer}>
-        <Dashboard />
-        <TransactionLog />
-      </div>
-      <TransactionFormModal
-        type={transactionType}
-        isOpen={isModalOpen}
-        onClose={onCloseModal}
-      />
-    </div>
-  );
+			<div className={styles.contentContainer}>
+				<Dashboard />
+				<TransactionLog />
+				<AboutComponent />
+			</div>
+			<TransactionFormModal
+				type={transactionType}
+				isOpen={isModalOpen}
+				onClose={onCloseModal}
+			/>
+		</div>
+	);
 };
 
 export default UpYourLifePage;
