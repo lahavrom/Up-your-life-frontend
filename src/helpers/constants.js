@@ -10,7 +10,7 @@ export const TEXT_INFO = {
 
 export const SUCCESS_MESSAGES = {
   SUBMIT_TRANSACTION: "Transaction added successfully!",
-  EDIT_TRANSACTION: "Transaction editted successfully!",
+  EDIT_TRANSACTION: "Transaction edited",
 };
 
 export const MONTHS = [

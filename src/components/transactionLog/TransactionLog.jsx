@@ -77,7 +77,7 @@ const TransactionLog = ({ onEditTransaction }) => {
   useEffect(() => {
     setFilteredTransactions(transactions);
     setFilteredFutureTransactions(futureTransactions);
-  }, [transactions]);
+  }, [transactions, futureTransactions]);
 
   return (
     <CardsContainer>

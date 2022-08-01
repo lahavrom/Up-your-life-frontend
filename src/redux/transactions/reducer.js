@@ -26,6 +26,8 @@ const transactionsReducer = (state = initialState, { type, payload }) => {
       };
     }
 
+    case ACTION_TYPES.EDIT_TRANSACTION:
+
     case ACTION_TYPES.SUBMIT_FIXED_TRANSACTION_SUCCESS: {
       const { transaction, successMessage } = payload;
       return {
