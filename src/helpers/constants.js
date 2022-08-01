@@ -29,19 +29,19 @@ export const MONTHS = [
 ];
 
 export const COLORS = [
-	"#D9ED92",
-	"#76C893",
-	"#C60F7B",
-	"#168AAD",
-	"#d89d6a",
-	"#1A759F",
-	"#184E77",
+  "#D9ED92",
+  "#76C893",
+  "#C60F7B",
+  "#168AAD",
+  "#d89d6a",
+  "#1A759F",
+  "#184E77",
 ];
 
 export const FEATURES_LIST = [
-	"Multipal house holders",
-	"Show expenses by categories",
-	"Show incomes by categories",
+  "Multipal house holders",
+  "Show expenses by categories",
+  "Show incomes by categories",
 ];
 
 export const DAYS_OF_MONTH = [
@@ -61,5 +61,3 @@ export const CATEGORIES = {
   SHOPPING: "Shopping",
   VACATION: "Vacation",
 };
-
-export const COLORS = ["#D9ED92", "#76C893", "#168AAD", "#1A759F", "#184E77"];
