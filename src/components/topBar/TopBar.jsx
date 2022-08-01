@@ -1,11 +1,20 @@
 import { useState } from "react";
-import { Tab, Icon, MenuButton, Menu, MenuItem } from "monday-ui-react-core";
+import {
+	Tab,
+	Icon,
+	MenuButton,
+	Menu,
+	MenuItem,
+	Heading,
+	IconButton,
+} from "monday-ui-react-core";
 import {
 	NavigationChevronLeft,
 	NavigationChevronRight,
 	Download,
 	Upload,
 	Add,
+	Person,
 } from "monday-ui-react-core/dist/allIcons";
 
 import logo from "../../../src/assets/logo.png";
@@ -36,45 +45,58 @@ const TopBar = ({ onAddTransaction }) => {
 
 	return (
 		<div className={styles.topBar}>
-			<img src={logo} alt="Logo" className={styles.logo} />
-			<Icon
-				iconType={Icon.type.SVG}
-				icon={NavigationChevronLeft}
-				iconLabel="arrowLeft"
-				iconSize={20}
-				onClick={handleAssigneeOnClickLeft}
-			/>
-			<span className={styles.monthPicker}>
-				<Tab>{`${MONTHS[monthSelected]} 2022`}</Tab>
+			<span className={styles.heading}>
+				<img src={logo} alt="Logo" className={styles.logo} />
+
+				<Heading type={Heading.types.h1} value="Up Your Life" brandFont />
 			</span>
-			<Icon
-				iconType={Icon.type.SVG}
-				icon={NavigationChevronRight}
-				iconLabel="arrowRight"
-				iconSize={20}
-				onClick={handleAssigneeOnClickRight}
-			/>
-			<MenuButton
-				component={Add}
-				text="New Transaction"
-				className={styles.addButton}
-				
-			>
-				<Menu id="menu" size={Menu.sizes.MEDIUM}>
-					<MenuItem
-						icon={Download}
-						iconType={MenuItem.iconType.SVG}
-						title="Income"
-						onClick={() => onAddTransaction("Income")}
-					/>
-					<MenuItem
-						icon={Upload}
-						iconType={MenuItem.iconType.SVG}
-						title="Expense"
-						onClick={() => onAddTransaction("Expense")}
-					/>
-				</Menu>
-			</MenuButton>
+			<span className={styles.monthPickerContainer}>
+				<Icon
+					iconType={Icon.type.SVG}
+					icon={NavigationChevronLeft}
+					iconLabel="arrowLeft"
+					iconSize={20}
+					onClick={handleAssigneeOnClickLeft}
+				/>
+
+				<span className={styles.monthPicker}>
+					<Tab>{`${MONTHS[monthSelected]} 2022`}</Tab>
+				</span>
+				<Icon
+					iconType={Icon.type.SVG}
+					icon={NavigationChevronRight}
+					iconLabel="arrowRight"
+					iconSize={20}
+					onClick={handleAssigneeOnClickRight}
+				/>
+			</span>
+			<span className={styles.buttons}>
+				<MenuButton
+					component={Add}
+					text="New Transaction"
+					className={styles.addButton}
+				>
+					<Menu id="menu" size={Menu.sizes.MEDIUM}>
+						<MenuItem
+							icon={Download}
+							iconType={MenuItem.iconType.SVG}
+							title="Income"
+							onClick={() => onAddTransaction("Income")}
+						/>
+						<MenuItem
+							icon={Upload}
+							iconType={MenuItem.iconType.SVG}
+							title="Expense"
+							onClick={() => onAddTransaction("Expense")}
+						/>
+					</Menu>
+				</MenuButton>
+				<IconButton
+					icon={Person}
+					kind={IconButton.kinds.SECONDARY}
+					className={styles.profileButton}
+				/>
+			</span>
 		</div>
 	);
 };

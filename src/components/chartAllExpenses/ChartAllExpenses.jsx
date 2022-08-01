@@ -3,6 +3,7 @@ import { PieChart, Pie, Cell, Sector } from "recharts";
 import { Heading } from "monday-ui-react-core";
 import { useSelector } from "react-redux";
 import magnifyingGlass from "../../assets/magnifying-glass.png";
+import { COLORS } from "../../helpers/constants";
 
 import styles from "./chartAllExpenses.module.css";
 
@@ -78,8 +79,6 @@ const ChartAllExpenses = () => {
 		[setActiveIndex]
 	);
 
-	const COLORS = ["#D9ED92", "#76C893", "#168AAD", "#1A759F", "#184E77"];
-
 	return (
 		<div className={styles.container}>
 			<Heading value="Expenses by catagories" type={Heading.types.h2} />
@@ -110,8 +109,8 @@ const ChartAllExpenses = () => {
 							data={sumOfExpensesByCategory}
 							cx={250}
 							cy={150}
-							innerRadius={60}
-							outerRadius={80}
+							innerRadius={80}
+							outerRadius={100}
 							fill={COLORS[COLORS.length]}
 							dataKey="value"
 							onMouseEnter={onPieEnter}

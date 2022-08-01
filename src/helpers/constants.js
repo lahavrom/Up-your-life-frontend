@@ -9,7 +9,7 @@ export const TEXT_INFO = {
 };
 
 export const SUCCESS_MESSAGES = {
-  SUBMIT_TRANSACTION: "Transaction added successfully!",
+	SUBMIT_TRANSACTION: "Transaction added successfully!",
 };
 
 export const MONTHS = [
@@ -25,6 +25,22 @@ export const MONTHS = [
 	"October",
 	"November",
 	"December",
+];
+
+export const COLORS = [
+	"#D9ED92",
+	"#76C893",
+	"#C60F7B",
+	"#168AAD",
+	"#d89d6a",
+	"#1A759F",
+	"#184E77",
+];
+
+export const FEATURES_LIST = [
+	"Multipal house holders",
+	"Show expenses by categories",
+	"Show incomes by categories",
 ];
 
 export const DAYS_OF_MONTH = [
