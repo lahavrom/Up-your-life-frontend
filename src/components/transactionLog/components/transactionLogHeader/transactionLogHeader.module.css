@@ -9,16 +9,20 @@
 }
 
 .transactionsHeader {
-  grid-template-columns: 0fr 1fr 1fr 1fr 0fr 0fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   display: grid;
-  justify-items: center;
-  margin-right: 1%;
 }
 
-.detailedTransHeader {
+.futureCheckBox {
+  display: flex;
+  align-items: center;
+}
+
+.header {
   margin: 10px;
+  align-self: center;
 }
 
-.iconLike {
-  width: 40px;
+.tableHeaders {
+  margin: 15px;
 }

@@ -83,7 +83,7 @@ const TransactionLog = ({ onEditTransaction }) => {
     <CardsContainer>
       <Card>
         <TransactionLogHeader handleFilter={handleFilter} />
-        <FutureTransactions futureTransactions={filteredFutureTransactions} />
+        {/* <FutureTransactions futureTransactions={filteredFutureTransactions} /> */}
         <ListTransactions
           transactions={filteredTransactions}
           onEditTransaction={onEditTransaction}

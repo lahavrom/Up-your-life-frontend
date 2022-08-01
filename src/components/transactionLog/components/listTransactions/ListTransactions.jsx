@@ -7,17 +7,10 @@ const ListTransactions = ({ transactions, onEditTransaction }) => {
     <ul className={styles.listTransactions}>
       {transactions
         .sort((a, b) => compareDates(a.date, b.date))
-        .map(({ description, value, date, type, category, id, accountId }) => (
-          <li key={id}>
+        .map((transaction) => (
+          <li key={transaction.id}>
             <Transaction
-              description={description}
-              value={value}
-              date={date}
-              type={type}
-              key={description}
-              category={category}
-              id={id}
-              accountId={accountId}
+              transaction={transaction}
               onEditTransaction={onEditTransaction}
             />
           </li>

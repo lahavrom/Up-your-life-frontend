@@ -1,27 +1,28 @@
 import styles from "./transaction.module.css";
 import { Heading, Divider, IconButton } from "monday-ui-react-core";
-import { Add, Remove, Edit, Delete } from "monday-ui-react-core/dist/allIcons";
+import TransactionIcons from "../transactionIcons/TransactionIcons";
+import TransactionAvatar from "../transactionAvatar/TransactionAvatar";
+import { CATEGORY_ICONS } from "../../../../helpers/categoryIcons";
 
-const Transaction = ({
-  description,
-  value,
-  date,
-  type,
-  category,
-  id,
-  accountId,
-  onEditTransaction,
-}) => {
+const Transaction = ({ transaction, onEditTransaction }) => {
+  const { description, value, date, type, category } = transaction;
   return (
     <>
       <div className={styles.transactions}>
-        {type === "Income" ? (
-          <IconButton icon={Add} className={styles.addIcon} />
-        ) : (
-          <IconButton icon={Remove} className={styles.removeIcon} />
-        )}
-        {[date, description, `${value}$`].map((value) => {
-          return (
+        <TransactionAvatar />
+        {[
+          date,
+          category,
+          description,
+          type === "Income" ? `+ ${value}$` : `- ${value}$`,
+        ].map((value, i) => {
+          return i === 1 ? (
+            <IconButton
+              icon={CATEGORY_ICONS[value]}
+              tooltipContent={value}
+              className={styles.categoryIcon}
+            />
+          ) : (
             <Heading
               className={styles.currentTrans}
               customColor={type === "Expense" ? "#d83a52" : "#258750"}
@@ -31,25 +32,8 @@ const Transaction = ({
             />
           );
         })}
-        <IconButton
-          icon={Edit}
-          tooltipContent="Edit Transaction"
-          onClick={() =>
-            onEditTransaction(
-              type,
-              description,
-              value,
-              category,
-              date,
-              id,
-              accountId
-            )
-          }
-        />
-        <IconButton
-          icon={Delete}
-          tooltipContent="Delete Transaction"
-          onClick={() => alert("delete")}
+        <TransactionIcons
+          onEditTransaction={() => onEditTransaction(transaction)}
         />
       </div>
       <Divider />

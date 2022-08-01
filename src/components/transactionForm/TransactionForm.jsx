@@ -32,7 +32,7 @@ const validationSchema = Yup.object().shape({
   effectiveDate: Yup.string().required("Required").label("Date"),
 });
 
-const TransactionForm = ({ type, edit, editParams }) => {
+const TransactionForm = ({ type, isEdit, transactionToEdit }) => {
   const initialValues = {
     isFixed: false,
     category: "",
@@ -42,10 +42,10 @@ const TransactionForm = ({ type, edit, editParams }) => {
     effectiveDate: "",
   };
 
-  if (edit) {
-    initialValues.category = editParams.category;
-    initialValues.description = editParams.description;
-    initialValues.value = editParams.value;
+  if (isEdit) {
+    initialValues.category = transactionToEdit.category;
+    initialValues.description = transactionToEdit.description;
+    initialValues.value = transactionToEdit.value;
   }
   const dispatch = useDispatch();
 
@@ -101,8 +101,11 @@ const TransactionForm = ({ type, edit, editParams }) => {
                   value: category,
                 }))}
                 defaultValue={
-                  edit
-                    ? { label: editParams.category, value: editParams.category }
+                  isEdit
+                    ? {
+                        label: transactionToEdit.category,
+                        value: transactionToEdit.category,
+                      }
                     : false
                 }
                 onChange={(selectedOption) =>
@@ -162,10 +165,10 @@ const TransactionForm = ({ type, edit, editParams }) => {
                     }
                   }}
                   defaultValue={
-                    edit
+                    isEdit
                       ? {
-                          label: getDayFromDate(editParams.date),
-                          value: getDayFromDate(editParams.date),
+                          label: getDayFromDate(transactionToEdit.date),
+                          value: getDayFromDate(transactionToEdit.date),
                         }
                       : false
                   }
@@ -185,7 +188,9 @@ const TransactionForm = ({ type, edit, editParams }) => {
                   size={TextField.sizes.MEDIUM}
                   type={TextField.types.DATE}
                   value={
-                    edit ? toFormDate(editParams.date) : values.effectiveDate
+                    isEdit
+                      ? toFormDate(transactionToEdit.date)
+                      : values.effectiveDate
                   }
                   onChange={(selectedDate) => {
                     setFieldValue("effectiveDate", selectedDate);

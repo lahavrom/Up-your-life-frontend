@@ -30,16 +30,16 @@ const UpYourLifePage = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [transactionType, setTransactionType] = useState(null);
-  const [editParams, setEditParams] = useState({});
-  const [edit, setEdit] = useState(false);
+  const [transactionToEdit, setTransactionToEdit] = useState({});
+  const [isEdit, setIsEdit] = useState(false);
 
-	const onOpenModal = useCallback(() => {
-		setIsModalOpen(true);
-	}, [setIsModalOpen]);
+  const onOpenModal = useCallback(() => {
+    setIsModalOpen(true);
+  }, [setIsModalOpen]);
 
   const onCloseModal = useCallback(() => {
     setIsModalOpen(false);
-    setEdit(false);
+    setIsEdit(false);
   }, [setIsModalOpen]);
 
   const onAddTransaction = useCallback(
@@ -50,14 +50,12 @@ const UpYourLifePage = () => {
     [setTransactionType, onOpenModal]
   );
 
-  const onEditTransaction = useCallback(
-    (type, description, value, category, date, id, accountId) => {
-      setTransactionType(type);
-      setEdit(true);
-      setEditParams({ description, value, category, date, id, accountId });
-      onOpenModal();
-    }
-  );
+  const onEditTransaction = useCallback((transaction) => {
+    setTransactionType(transaction.type);
+    setIsEdit(true);
+    setTransactionToEdit(transaction);
+    onOpenModal();
+  });
 
   const handleFetchData = useCallback(async () => {
     await Promise.all([
@@ -78,12 +76,12 @@ const UpYourLifePage = () => {
       <div className={styles.contentContainer}>
         <Dashboard />
         <TransactionLog onEditTransaction={onEditTransaction} />
-				<AboutComponent />
+        <AboutComponent />
       </div>
       <TransactionFormModal
         type={transactionType}
-        edit={edit}
-        editParams={editParams}
+        isEdit={isEdit}
+        transactionToEdit={transactionToEdit}
         isOpen={isModalOpen}
         onClose={onCloseModal}
       />
