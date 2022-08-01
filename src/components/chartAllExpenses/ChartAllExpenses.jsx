@@ -83,15 +83,18 @@ const ChartAllExpenses = () => {
 	return (
 		<div className={styles.container}>
 			<Heading value="Expenses by catagories" type={Heading.types.h2} />
-			<Heading
-				className={styles.heading}
-				type={Heading.types.h2}
-				value="No Expenses Found"
-				size="small"
-				customColor={"grey"}
-			/>
+
 			{isNoExpenses ? (
-				<img src={magnifyingGlass} className={styles.img} />
+				<>
+					<Heading
+						className={styles.heading}
+						type={Heading.types.h2}
+						value="No Expenses Found"
+						size="small"
+						customColor={"grey"}
+					/>
+					<img src={magnifyingGlass} className={styles.img} />
+				</>
 			) : (
 				<>
 					<Heading
