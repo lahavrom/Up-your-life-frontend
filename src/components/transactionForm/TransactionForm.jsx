@@ -15,17 +15,10 @@ import { submitTransaction } from "../../redux/transactions/actions/submitTransa
 import {
   generateEffectiveDate,
   getDayOfMonth,
+  toFormDate,
+  getDayFromDate,
 } from "../../helpers/dateTimeUtils";
 import styles from "./transactionForm.module.css";
-
-const initialValues = {
-  isFixed: false,
-  category: "",
-  description: "",
-  value: "",
-  dayOfMonth: "",
-  effectiveDate: "",
-};
 
 const validationSchema = Yup.object().shape({
   category: Yup.string().required("Required").label("Category"),
@@ -39,7 +32,21 @@ const validationSchema = Yup.object().shape({
   effectiveDate: Yup.string().required("Required").label("Date"),
 });
 
-const TransactionForm = ({ type }) => {
+const TransactionForm = ({ type, edit, editParams }) => {
+  const initialValues = {
+    isFixed: false,
+    category: "",
+    description: "",
+    value: "",
+    dayOfMonth: "",
+    effectiveDate: "",
+  };
+
+  if (edit) {
+    initialValues.category = editParams.category;
+    initialValues.description = editParams.description;
+    initialValues.value = editParams.value;
+  }
   const dispatch = useDispatch();
 
   const isLoading = useSelector(
@@ -93,6 +100,11 @@ const TransactionForm = ({ type }) => {
                   label: category,
                   value: category,
                 }))}
+                defaultValue={
+                  edit
+                    ? { label: editParams.category, value: editParams.category }
+                    : false
+                }
                 onChange={(selectedOption) =>
                   selectedOption?.value &&
                   setFieldValue("category", selectedOption.value)
@@ -149,6 +161,14 @@ const TransactionForm = ({ type }) => {
                       setFieldValue("effectiveDate", generateEffectiveDate());
                     }
                   }}
+                  defaultValue={
+                    edit
+                      ? {
+                          label: getDayFromDate(editParams.date),
+                          value: getDayFromDate(editParams.date),
+                        }
+                      : false
+                  }
                   onBlur={handleBlur("dayOfMonth")}
                   onClear={() => setFieldValue("dayOfMonth", "")}
                 />
@@ -164,7 +184,9 @@ const TransactionForm = ({ type }) => {
                   id="effectiveDate"
                   size={TextField.sizes.MEDIUM}
                   type={TextField.types.DATE}
-                  value={values.effectiveDate}
+                  value={
+                    edit ? toFormDate(editParams.date) : values.effectiveDate
+                  }
                   onChange={(selectedDate) => {
                     setFieldValue("effectiveDate", selectedDate);
                     setFieldValue("dayOfMonth", getDayOfMonth());

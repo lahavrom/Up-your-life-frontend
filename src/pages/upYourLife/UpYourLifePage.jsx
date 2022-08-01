@@ -30,14 +30,17 @@ const UpYourLifePage = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [transactionType, setTransactionType] = useState(null);
+  const [editParams, setEditParams] = useState({});
+  const [edit, setEdit] = useState(false);
 
 	const onOpenModal = useCallback(() => {
 		setIsModalOpen(true);
 	}, [setIsModalOpen]);
 
-	const onCloseModal = useCallback(() => {
-		setIsModalOpen(false);
-	}, [setIsModalOpen]);
+  const onCloseModal = useCallback(() => {
+    setIsModalOpen(false);
+    setEdit(false);
+  }, [setIsModalOpen]);
 
   const onAddTransaction = useCallback(
     (type) => {
@@ -45,6 +48,15 @@ const UpYourLifePage = () => {
       onOpenModal();
     },
     [setTransactionType, onOpenModal]
+  );
+
+  const onEditTransaction = useCallback(
+    (type, description, value, category, date, id, accountId) => {
+      setTransactionType(type);
+      setEdit(true);
+      setEditParams({ description, value, category, date, id, accountId });
+      onOpenModal();
+    }
   );
 
   const handleFetchData = useCallback(async () => {
@@ -63,18 +75,20 @@ const UpYourLifePage = () => {
       <SuccessToast isVisible={isSuccess} message={successMessage} />
       <ErrorToast isVisible={isError} message={errorMessage} />
       <TopBar onAddTransaction={onAddTransaction} />
-			<div className={styles.contentContainer}>
-				<Dashboard />
-				<TransactionLog />
+      <div className={styles.contentContainer}>
+        <Dashboard />
+        <TransactionLog onEditTransaction={onEditTransaction} />
 				<AboutComponent />
-			</div>
-			<TransactionFormModal
-				type={transactionType}
-				isOpen={isModalOpen}
-				onClose={onCloseModal}
-			/>
-		</div>
-	);
+      </div>
+      <TransactionFormModal
+        type={transactionType}
+        edit={edit}
+        editParams={editParams}
+        isOpen={isModalOpen}
+        onClose={onCloseModal}
+      />
+    </div>
+  );
 };
 
 export default UpYourLifePage;

@@ -2,12 +2,12 @@ import styles from "./listTransactions.module.css";
 import Transaction from "../transaction/Transaction";
 import { compareDates } from "../../../../helpers/dateTimeUtils";
 
-const ListTransactions = ({ transactions }) => {
+const ListTransactions = ({ transactions, onEditTransaction }) => {
   return (
     <ul className={styles.listTransactions}>
       {transactions
         .sort((a, b) => compareDates(a.date, b.date))
-        .map(({ id, description, value, date, type }) => (
+        .map(({ description, value, date, type, category, id, accountId }) => (
           <li key={id}>
             <Transaction
               description={description}
@@ -15,6 +15,10 @@ const ListTransactions = ({ transactions }) => {
               date={date}
               type={type}
               key={description}
+              category={category}
+              id={id}
+              accountId={accountId}
+              onEditTransaction={onEditTransaction}
             />
           </li>
         ))}

@@ -1,8 +1,17 @@
 import styles from "./transaction.module.css";
 import { Heading, Divider, IconButton } from "monday-ui-react-core";
-import { Add, Remove } from "monday-ui-react-core/dist/allIcons";
+import { Add, Remove, Edit, Delete } from "monday-ui-react-core/dist/allIcons";
 
-const Transaction = ({ description, value, date, type }) => {
+const Transaction = ({
+  description,
+  value,
+  date,
+  type,
+  category,
+  id,
+  accountId,
+  onEditTransaction,
+}) => {
   return (
     <>
       <div className={styles.transactions}>
@@ -22,6 +31,26 @@ const Transaction = ({ description, value, date, type }) => {
             />
           );
         })}
+        <IconButton
+          icon={Edit}
+          tooltipContent="Edit Transaction"
+          onClick={() =>
+            onEditTransaction(
+              type,
+              description,
+              value,
+              category,
+              date,
+              id,
+              accountId
+            )
+          }
+        />
+        <IconButton
+          icon={Delete}
+          tooltipContent="Delete Transaction"
+          onClick={() => alert("delete")}
+        />
       </div>
       <Divider />
     </>

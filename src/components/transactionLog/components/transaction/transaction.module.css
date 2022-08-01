@@ -1,6 +1,6 @@
 .transactions {
   grid-auto-flow: row;
-  grid-template-columns: 0fr 1fr 1fr 1fr;
+  grid-template-columns: 0fr 1fr 1fr 1fr 0fr 0fr;
   display: grid;
   justify-items: center;
 }

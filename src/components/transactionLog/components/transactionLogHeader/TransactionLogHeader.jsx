@@ -26,6 +26,7 @@ const TransactionLogHeader = ({ handleFilter }) => {
         />
       </div>
       <div className={styles.transactionsHeader}>
+        <div className={styles.iconLike}></div>
         {["Date", "Description", "Amount"].map((value) => (
           <Heading
             value={value}
@@ -34,6 +35,8 @@ const TransactionLogHeader = ({ handleFilter }) => {
             key={value}
           />
         ))}
+        <div className={styles.iconLike}></div>
+        <div className={styles.iconLike}></div>
       </div>
     </>
   );

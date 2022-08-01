@@ -12,7 +12,7 @@ const filterFutureTransactions = (transactions) => {
   return transactions.filter((elem) => elem.dayOfMonth > new Date().getDate());
 };
 
-const TransactionLog = () => {
+const TransactionLog = ({ onEditTransaction }) => {
   const fixed = useSelector(({ transactionsState }) => transactionsState.fixed);
 
   const account = useSelector(
@@ -76,6 +76,7 @@ const TransactionLog = () => {
 
   useEffect(() => {
     setFilteredTransactions(transactions);
+    setFilteredFutureTransactions(futureTransactions);
   }, [transactions]);
 
   return (
@@ -83,7 +84,10 @@ const TransactionLog = () => {
       <Card>
         <TransactionLogHeader handleFilter={handleFilter} />
         <FutureTransactions futureTransactions={filteredFutureTransactions} />
-        <ListTransactions transactions={filteredTransactions} />
+        <ListTransactions
+          transactions={filteredTransactions}
+          onEditTransaction={onEditTransaction}
+        />
       </Card>
     </CardsContainer>
   );
