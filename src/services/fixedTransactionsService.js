@@ -11,6 +11,14 @@ const submitFixedTransaction = async (values) => {
   }
 };
 
+const editFixedTransaction = async (id, values) => {
+  try {
+    await fixedTransactionsClient.put(`${id}`, values);
+  } catch (error) {
+    throw handleError(error);
+  }
+};
+
 const fetchAllFixedTransactions = async (accountId) => {
   try {
     const { data } = await fixedTransactionsClient.get(`${accountId}`, {
@@ -26,5 +34,6 @@ const fetchAllFixedTransactions = async (accountId) => {
 
 export default {
   submitFixedTransaction,
+  editFixedTransaction,
   fetchAllFixedTransactions,
 };

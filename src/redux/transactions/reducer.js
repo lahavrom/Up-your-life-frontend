@@ -13,6 +13,7 @@ const initialState = {
 const transactionsReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case ACTION_TYPES.SUBMIT_TRANSACTION:
+    case ACTION_TYPES.EDIT_TRANSACTION:
     case ACTION_TYPES.FETCH_ALL_FIXED_TRANSACTIONS:
     case ACTION_TYPES.FETCH_ALL_ACCOUNT_TRANSACTIONS: {
       return {
@@ -38,6 +39,21 @@ const transactionsReducer = (state = initialState, { type, payload }) => {
       };
     }
 
+    case ACTION_TYPES.EDIT_FIXED_TRANSACTION_SUCCESS: {
+      const { id, edittedValues, successMessage } = payload;
+      return {
+        ...state,
+        isLoading: false,
+        isSuccess: true,
+        successMessage,
+        isError: false,
+        errorMessage: "",
+        fixed: state.fixed.map((currFixed) =>
+          currFixed.id === id ? { ...currFixed, ...edittedValues } : currFixed
+        ),
+      };
+    }
+
     case ACTION_TYPES.SUBMIT_ACCOUNT_TRANSACTION_SUCCESS: {
       const { transaction, successMessage } = payload;
       return {
@@ -48,6 +64,23 @@ const transactionsReducer = (state = initialState, { type, payload }) => {
         isError: false,
         errorMessage: "",
         account: [...state.account, transaction],
+      };
+    }
+
+    case ACTION_TYPES.EDIT_ACCOUNT_TRANSACTION_SUCCESS: {
+      const { id, edittedValues, successMessage } = payload;
+      return {
+        ...state,
+        isLoading: false,
+        isSuccess: true,
+        successMessage,
+        isError: false,
+        errorMessage: "",
+        account: state.account.map((currAccount) =>
+          currAccount.id === id
+            ? { ...currAccount, ...edittedValues }
+            : currAccount
+        ),
       };
     }
 
@@ -78,6 +111,7 @@ const transactionsReducer = (state = initialState, { type, payload }) => {
     }
 
     case ACTION_TYPES.SUBMIT_TRANSACTION_FAIL:
+    case ACTION_TYPES.EDIT_TRANSACTION_FAIL:
     case ACTION_TYPES.FETCH_ALL_FIXED_TRANSACTIONS_FAIL:
     case ACTION_TYPES.FETCH_ALL_ACCOUNT_TRANSACTIONS_FAIL: {
       const { errorMessage } = payload;

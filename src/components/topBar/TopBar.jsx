@@ -1,48 +1,34 @@
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Tab, Icon, MenuButton, Menu, MenuItem } from "monday-ui-react-core";
 import {
-	Tab,
-	Icon,
-	MenuButton,
-	Menu,
-	MenuItem,
-	Heading,
-	IconButton,
-} from "monday-ui-react-core";
-import {
-	NavigationChevronLeft,
-	NavigationChevronRight,
-	Download,
-	Upload,
-	Add,
+  NavigationChevronLeft,
+  NavigationChevronRight,
+  Download,
+  Upload,
+  Add,
 	Person,
 } from "monday-ui-react-core/dist/allIcons";
 
+import { changeMonth } from "../../redux/date/actions/changeMonth";
 import logo from "../../../src/assets/logo.png";
-import styles from "./topBar.module.css";
 import { MONTHS } from "../../helpers/constants";
+import styles from "./topBar.module.css";
 
 const TopBar = ({ onAddTransaction }) => {
-	const currentMonth = new Date().getMonth();
-	const [monthSelected, setMonthSelected] = useState(currentMonth);
+  const dispatch = useDispatch();
 
-	const handleAssigneeOnClickRight = () => {
-		setMonthSelected((prev) => {
-			if (prev === MONTHS.length - 1) {
-				return prev;
-			}
-			return prev + 1;
-		});
-	};
+  const selectedMonth = useSelector(({ dateState }) => dateState.month);
 
-	const handleAssigneeOnClickLeft = () => {
-		setMonthSelected((prev) => {
-			if (prev > 0) {
-				return prev - 1;
-			}
-			return 0;
-		});
-	};
+  const handleAssigneeOnClickRight = () => {
+    const newMonth =
+      selectedMonth === MONTHS.length - 1 ? selectedMonth : selectedMonth + 1;
+    dispatch(changeMonth(newMonth));
+  };
 
+  const handleAssigneeOnClickLeft = () => {
+    const newMonth = selectedMonth > 0 ? selectedMonth - 1 : 0;
+    dispatch(changeMonth(newMonth));
+  };
 	return (
 		<div className={styles.topBar}>
 			<span className={styles.heading}>
@@ -64,8 +50,8 @@ const TopBar = ({ onAddTransaction }) => {
 				</span>
 				<Icon
 					iconType={Icon.type.SVG}
-					icon={NavigationChevronRight}
 					iconLabel="arrowRight"
+					icon={NavigationChevronRight}
 					iconSize={20}
 					onClick={handleAssigneeOnClickRight}
 				/>

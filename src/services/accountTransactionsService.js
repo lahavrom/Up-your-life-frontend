@@ -11,6 +11,14 @@ const submitAccountTransaction = async (values) => {
   }
 };
 
+const editAccountTransaction = async (id, values) => {
+  try {
+    await accountTransactionsClient.put(`${id}`, values);
+  } catch (error) {
+    throw handleError(error);
+  }
+};
+
 const fetchAllAccountTransactions = async (accountId) => {
   try {
     const { data } = await accountTransactionsClient.get(`${accountId}`, {
@@ -26,5 +34,6 @@ const fetchAllAccountTransactions = async (accountId) => {
 
 export default {
   submitAccountTransaction,
+  editAccountTransaction,
   fetchAllAccountTransactions,
 };
