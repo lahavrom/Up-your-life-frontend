@@ -1,7 +1,6 @@
 import { fixedTransactionsClient } from "../clients";
 import handleError from "../helpers/errorHandler";
-
-import { STORAGE_KEYS } from "../helpers/constants";
+import { getAuthToken } from "../helpers/authTokenUtils";
 
 const submitFixedTransaction = async (values) => {
   try {
@@ -16,7 +15,7 @@ const fetchAllFixedTransactions = async (accountId) => {
   try {
     const { data } = await fixedTransactionsClient.get(`${accountId}`, {
       headers: {
-        "x-auth-token": localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN),
+        "x-auth-token": getAuthToken(),
       },
     });
     return data;

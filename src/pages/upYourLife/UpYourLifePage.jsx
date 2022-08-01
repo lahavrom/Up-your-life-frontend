@@ -1,6 +1,8 @@
-import { useState, useCallback } from "react";
-import { useSelector } from "react-redux";
+import { useState, useCallback, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
+import { fetchAllFixedTransactions } from "../../redux/transactions/actions/fetchAllFixedTransactions";
+import { fetchAllAccountTransactions } from "../../redux/transactions/actions/fetchAllAccountTransactions";
 import TopBar from "../../components/topBar/TopBar";
 import Dashboard from "../../components/Dashboard";
 import TransactionLog from "../../components/transactionLog/TransactionLog";
@@ -10,6 +12,8 @@ import ErrorToast from "../../components/toasts/ErrorToast";
 import styles from "./upYourLife.module.css";
 
 const UpYourLifePage = () => {
+  const dispatch = useDispatch();
+
   const isSuccess = useSelector(
     ({ transactionsState }) => transactionsState.isSuccess
   );
@@ -41,6 +45,17 @@ const UpYourLifePage = () => {
     },
     [setTransactionType, onOpenModal]
   );
+
+  const handleFetchData = useCallback(async () => {
+    await Promise.all([
+      dispatch(fetchAllFixedTransactions()),
+      dispatch(fetchAllAccountTransactions()),
+    ]);
+  }, [dispatch]);
+
+  useEffect(() => {
+    handleFetchData();
+  }, [handleFetchData]);
 
   return (
     <div className={styles.container}>

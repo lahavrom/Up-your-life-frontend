@@ -1,29 +1,26 @@
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import AuthRoutes from "./routes/AuthRoutes";
-import UpYourLifePage from "./pages/upYourLife/UpYourLifePage";
-import { initialize } from "./redux/app/actions/initialize";
+import { getAuthToken } from "./helpers/authTokenUtils";
+import { fetchUser } from "./redux/users/actions/fetchUser";
+import AppRouter from "./routes/AppRouter";
+import ErrorToast from "./components/toasts/ErrorToast";
+
+const token = getAuthToken();
 
 const App = () => {
   const dispatch = useDispatch();
 
-  const isLoading = useSelector(({ appState }) => appState.isLoading);
-  const isReady = useSelector(({ appState }) => appState.isReady);
+  const isError = useSelector(({ usersState }) => usersState.isError);
+  const errorMessage = useSelector(({ usersState }) => usersState.errorMessage);
 
-  useEffect(() => {
-    dispatch(initialize());
-  }, [dispatch]);
+  if (token) {
+    dispatch(fetchUser());
+  }
 
   return (
     <>
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : isReady ? (
-        <UpYourLifePage />
-      ) : (
-        <AuthRoutes />
-      )}
+      <ErrorToast isVisible={isError} message={errorMessage} />
+      <AppRouter />
     </>
   );
 };

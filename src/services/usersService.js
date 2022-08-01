@@ -1,7 +1,6 @@
 import { usersClient } from "../clients";
 import handleError from "../helpers/errorHandler";
-
-import { STORAGE_KEYS } from "../helpers/constants";
+import { getAuthToken } from "../helpers/authTokenUtils";
 
 const registerUser = async (values) => {
   try {
@@ -31,7 +30,7 @@ const fetchUser = async () => {
   try {
     const { data } = await usersClient.get("/me", {
       headers: {
-        "x-auth-token": localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN),
+        "x-auth-token": getAuthToken(),
       },
     });
     return data;

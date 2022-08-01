@@ -39,7 +39,3 @@ export const CATEGORIES = {
   SHOPPING: "Shopping",
   VACATION: "Vacation",
 };
-
-export const STORAGE_KEYS = {
-  AUTH_TOKEN: "AUTH_TOKEN",
-};
