@@ -12,12 +12,24 @@ export const makeDateFromDay = (day, month) => {
   return `${outDay}/${outMonth}/${new Date().getFullYear()}`;
 };
 
+export const generateNowTimeStamp = () => {
+  return new Date().valueOf();
+};
+
 export const generateEffectiveDate = () => {
   const today = new Date();
   const day = today.getDate();
   const month = today.getMonth() + 1;
   const year = today.getFullYear();
   return `${year}-${month < 10 ? `0${month}` : month}-${day}`;
+};
+
+export const getCurrentMonth = () => {
+  return new Date().getMonth();
+};
+
+export const getMonthFromTimestamp = (timestamp) => {
+  return new Date(timestamp).getMonth();
 };
 
 export const getDayOfMonth = () => {

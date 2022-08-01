@@ -4,8 +4,24 @@ import { getAuthToken } from "../helpers/authTokenUtils";
 
 const submitAccountTransaction = async (values) => {
   try {
-    const { data } = await accountTransactionsClient.post("", values);
+    const { data } = await accountTransactionsClient.post("", values, {
+      headers: {
+        "x-auth-token": getAuthToken(),
+      },
+    });
     return data;
+  } catch (error) {
+    throw handleError(error);
+  }
+};
+
+const editAccountTransaction = async (id, values) => {
+  try {
+    await accountTransactionsClient.put(`${id}`, values, {
+      headers: {
+        "x-auth-token": getAuthToken(),
+      },
+    });
   } catch (error) {
     throw handleError(error);
   }
@@ -26,5 +42,6 @@ const fetchAllAccountTransactions = async (accountId) => {
 
 export default {
   submitAccountTransaction,
+  editAccountTransaction,
   fetchAllAccountTransactions,
 };
