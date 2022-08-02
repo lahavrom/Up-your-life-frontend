@@ -1,8 +1,13 @@
 import { useMemo } from "react";
-import { Heading, Dropdown } from "monday-ui-react-core";
+import { Heading, Dropdown, Checkbox, IconButton } from "monday-ui-react-core";
+import { Info } from "monday-ui-react-core/dist/allIcons";
 import styles from "./transactionLogHeader.module.css";
 
-const TransactionLogHeader = ({ handleFilter }) => {
+const TransactionLogHeader = ({
+  handleFilter,
+  showFutureTransactions,
+  setShowFutureTransactions,
+}) => {
   const options = useMemo(
     () => [
       { value: "all", label: "Show All" },
@@ -14,8 +19,12 @@ const TransactionLogHeader = ({ handleFilter }) => {
 
   return (
     <>
+      <Heading
+        value="Transactions"
+        type={Heading.types.h3}
+        className={styles.header}
+      />
       <div className={styles.cardHeader}>
-        <Heading value="Transactions" type={Heading.types.h3} />
         <Dropdown
           clearable={false}
           className={styles.filter}
@@ -24,16 +33,17 @@ const TransactionLogHeader = ({ handleFilter }) => {
           searchable={false}
           onChange={(value) => handleFilter(value.value)}
         />
-      </div>
-      <div className={styles.transactionsHeader}>
-        {["Date", "Description", "Amount"].map((value) => (
-          <Heading
-            value={value}
-            type={Heading.types.h4}
-            className={styles.detailedTransHeader}
-            key={value}
+        <div className={styles.futureCheckBox}>
+          <IconButton
+            icon={Info}
+            ariaLabel="check the box to show future incomes and expenses"
+            size={IconButton.sizes.SMALL}
           />
-        ))}
+          <Checkbox
+            label="Future Transactions"
+            onChange={() => setShowFutureTransactions(!showFutureTransactions)}
+          />
+        </div>
       </div>
     </>
   );

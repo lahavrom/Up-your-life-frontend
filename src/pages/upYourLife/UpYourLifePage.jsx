@@ -30,14 +30,17 @@ const UpYourLifePage = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [transactionType, setTransactionType] = useState(null);
+  const [transactionToEdit, setTransactionToEdit] = useState({});
+  const [isEdit, setIsEdit] = useState(false);
 
-	const onOpenModal = useCallback(() => {
-		setIsModalOpen(true);
-	}, [setIsModalOpen]);
+  const onOpenModal = useCallback(() => {
+    setIsModalOpen(true);
+  }, [setIsModalOpen]);
 
-	const onCloseModal = useCallback(() => {
-		setIsModalOpen(false);
-	}, [setIsModalOpen]);
+  const onCloseModal = useCallback(() => {
+    setIsModalOpen(false);
+    setIsEdit(false);
+  }, [setIsModalOpen]);
 
   const onAddTransaction = useCallback(
     (type) => {
@@ -46,6 +49,13 @@ const UpYourLifePage = () => {
     },
     [setTransactionType, onOpenModal]
   );
+
+  const onEditTransaction = useCallback((transaction) => {
+    setTransactionType(transaction.type);
+    setIsEdit(true);
+    setTransactionToEdit(transaction);
+    onOpenModal();
+  });
 
   const handleFetchData = useCallback(async () => {
     await Promise.all([
@@ -63,18 +73,20 @@ const UpYourLifePage = () => {
       <SuccessToast isVisible={isSuccess} message={successMessage} />
       <ErrorToast isVisible={isError} message={errorMessage} />
       <TopBar onAddTransaction={onAddTransaction} />
-			<div className={styles.contentContainer}>
-				<Dashboard />
-				<TransactionLog />
-				<AboutComponent />
-			</div>
-			<TransactionFormModal
-				type={transactionType}
-				isOpen={isModalOpen}
-				onClose={onCloseModal}
-			/>
-		</div>
-	);
+      <div className={styles.contentContainer}>
+        <Dashboard />
+        <TransactionLog onEditTransaction={onEditTransaction} />
+        <AboutComponent />
+      </div>
+      <TransactionFormModal
+        type={transactionType}
+        isEdit={isEdit}
+        transactionToEdit={transactionToEdit}
+        isOpen={isModalOpen}
+        onClose={onCloseModal}
+      />
+    </div>
+  );
 };
 
 export default UpYourLifePage;

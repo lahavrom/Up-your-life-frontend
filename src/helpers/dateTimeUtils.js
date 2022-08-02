@@ -45,3 +45,19 @@ export const compareDates = (a, b) => {
     parseInt(bDate[0]) + bDate[1] * 31 - (parseInt(aDate[0]) + aDate[1] * 31)
   );
 };
+
+// transform date from "01/08/2022" format into "2022-08-01" format
+export const toFormDate = (date) => {
+  const d = date.split("/");
+  return `${d[2]}-${d[1]}-${d[0]}`;
+};
+
+// return the day of the date in format "01/08/2022"
+export const getDayFromDate = (date) => {
+  return parseInt(date.split("/")[0]);
+};
+
+// return as int the month from this format "01/08/2022"
+export const getMonth = (date) => {
+  return parseInt(date.split("/")[1]);
+};
