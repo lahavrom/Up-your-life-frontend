@@ -1,65 +1,20 @@
-import { useCallback, useState, useMemo } from "react";
+import { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 import { PieChart, Pie, Cell, Sector } from "recharts";
 import { Heading } from "monday-ui-react-core";
 
 import magnifyingGlass from "../../assets/magnifying-glass.png";
-import { COLORS, CATEGORIES } from "../../helpers/constants";
-import { selectCurrentMonthExpenses } from "../../redux/transactions/selectors/selectCurrentMonthExpenses";
+import { COLORS } from "../../helpers/constants";
+import { currentMonthAccountExpensesSumsByCategory } from "../../redux/transactions/selectors/selectAccountTransactions";
 import styles from "./expensesPieChart.module.css";
 
-const calculateOfFixedEvents = (currentMonthExpenses) => {
-  const sumOfExpensesByCategory = {
-    Food: 0,
-    Rent: 0,
-    Construction: 0,
-    Shopping: 0,
-    Pets: 0,
-    Vacation: 0,
-    Car: 0,
-    School: 0,
-    Other: 0,
-  };
-
-  currentMonthExpenses.forEach(({ category, value }) => {
-    if (category === "Food") {
-      sumOfExpensesByCategory[category] += value;
-    } else if (category === "Rent") {
-      sumOfExpensesByCategory[category] += value;
-    } else if (category === "Construction") {
-      sumOfExpensesByCategory[category] += value;
-    } else if (category === "Shopping") {
-      sumOfExpensesByCategory[category] += value;
-    } else if (category === "Pets") {
-      sumOfExpensesByCategory[category] += value;
-    } else if (category === "Car") {
-      sumOfExpensesByCategory[category] += value;
-    } else if (category === "Vacation") {
-      sumOfExpensesByCategory[category] += value;
-    } else if (category === "School") {
-      sumOfExpensesByCategory[category] += value;
-    } else if (category === "Other") {
-      sumOfExpensesByCategory[category] += value;
-    }
-  });
-
-  let arr = [];
-  for (const [key, value] of Object.entries(sumOfExpensesByCategory)) {
-    arr.push({ name: key, value });
-  }
-
-  return arr;
-};
-
 const ExpensesPieChart = () => {
-  const currentMonthExpenses = useSelector(selectCurrentMonthExpenses);
-
-  const sumOfExpensesByCategory = useMemo(
-    () => calculateOfFixedEvents(currentMonthExpenses),
-    [currentMonthExpenses]
+  const currentMonthExpensesSumsByCategory = useSelector(
+    currentMonthAccountExpensesSumsByCategory
   );
 
   const [activeIndex, setActiveIndex] = useState(0);
+
   const onPieEnter = useCallback(
     (_, index) => {
       setActiveIndex(index);
@@ -70,7 +25,7 @@ const ExpensesPieChart = () => {
   return (
     <div className={styles.container}>
       <Heading value="Expenses by catagories" type={Heading.types.h2} />
-      {!currentMonthExpenses.length ? (
+      {!currentMonthExpensesSumsByCategory.length ? (
         <>
           <Heading
             className={styles.heading}
@@ -93,7 +48,7 @@ const ExpensesPieChart = () => {
             <Pie
               activeIndex={activeIndex}
               activeShape={renderActiveShape}
-              data={sumOfExpensesByCategory}
+              data={currentMonthExpensesSumsByCategory}
               cx={250}
               cy={150}
               innerRadius={60}
@@ -102,7 +57,7 @@ const ExpensesPieChart = () => {
               dataKey="value"
               onMouseEnter={onPieEnter}
             >
-              {sumOfExpensesByCategory.map((_, index) => (
+              {currentMonthExpensesSumsByCategory.map((_, index) => (
                 <Cell
                   key={`cell-${index}`}
                   fill={COLORS[index % COLORS.length]}
