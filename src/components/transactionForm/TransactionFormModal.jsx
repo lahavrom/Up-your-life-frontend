@@ -2,6 +2,7 @@ import { Heading } from "monday-ui-react-core";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
+import styles from "./transactionFormModal.module.css";
 import Modal from "../modal/Modal";
 import TransactionForm from "./TransactionForm";
 
@@ -24,7 +25,11 @@ const TransactionFormModal = ({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <Heading value={`${type} transaction`} type={Heading.types.h4} />
+      <Heading
+        value={`${type} transaction`}
+        type={Heading.types.h4}
+        className={styles.formHeader}
+      />
       <TransactionForm
         type={type}
         isEdit={isEdit}

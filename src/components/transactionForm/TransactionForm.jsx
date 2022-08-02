@@ -50,11 +50,11 @@ const TransactionForm = ({ type, isEdit, transactionToEdit }) => {
     initialValues.description = transactionToEdit.description;
     initialValues.value = transactionToEdit.value;
     initialValues.dayOfMonth = transactionToEdit.dayOfMonth
-      ? transactionToEdit.dayOfMonth
-      : "";
+      ? parseInt(transactionToEdit.dayOfMonth)
+      : 1;
     initialValues.effectiveDate = transactionToEdit.effectiveDate
       ? toFormDate(makeDateTimestamp(transactionToEdit.effectiveDate))
-      : "";
+      : "2022-01-01";
   }
 
   const dispatch = useDispatch();
@@ -99,17 +99,6 @@ const TransactionForm = ({ type, isEdit, transactionToEdit }) => {
       }) => (
         <form onSubmit={handleSubmit}>
           <Flex gap={Flex.gaps.SMALL} direction={Flex.directions.COLUMN}>
-            {/** is fixed */}
-            <Checkbox
-              className={styles.checkbox}
-              label={`Recurrence ${type}`}
-              checked={values.isFixed}
-              onChange={({ target }) => {
-                setFieldValue("isFixed", target.checked);
-                setFieldValue("dayOfMonth", "");
-                setFieldValue("effectiveDate", "");
-              }}
-            />
             {/** category */}
             <>
               <Dropdown
@@ -225,6 +214,17 @@ const TransactionForm = ({ type, isEdit, transactionToEdit }) => {
                 )}
               </>
             )}
+            {/** is fixed */}
+            <Checkbox
+              className={styles.checkbox}
+              label={`Recurrence ${type}`}
+              checked={values.isFixed}
+              onChange={({ target }) => {
+                setFieldValue("isFixed", target.checked);
+                setFieldValue("dayOfMonth", "");
+                setFieldValue("effectiveDate", "");
+              }}
+            />
             {/** submit */}
             <Button
               className={styles.submitButton}

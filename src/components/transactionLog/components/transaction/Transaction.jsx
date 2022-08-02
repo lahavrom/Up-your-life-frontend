@@ -3,17 +3,9 @@ import { Heading, IconButton } from "monday-ui-react-core";
 import TransactionIcons from "../transactionIcons/TransactionIcons";
 import TransactionAvatar from "../transactionAvatar/TransactionAvatar";
 import { CATEGORY_ICONS } from "../../../../helpers/categoryIcons";
-import {
-  makeDateFromDay,
-  makeDateTimestamp,
-} from "../../../../helpers/dateTimeUtils";
-import { useSelector } from "react-redux";
 
 const Transaction = ({ transaction, onEditTransaction }) => {
-  const selectedMonth = useSelector(({ dateState }) => dateState.month);
-
-  const { description, value, type, category, dayOfMonth, effectiveDate } =
-    transaction;
+  const { description, value, type, category, date } = transaction;
 
   return (
     <>
@@ -23,11 +15,7 @@ const Transaction = ({ transaction, onEditTransaction }) => {
       <td>
         <Heading
           className={styles.currentTrans}
-          value={
-            dayOfMonth
-              ? makeDateFromDay(dayOfMonth, selectedMonth + 1)
-              : makeDateTimestamp(effectiveDate)
-          }
+          value={date}
           type={Heading.types.h5}
           key={value}
         />
