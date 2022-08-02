@@ -13,24 +13,14 @@ const TransactionAvatar = (userId) => {
   const [newUserPhoto, setNewUserPhoto] = useState(userPhoto);
   const [photo, setPhoto] = useState(userPhoto);
 
-  const convertToBase64 = (file) => {
-    return new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        resolve(reader.result);
-      };
-    });
-  };
-
   const uploadImage = async () => {
     setNewUserPhoto(URL.createObjectURL(inputImage.current.files[0]));
     setPhoto(true);
-    const convertedFile = await convertToBase64(newUserPhoto);
+    const formData = new FormData();
+    formData.append("image", inputImage.current.files[0], userId);
 
-    await axios.post("localhost:3001/users/upload-image", {
-      image: convertedFile,
-      imageName: userId,
+    await axios.post("http://localhost:3001/users/upload-image", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
     });
   };
 
@@ -40,7 +30,9 @@ const TransactionAvatar = (userId) => {
         type="file"
         ref={inputImage}
         style={{ display: "none" }}
-        onChange={() => uploadImage()}
+        onChange={() => {
+          uploadImage();
+        }}
       />
       <Avatar
         onClick={() => inputImage.current.click()}
