@@ -2,6 +2,7 @@ import { fixedTransactionsClient } from "../clients";
 import handleError from "../helpers/errorHandler";
 import { getAuthToken } from "../helpers/authTokenUtils";
 
+// submit
 const submitFixedTransaction = async (values) => {
   try {
     const { data } = await fixedTransactionsClient.post("", values, {
@@ -15,6 +16,7 @@ const submitFixedTransaction = async (values) => {
   }
 };
 
+// edit
 const editFixedTransaction = async (id, values) => {
   try {
     await fixedTransactionsClient.put(`${id}`, values, {
@@ -27,6 +29,24 @@ const editFixedTransaction = async (id, values) => {
   }
 };
 
+// delete
+const deleteFixedTransaction = async (id) => {
+  try {
+    await fixedTransactionsClient.patch(
+      `${id}`,
+      { status: "deleted" },
+      {
+        headers: {
+          "x-auth-token": getAuthToken(),
+        },
+      }
+    );
+  } catch (error) {
+    throw handleError(error);
+  }
+};
+
+// fetch all
 const fetchAllFixedTransactions = async (accountId) => {
   try {
     const { data } = await fixedTransactionsClient.get(`${accountId}`, {
@@ -43,5 +63,6 @@ const fetchAllFixedTransactions = async (accountId) => {
 export default {
   submitFixedTransaction,
   editFixedTransaction,
+  deleteFixedTransaction,
   fetchAllFixedTransactions,
 };
