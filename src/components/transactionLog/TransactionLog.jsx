@@ -1,18 +1,26 @@
 import { useState, useMemo, useEffect } from "react";
 import { useSelector } from "react-redux";
 
-import { makeDateTimestamp } from "../../helpers/dateTimeUtils";
+import { Heading } from "monday-ui-react-core";
+import magnifyingGlass from "../../assets/magnifying-glass.png";
+import styles from "./transactionLog.module.css";
+import {
+  makeDateTimestamp,
+  getMonth,
+  makeDateFromDay,
+} from "../../helpers/dateTimeUtils";
 import CardsContainer from "../cardsContainer/CardsContainer";
 import Card from "../card/Card";
 import TransactionLogHeader from "./components/transactionLogHeader/TransactionLogHeader";
-import FutureTransactions from "./components/futureTransactions/FutureTransactions";
-import ListTransactions from "./components/listTransactions/ListTransactions";
+import TableTransactions from "./components/tableTransactions/TableTransactions";
 
 const filterFutureTransactions = (transactions) => {
   return transactions.filter((elem) => elem.dayOfMonth > new Date().getDate());
 };
 
-const TransactionLog = () => {
+const TransactionLog = ({ onEditTransaction }) => {
+  const selectedMonth = useSelector(({ dateState }) => dateState.month);
+
   const fixed = useSelector(({ transactionsState }) => transactionsState.fixed);
 
   const account = useSelector(
@@ -23,6 +31,7 @@ const TransactionLog = () => {
   const [filteredFutureTransactions, setFilteredFutureTransactions] = useState(
     []
   );
+  const [showFutureTransactions, setShowFutureTransactions] = useState(false);
 
   const futureTransactions = useMemo(
     () =>
@@ -30,13 +39,11 @@ const TransactionLog = () => {
         fixed.map((elem) => {
           return {
             ...elem,
-            date: `${elem.dayOfMonth}/${
-              new Date().getMonth() + 1
-            }/${new Date().getFullYear()}`,
+            date: makeDateFromDay(elem.dayOfMonth, selectedMonth + 1),
           };
         })
       ),
-    [fixed]
+    [fixed, selectedMonth]
   );
 
   const transactions = useMemo(
@@ -46,16 +53,16 @@ const TransactionLog = () => {
         .map((elem) => {
           return {
             ...elem,
-            date: `${elem.dayOfMonth}/${
-              new Date().getMonth() + 1
-            }/${new Date().getFullYear()}`,
+            date: makeDateFromDay(elem.dayOfMonth, selectedMonth + 1),
           };
         }),
-      ...account.map((elem) => {
-        return { ...elem, date: makeDateTimestamp(elem.effectiveDate) };
-      }),
+      ...account
+        .map((elem) => {
+          return { ...elem, date: makeDateTimestamp(elem.effectiveDate) };
+        })
+        .filter((elem) => getMonth(elem.date) === selectedMonth + 1),
     ],
-    [fixed, account]
+    [fixed, account, selectedMonth]
   );
 
   const handleFilter = (value) => {
@@ -76,14 +83,47 @@ const TransactionLog = () => {
 
   useEffect(() => {
     setFilteredTransactions(transactions);
-  }, [transactions]);
+    setFilteredFutureTransactions(futureTransactions);
+  }, [transactions, futureTransactions]);
+
+  const noTransactionsToShow = () => {
+    if (filteredTransactions.length === 0) {
+      if (!showFutureTransactions || filteredFutureTransactions.length === 0) {
+        return true;
+      }
+    }
+    return false;
+  };
 
   return (
     <CardsContainer>
       <Card>
-        <TransactionLogHeader handleFilter={handleFilter} />
-        <FutureTransactions futureTransactions={filteredFutureTransactions} />
-        <ListTransactions transactions={filteredTransactions} />
+        <div className={styles.transactionLogCard}>
+          <TransactionLogHeader
+            handleFilter={handleFilter}
+            showFutureTransactions={showFutureTransactions}
+            setShowFutureTransactions={setShowFutureTransactions}
+          />
+          {noTransactionsToShow() ? (
+            <>
+              <Heading
+                type={Heading.types.h2}
+                value="no relevant data found"
+                size="small"
+                customColor={"grey"}
+              />
+              <img src={magnifyingGlass} className={styles.img} alt="" />
+            </>
+          ) : (
+            <TableTransactions
+              transactions={filteredTransactions}
+              futureTransactions={
+                showFutureTransactions ? filteredFutureTransactions : []
+              }
+              onEditTransaction={onEditTransaction}
+            />
+          )}
+        </div>
       </Card>
     </CardsContainer>
   );

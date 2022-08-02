@@ -1,15 +1,17 @@
 import axios from "axios";
 
+const API_URL = "http://localhost:3001";
+
 const usersClient = axios.create({
-  baseURL: "http://localhost:3001/users",
+  baseURL: `${API_URL}/users`,
 });
 
 const accountTransactionsClient = axios.create({
-  baseURL: "http://localhost:3001/account-transactions",
+  baseURL: `${API_URL}/account-transactions`,
 });
 
 const fixedTransactionsClient = axios.create({
-  baseURL: "http://localhost:3001/fixed-transactions",
+  baseURL: `${API_URL}/fixed-transactions`,
 });
 
 export { usersClient, accountTransactionsClient, fixedTransactionsClient };

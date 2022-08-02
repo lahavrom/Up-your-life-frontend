@@ -12,20 +12,15 @@ import * as Yup from "yup";
 
 import { CATEGORIES, DAYS_OF_MONTH } from "../../helpers/constants";
 import { submitTransaction } from "../../redux/transactions/actions/submitTransaction";
+import { editTransaction } from "../../redux/transactions/actions/editTransaction";
 import {
   generateEffectiveDate,
   getDayOfMonth,
+  toFormDate,
+  getDayFromDate,
+  makeDateTimestamp,
 } from "../../helpers/dateTimeUtils";
 import styles from "./transactionForm.module.css";
-
-const initialValues = {
-  isFixed: false,
-  category: "",
-  description: "",
-  value: "",
-  dayOfMonth: "",
-  effectiveDate: "",
-};
 
 const validationSchema = Yup.object().shape({
   category: Yup.string().required("Required").label("Category"),
@@ -39,7 +34,29 @@ const validationSchema = Yup.object().shape({
   effectiveDate: Yup.string().required("Required").label("Date"),
 });
 
-const TransactionForm = ({ type }) => {
+const TransactionForm = ({ type, isEdit, transactionToEdit }) => {
+  const initialValues = {
+    isFixed: false,
+    category: "",
+    description: "",
+    value: "",
+    dayOfMonth: "",
+    effectiveDate: "",
+  };
+
+  if (isEdit) {
+    initialValues.isFixed = transactionToEdit.dayOfMonth ? true : false;
+    initialValues.category = transactionToEdit.category;
+    initialValues.description = transactionToEdit.description;
+    initialValues.value = transactionToEdit.value;
+    initialValues.dayOfMonth = transactionToEdit.dayOfMonth
+      ? parseInt(transactionToEdit.dayOfMonth)
+      : 1;
+    initialValues.effectiveDate = transactionToEdit.effectiveDate
+      ? toFormDate(makeDateTimestamp(transactionToEdit.effectiveDate))
+      : "2022-01-01";
+  }
+
   const dispatch = useDispatch();
 
   const isLoading = useSelector(
@@ -48,9 +65,19 @@ const TransactionForm = ({ type }) => {
 
   const onSubmitTransaction = useCallback(
     (values) => {
-      dispatch(
-        submitTransaction(type, { ...values, value: parseFloat(values.value) })
-      );
+      isEdit
+        ? dispatch(
+            editTransaction(transactionToEdit.id, {
+              ...values,
+              value: parseFloat(values.value),
+            })
+          )
+        : dispatch(
+            submitTransaction(type, {
+              ...values,
+              value: parseFloat(values.value),
+            })
+          );
     },
     [dispatch, type]
   );
@@ -72,17 +99,6 @@ const TransactionForm = ({ type }) => {
       }) => (
         <form onSubmit={handleSubmit}>
           <Flex gap={Flex.gaps.SMALL} direction={Flex.directions.COLUMN}>
-            {/** is fixed */}
-            <Checkbox
-              className={styles.checkbox}
-              label="Fixed"
-              checked={values.isFixed}
-              onChange={({ target }) => {
-                setFieldValue("isFixed", target.checked);
-                setFieldValue("dayOfMonth", "");
-                setFieldValue("effectiveDate", "");
-              }}
-            />
             {/** category */}
             <>
               <Dropdown
@@ -93,6 +109,14 @@ const TransactionForm = ({ type }) => {
                   label: category,
                   value: category,
                 }))}
+                defaultValue={
+                  isEdit
+                    ? {
+                        label: transactionToEdit.category,
+                        value: transactionToEdit.category,
+                      }
+                    : false
+                }
                 onChange={(selectedOption) =>
                   selectedOption?.value &&
                   setFieldValue("category", selectedOption.value)
@@ -149,6 +173,14 @@ const TransactionForm = ({ type }) => {
                       setFieldValue("effectiveDate", generateEffectiveDate());
                     }
                   }}
+                  defaultValue={
+                    isEdit
+                      ? {
+                          label: getDayFromDate(transactionToEdit.date),
+                          value: getDayFromDate(transactionToEdit.date),
+                        }
+                      : false
+                  }
                   onBlur={handleBlur("dayOfMonth")}
                   onClear={() => setFieldValue("dayOfMonth", "")}
                 />
@@ -164,7 +196,11 @@ const TransactionForm = ({ type }) => {
                   id="effectiveDate"
                   size={TextField.sizes.MEDIUM}
                   type={TextField.types.DATE}
-                  value={values.effectiveDate}
+                  value={
+                    isEdit
+                      ? toFormDate(transactionToEdit.date)
+                      : values.effectiveDate
+                  }
                   onChange={(selectedDate) => {
                     setFieldValue("effectiveDate", selectedDate);
                     setFieldValue("dayOfMonth", getDayOfMonth());
@@ -178,6 +214,17 @@ const TransactionForm = ({ type }) => {
                 )}
               </>
             )}
+            {/** is fixed */}
+            <Checkbox
+              className={styles.checkbox}
+              label={`Recurrence ${type}`}
+              checked={values.isFixed}
+              onChange={({ target }) => {
+                setFieldValue("isFixed", target.checked);
+                setFieldValue("dayOfMonth", "");
+                setFieldValue("effectiveDate", "");
+              }}
+            />
             {/** submit */}
             <Button
               className={styles.submitButton}

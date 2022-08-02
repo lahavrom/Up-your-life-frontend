@@ -1,29 +1,54 @@
 import styles from "./transaction.module.css";
-import { Heading, Divider, IconButton } from "monday-ui-react-core";
-import { Add, Remove } from "monday-ui-react-core/dist/allIcons";
+import { Heading, IconButton } from "monday-ui-react-core";
+import TransactionIcons from "../transactionIcons/TransactionIcons";
+import TransactionAvatar from "../transactionAvatar/TransactionAvatar";
+import { CATEGORY_ICONS } from "../../../../helpers/categoryIcons";
 
-const Transaction = ({ description, value, date, type }) => {
+const Transaction = ({ transaction, onEditTransaction }) => {
+  const { description, value, type, category, date } = transaction;
+
   return (
     <>
-      <div className={styles.transactions}>
-        {type === "Income" ? (
-          <IconButton icon={Add} className={styles.addIcon} />
-        ) : (
-          <IconButton icon={Remove} className={styles.removeIcon} />
-        )}
-        {[date, description, `${value}$`].map((value) => {
-          return (
-            <Heading
-              className={styles.currentTrans}
-              customColor={type === "Expense" ? "#d83a52" : "#258750"}
-              value={value}
-              type={Heading.types.h5}
-              key={value}
-            />
-          );
-        })}
-      </div>
-      <Divider />
+      <td>
+        <TransactionAvatar />
+      </td>
+      <td>
+        <Heading
+          className={styles.currentTrans}
+          value={date}
+          type={Heading.types.h5}
+          key={value}
+        />
+      </td>
+      <td>
+        <IconButton
+          icon={CATEGORY_ICONS[category]}
+          tooltipContent={category}
+          className={styles.categoryIcon}
+        />
+      </td>
+      <td>
+        <Heading
+          className={styles.currentTrans}
+          value={description}
+          type={Heading.types.h5}
+          key={value}
+        />
+      </td>
+      <td>
+        <Heading
+          className={styles.currentTrans}
+          customColor={type === "Expense" ? "#d83a52" : "#258750"}
+          value={type === "Income" ? `+ ${value}$` : `- ${value}$`}
+          type={Heading.types.h5}
+          key={value}
+        />
+      </td>
+      <td className={styles.icons}>
+        <TransactionIcons
+          onEditTransaction={() => onEditTransaction(transaction)}
+        />
+      </td>
     </>
   );
 };

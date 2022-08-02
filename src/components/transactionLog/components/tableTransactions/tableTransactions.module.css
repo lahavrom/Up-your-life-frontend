@@ -1,0 +1,57 @@
+.table {
+  border-collapse: collapse;
+}
+
+.header {
+  border-bottom: 1px solid #d0d4e4;
+}
+
+.tableHeaders {
+  margin: 5px 0 5px 0;
+}
+
+.mock {
+  width: 140px;
+}
+
+.tableBody {
+  text-align: -webkit-center;
+  min-height: 400px;
+}
+
+.row {
+  border-bottom: 1px solid #d0d4e4;
+}
+
+.row:hover {
+  background-color: #dcdfec;
+}
+
+tbody {
+  display: block;
+  max-height: 350px;
+  overflow-y: scroll;
+}
+thead,
+tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.futureTransaction {
+  background-color: #dcdfec45;
+  animation-name: fadeInOpacity;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 0.3s;
+}
+
+@keyframes fadeInOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
