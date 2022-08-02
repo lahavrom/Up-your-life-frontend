@@ -3,7 +3,11 @@ import { Heading } from "monday-ui-react-core";
 import Transaction from "../transaction/Transaction";
 import { compareDates } from "../../../../helpers/dateTimeUtils";
 
-const TableTransactions = ({ transactions, onEditTransaction }) => {
+const TableTransactions = ({
+  transactions,
+  futureTransactions,
+  onEditTransaction,
+}) => {
   return (
     <table className={styles.table}>
       <thead className={styles.header}>
@@ -23,6 +27,19 @@ const TableTransactions = ({ transactions, onEditTransaction }) => {
         </tr>
       </thead>
       <tbody className={styles.tableBody}>
+        {futureTransactions
+          .sort((a, b) => compareDates(a.date, b.date))
+          .map((transaction) => (
+            <tr
+              key={transaction.id}
+              className={`${styles.row} ${styles.futureTransaction}`}
+            >
+              <Transaction
+                transaction={transaction}
+                onEditTransaction={onEditTransaction}
+              />
+            </tr>
+          ))}
         {transactions
           .sort((a, b) => compareDates(a.date, b.date))
           .map((transaction) => (

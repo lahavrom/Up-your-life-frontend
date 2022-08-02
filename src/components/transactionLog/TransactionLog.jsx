@@ -12,7 +12,6 @@ import {
 import CardsContainer from "../cardsContainer/CardsContainer";
 import Card from "../card/Card";
 import TransactionLogHeader from "./components/transactionLogHeader/TransactionLogHeader";
-// import FutureTransactions from "./components/futureTransactions/FutureTransactions";
 import TableTransactions from "./components/tableTransactions/TableTransactions";
 
 const filterFutureTransactions = (transactions) => {
@@ -32,10 +31,19 @@ const TransactionLog = ({ onEditTransaction }) => {
   const [filteredFutureTransactions, setFilteredFutureTransactions] = useState(
     []
   );
+  const [showFutureTransactions, setShowFutureTransactions] = useState(false);
 
   const futureTransactions = useMemo(
-    () => filterFutureTransactions(fixed),
-    [fixed]
+    () =>
+      filterFutureTransactions(
+        fixed.map((elem) => {
+          return {
+            ...elem,
+            date: makeDateFromDay(elem.dayOfMonth, selectedMonth + 1),
+          };
+        })
+      ),
+    [fixed, selectedMonth]
   );
 
   const transactions = useMemo(
@@ -78,17 +86,29 @@ const TransactionLog = ({ onEditTransaction }) => {
     setFilteredFutureTransactions(futureTransactions);
   }, [transactions, futureTransactions]);
 
+  const noTransactionsToShow = () => {
+    if (filteredTransactions.length === 0) {
+      if (!showFutureTransactions || filteredFutureTransactions.length === 0) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   return (
     <CardsContainer>
       <Card>
         <div className={styles.transactionLogCard}>
-          <TransactionLogHeader handleFilter={handleFilter} />
-          {/* <FutureTransactions futureTransactions={filteredFutureTransactions} /> */}
-          {transactions.length === 0 ? (
+          <TransactionLogHeader
+            handleFilter={handleFilter}
+            showFutureTransactions={showFutureTransactions}
+            setShowFutureTransactions={setShowFutureTransactions}
+          />
+          {noTransactionsToShow() ? (
             <>
               <Heading
                 type={Heading.types.h2}
-                value="no transactions found for this month"
+                value="no relevant data found"
                 size="small"
                 customColor={"grey"}
               />
@@ -97,6 +117,9 @@ const TransactionLog = ({ onEditTransaction }) => {
           ) : (
             <TableTransactions
               transactions={filteredTransactions}
+              futureTransactions={
+                showFutureTransactions ? filteredFutureTransactions : []
+              }
               onEditTransaction={onEditTransaction}
             />
           )}
