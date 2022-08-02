@@ -1,11 +1,5 @@
 import { useMemo } from "react";
-import {
-  Heading,
-  Dropdown,
-  Checkbox,
-  IconButton,
-  Divider,
-} from "monday-ui-react-core";
+import { Heading, Dropdown, Checkbox, IconButton } from "monday-ui-react-core";
 import { Info } from "monday-ui-react-core/dist/allIcons";
 import styles from "./transactionLogHeader.module.css";
 
@@ -44,18 +38,6 @@ const TransactionLogHeader = ({ handleFilter }) => {
           <Checkbox label="Future Transactions" />
         </div>
       </div>
-      <div className={styles.transactionsHeader}>
-        {["Person", "Date", "Category", "Description", "Amount"].map(
-          (value) => (
-            <Heading
-              value={value}
-              type={Heading.types.h4}
-              className={styles.tableHeaders}
-            />
-          )
-        )}
-      </div>
-      <Divider />
     </>
   );
 };

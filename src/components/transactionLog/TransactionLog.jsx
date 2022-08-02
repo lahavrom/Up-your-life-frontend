@@ -1,18 +1,27 @@
 import { useState, useMemo, useEffect } from "react";
 import { useSelector } from "react-redux";
 
-import { makeDateTimestamp } from "../../helpers/dateTimeUtils";
+import { Heading } from "monday-ui-react-core";
+import magnifyingGlass from "../../assets/magnifying-glass.png";
+import styles from "./transactionLog.module.css";
+import {
+  makeDateTimestamp,
+  getMonth,
+  makeDateFromDay,
+} from "../../helpers/dateTimeUtils";
 import CardsContainer from "../cardsContainer/CardsContainer";
 import Card from "../card/Card";
 import TransactionLogHeader from "./components/transactionLogHeader/TransactionLogHeader";
-import FutureTransactions from "./components/futureTransactions/FutureTransactions";
-import ListTransactions from "./components/listTransactions/ListTransactions";
+// import FutureTransactions from "./components/futureTransactions/FutureTransactions";
+import TableTransactions from "./components/tableTransactions/TableTransactions";
 
 const filterFutureTransactions = (transactions) => {
   return transactions.filter((elem) => elem.dayOfMonth > new Date().getDate());
 };
 
 const TransactionLog = ({ onEditTransaction }) => {
+  const selectedMonth = useSelector(({ dateState }) => dateState.month);
+
   const fixed = useSelector(({ transactionsState }) => transactionsState.fixed);
 
   const account = useSelector(
@@ -25,17 +34,7 @@ const TransactionLog = ({ onEditTransaction }) => {
   );
 
   const futureTransactions = useMemo(
-    () =>
-      filterFutureTransactions(
-        fixed.map((elem) => {
-          return {
-            ...elem,
-            date: `${elem.dayOfMonth}/${
-              new Date().getMonth() + 1
-            }/${new Date().getFullYear()}`,
-          };
-        })
-      ),
+    () => filterFutureTransactions(fixed),
     [fixed]
   );
 
@@ -46,16 +45,16 @@ const TransactionLog = ({ onEditTransaction }) => {
         .map((elem) => {
           return {
             ...elem,
-            date: `${elem.dayOfMonth}/${
-              new Date().getMonth() + 1
-            }/${new Date().getFullYear()}`,
+            date: makeDateFromDay(elem.dayOfMonth, selectedMonth + 1),
           };
         }),
-      ...account.map((elem) => {
-        return { ...elem, date: makeDateTimestamp(elem.effectiveDate) };
-      }),
+      ...account
+        .map((elem) => {
+          return { ...elem, date: makeDateTimestamp(elem.effectiveDate) };
+        })
+        .filter((elem) => getMonth(elem.date) === selectedMonth + 1),
     ],
-    [fixed, account]
+    [fixed, account, selectedMonth]
   );
 
   const handleFilter = (value) => {
@@ -82,12 +81,26 @@ const TransactionLog = ({ onEditTransaction }) => {
   return (
     <CardsContainer>
       <Card>
-        <TransactionLogHeader handleFilter={handleFilter} />
-        {/* <FutureTransactions futureTransactions={filteredFutureTransactions} /> */}
-        <ListTransactions
-          transactions={filteredTransactions}
-          onEditTransaction={onEditTransaction}
-        />
+        <div className={styles.transactionLogCard}>
+          <TransactionLogHeader handleFilter={handleFilter} />
+          {/* <FutureTransactions futureTransactions={filteredFutureTransactions} /> */}
+          {transactions.length === 0 ? (
+            <>
+              <Heading
+                type={Heading.types.h2}
+                value="no transactions found for this month"
+                size="small"
+                customColor={"grey"}
+              />
+              <img src={magnifyingGlass} className={styles.img} alt="" />
+            </>
+          ) : (
+            <TableTransactions
+              transactions={filteredTransactions}
+              onEditTransaction={onEditTransaction}
+            />
+          )}
+        </div>
       </Card>
     </CardsContainer>
   );

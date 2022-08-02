@@ -56,3 +56,8 @@ export const toFormDate = (date) => {
 export const getDayFromDate = (date) => {
   return parseInt(date.split("/")[0]);
 };
+
+// return as int the month from this format "01/08/2022"
+export const getMonth = (date) => {
+  return parseInt(date.split("/")[1]);
+};

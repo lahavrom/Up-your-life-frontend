@@ -8,11 +8,6 @@
   width: 20%;
 }
 
-.transactionsHeader {
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  display: grid;
-}
-
 .futureCheckBox {
   display: flex;
   align-items: center;
@@ -24,5 +19,5 @@
 }
 
 .tableHeaders {
-  margin: 15px;
+  margin: 0;
 }

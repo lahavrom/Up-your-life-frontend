@@ -12,11 +12,13 @@ import * as Yup from "yup";
 
 import { CATEGORIES, DAYS_OF_MONTH } from "../../helpers/constants";
 import { submitTransaction } from "../../redux/transactions/actions/submitTransaction";
+import { editTransaction } from "../../redux/transactions/actions/editTransaction";
 import {
   generateEffectiveDate,
   getDayOfMonth,
   toFormDate,
   getDayFromDate,
+  makeDateTimestamp,
 } from "../../helpers/dateTimeUtils";
 import styles from "./transactionForm.module.css";
 
@@ -43,10 +45,18 @@ const TransactionForm = ({ type, isEdit, transactionToEdit }) => {
   };
 
   if (isEdit) {
+    initialValues.isFixed = transactionToEdit.dayOfMonth ? true : false;
     initialValues.category = transactionToEdit.category;
     initialValues.description = transactionToEdit.description;
     initialValues.value = transactionToEdit.value;
+    initialValues.dayOfMonth = transactionToEdit.dayOfMonth
+      ? transactionToEdit.dayOfMonth
+      : "";
+    initialValues.effectiveDate = transactionToEdit.effectiveDate
+      ? toFormDate(makeDateTimestamp(transactionToEdit.effectiveDate))
+      : "";
   }
+
   const dispatch = useDispatch();
 
   const isLoading = useSelector(
@@ -55,9 +65,19 @@ const TransactionForm = ({ type, isEdit, transactionToEdit }) => {
 
   const onSubmitTransaction = useCallback(
     (values) => {
-      dispatch(
-        submitTransaction(type, { ...values, value: parseFloat(values.value) })
-      );
+      isEdit
+        ? dispatch(
+            editTransaction(transactionToEdit.id, {
+              ...values,
+              value: parseFloat(values.value),
+            })
+          )
+        : dispatch(
+            submitTransaction(type, {
+              ...values,
+              value: parseFloat(values.value),
+            })
+          );
     },
     [dispatch, type]
   );
@@ -82,7 +102,7 @@ const TransactionForm = ({ type, isEdit, transactionToEdit }) => {
             {/** is fixed */}
             <Checkbox
               className={styles.checkbox}
-              label="Fixed"
+              label={`Recurrence ${type}`}
               checked={values.isFixed}
               onChange={({ target }) => {
                 setFieldValue("isFixed", target.checked);
