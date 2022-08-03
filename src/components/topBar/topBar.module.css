@@ -1,79 +1,83 @@
 .topBar {
-	background-color: white;
-	/* padding: 10px; */
-	margin-bottom: 0px;
-	position: sticky;
-	justify-content: space-evenly;
-	top: 0;
-	border-bottom: 1px solid #dcdfec;
-	z-index: 1;
-	display: grid;
-	align-items: center;
-	grid-auto-flow: row;
-	grid-template-columns: 1fr 1fr 1fr;
-	justify-items: center;
-	min-width: 10px;
+  background-color: white;
+  /* padding: 10px; */
+  margin-bottom: 0px;
+  position: sticky;
+  justify-content: space-evenly;
+  top: 0;
+  border-bottom: 1px solid #dcdfec;
+  z-index: 1;
+  display: grid;
+  align-items: center;
+  grid-auto-flow: row;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+  min-width: 10px;
 }
 .monthPicker {
-	align-items: center;
-	/* justify-content: center; */
-	display: grid;
-	grid-auto-flow: row;
-	/* grid-template-columns: 1fr 3fr 1fr; */
-	justify-items: center;
+  align-items: center;
+  /* justify-content: center; */
+  display: grid;
+  grid-auto-flow: row;
+  /* grid-template-columns: 1fr 3fr 1fr; */
+  justify-items: center;
 }
 
 .logo {
-	width: 70px;
-	height: 50px;
-	transition: transform 0.7s ease-in-out;
-	margin-bottom: 0px;
+  width: 70px;
+  height: 50px;
+  transition: transform 0.7s ease-in-out;
+  margin-bottom: 0px;
 }
 .logo:hover {
-	transform: rotate(360deg);
+  transform: rotate(360deg);
 }
 
 .addButton {
-	width: 200px;
-	height: 50px;
-	border-radius: 4px;
-	background-color: var(--primary-color);
-	color: #ffffff;
+  width: 200px;
+  height: 50px;
+  border-radius: 4px;
+  background-color: var(--primary-color);
+  color: #ffffff;
 }
 
 .addButton:hover {
-	background-color: var(--primary-hover-color);
+  background-color: var(--primary-hover-color);
 }
 
 .heading {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	-webkit-text-stroke: 2px #5e9c4b;
-	color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  -webkit-text-stroke: 2px #5e9c4b;
+  color: #ffffff;
 }
 
 .monthPicker {
-	min-width: 150px;
+  min-width: 150px;
 }
 
 .monthPickerContainer {
-	display: flex;
-	grid-auto-flow: row;
-	justify-items: center;
-	align-items: center;
-	min-width: 150px;
+  display: flex;
+  grid-auto-flow: row;
+  justify-items: center;
+  align-items: center;
+  min-width: 150px;
 }
 .buttons {
-	display: flex;
-	grid-auto-flow: row;
-	justify-items: center;
-	align-items: center;
-	/* min-width: 150px; */
-	width: 100%;
-	justify-content: space-evenly;
+  display: flex;
+  grid-auto-flow: row;
+  justify-items: center;
+  align-items: center;
+  /* min-width: 150px; */
+  width: 100%;
+  justify-content: space-evenly;
 }
 
 .profileButton {
-	border-radius: 20px;
+  border-radius: 20px;
+}
+
+.menuButtons {
+  z-index: 1;
 }
