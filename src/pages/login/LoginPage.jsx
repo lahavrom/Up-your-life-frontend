@@ -4,32 +4,35 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { Heading } from "monday-ui-react-core";
 
 import LoginForm from "./components/LoginForm";
+import logo from "../../assets/up_logo.png";
 import { ROUTES } from "../../routes/AppRouter";
+
 import styles from "./loginPage.module.css";
 
 const LoginPage = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
   const isSuccess = useSelector(({ userState }) => userState.isSuccess);
 
-  useEffect(() => {
-    if (isSuccess) {
-      navigate(ROUTES.UP_YOUR_LIFE);
-    }
-  }, [dispatch, navigate, isSuccess]);
+	useEffect(() => {
+		if (isSuccess) {
+			navigate(ROUTES.UP_YOUR_LIFE);
+		}
+	}, [dispatch, navigate, isSuccess]);
 
-  return (
-    <div className={styles.container}>
-      <Heading value="Login" />
-      <div className={styles.formContainer}>
-        <LoginForm />
-      </div>
-      <div className={styles.linkContainer}>
-        <NavLink to={ROUTES.REGISTER}>Need to register?</NavLink>
-      </div>
-    </div>
-  );
+	return (
+		<div className={styles.container}>
+			<img src={logo} alt="" className={styles.logo} />
+			
+			<div className={styles.formContainer}>
+				<LoginForm />
+			</div>
+			<div className={styles.linkContainer}>
+				<NavLink to={ROUTES.REGISTER}>Need to register?</NavLink>
+			</div>
+		</div>
+	);
 };
 
 export default LoginPage;

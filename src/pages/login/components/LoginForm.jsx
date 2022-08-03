@@ -4,20 +4,20 @@ import * as Yup from "yup";
 import { Flex } from "monday-ui-react-core";
 
 import {
-  Form,
-  FormTextField,
-  FormSubmitButton,
+	Form,
+	FormTextField,
+	FormSubmitButton,
 } from "../../../components/form";
 import { loginUser } from "../../../redux/user/actions/loginUser";
 
 const initialValues = {
-  email: "",
-  password: "",
+	email: "",
+	password: "",
 };
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string().email().required("Required").label("Email"),
-  password: Yup.string().min(4).required("Required").label("Password"),
+	email: Yup.string().email().required("Required").label("Email"),
+	password: Yup.string().min(4).required("Required").label("Password"),
 });
 
 const LoginForm = () => {

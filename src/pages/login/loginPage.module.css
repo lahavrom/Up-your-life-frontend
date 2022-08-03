@@ -1,15 +1,23 @@
 .container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 100px;
+	display: flex;
+	flex-direction: column;
+	background-color: #ffff;
+	align-items: center;
+	border-radius: 4px;
+	margin-inline: 200px;
+	padding: 20px;
+	margin-top: 80px;
 }
 
 .formContainer {
-  width: 450px;
+	width: 450px;
 }
 
 .linkContainer {
-  margin-top: 20px;
+	margin-top: 20px;
+}
+
+.logo {
+	width: 250px;
+	height: 150px;
 }
