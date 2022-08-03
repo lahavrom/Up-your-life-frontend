@@ -20,7 +20,7 @@ const fetchAllAccountTransactionsActionFail = (errorMessage) => ({
 });
 
 export const fetchAllAccountTransactions = () => async (dispatch, getState) => {
-  const { accountId } = getState().usersState.user;
+  const { accountId } = getState().userState.user;
   try {
     dispatch(fetchAllAccountTransactionsAction());
     const transactions =

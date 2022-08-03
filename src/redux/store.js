@@ -3,12 +3,14 @@ import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 import dateReducer from "./date/reducer";
-import usersReducer from "./users/reducer";
+import accountReducer from "./account/reducer";
+import userReducer from "./user/reducer";
 import transactionsReducer from "./transactions/reducer";
 
 const reducer = combineReducers({
   dateState: dateReducer,
-  usersState: usersReducer,
+  accountState: accountReducer,
+  userState: userReducer,
   transactionsState: transactionsReducer,
 });
 

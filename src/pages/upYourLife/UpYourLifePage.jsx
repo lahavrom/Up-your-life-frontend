@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import { fetchAccountUsers } from "../../redux/account/actions/fetchAccountUsers";
 import { fetchAllFixedTransactions } from "../../redux/transactions/actions/fetchAllFixedTransactions";
 import { fetchAllAccountTransactions } from "../../redux/transactions/actions/fetchAllAccountTransactions";
 import TopBar from "../../components/topBar/TopBar";
@@ -50,15 +51,19 @@ const UpYourLifePage = () => {
     [setTransactionType, onOpenModal]
   );
 
-  const onEditTransaction = useCallback((transaction) => {
-    setTransactionType(transaction.type);
-    setIsEdit(true);
-    setTransactionToEdit(transaction);
-    onOpenModal();
-  });
+  const onEditTransaction = useCallback(
+    (transaction) => {
+      setTransactionType(transaction.type);
+      setIsEdit(true);
+      setTransactionToEdit(transaction);
+      onOpenModal();
+    },
+    [onOpenModal]
+  );
 
   const handleFetchData = useCallback(async () => {
     await Promise.all([
+      dispatch(fetchAccountUsers()),
       dispatch(fetchAllFixedTransactions()),
       dispatch(fetchAllAccountTransactions()),
     ]);

@@ -13,7 +13,7 @@ const LoginPage = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const isSuccess = useSelector(({ usersState }) => usersState.isSuccess);
+  const isSuccess = useSelector(({ userState }) => userState.isSuccess);
 
 	useEffect(() => {
 		if (isSuccess) {
