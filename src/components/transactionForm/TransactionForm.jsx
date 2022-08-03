@@ -6,6 +6,7 @@ import {
   TextField,
   Dropdown,
   Button,
+  Tooltip,
 } from "monday-ui-react-core";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -215,16 +216,34 @@ const TransactionForm = ({ type, isEdit, transactionToEdit }) => {
               </>
             )}
             {/** is fixed */}
-            <Checkbox
-              className={styles.checkbox}
-              label={`Recurrence ${type}`}
-              checked={values.isFixed}
-              onChange={({ target }) => {
-                setFieldValue("isFixed", target.checked);
-                setFieldValue("dayOfMonth", "");
-                setFieldValue("effectiveDate", "");
-              }}
-            />
+            {isEdit ? (
+              <div className={styles.toolTip}>
+                <Tooltip content="can't change recurrence of transaction">
+                  <Checkbox
+                    className={styles.checkbox}
+                    label={`Recurrence ${type}`}
+                    disabled
+                    checked={values.isFixed}
+                    onChange={({ target }) => {
+                      setFieldValue("isFixed", target.checked);
+                      setFieldValue("dayOfMonth", "");
+                      setFieldValue("effectiveDate", "");
+                    }}
+                  />
+                </Tooltip>
+              </div>
+            ) : (
+              <Checkbox
+                className={styles.checkbox}
+                label={`Recurrence ${type}`}
+                checked={values.isFixed}
+                onChange={({ target }) => {
+                  setFieldValue("isFixed", target.checked);
+                  setFieldValue("dayOfMonth", "");
+                  setFieldValue("effectiveDate", "");
+                }}
+              />
+            )}
             {/** submit */}
             <Button
               className={styles.submitButton}
