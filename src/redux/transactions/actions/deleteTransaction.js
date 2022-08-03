@@ -13,7 +13,7 @@ const deleteFixedTransactionActionSuccess = (id) => ({
 });
 
 const deleteAccountTransactionActionSuccess = (id) => ({
-  type: ACTION_TYPES.EDIT_ACCOUNT_TRANSACTION_SUCCESS,
+  type: ACTION_TYPES.DELETE_ACCOUNT_TRANSACTION_SUCCESS,
   payload: { id, successMessage: SUCCESS_MESSAGES.DELETE_TRANSACTION },
 });
 
