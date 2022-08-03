@@ -3,21 +3,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Heading } from "monday-ui-react-core";
 
+import { APP_ROUTES } from "../../helpers/constants";
+import { selectUser } from "../../redux/user/selectors";
 import RegisterForm from "./components/RegisterForm";
-import { ROUTES } from "../../routes/AppRouter";
 import styles from "./registerPage.module.css";
 
 const RegisterPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const isSuccess = useSelector(({ userState }) => userState.isSuccess);
+  const user = useSelector(selectUser);
 
   useEffect(() => {
-    if (isSuccess) {
-      navigate(ROUTES.UP_YOUR_LIFE);
+    if (user) {
+      navigate(APP_ROUTES.UP_YOUR_LIFE);
     }
-  }, [dispatch, navigate, isSuccess]);
+  }, [dispatch, navigate, user]);
 
   return (
     <div className={styles.container}>
@@ -26,7 +27,7 @@ const RegisterPage = () => {
         <RegisterForm />
       </div>
       <div className={styles.linkContainer}>
-        <NavLink to={ROUTES.LOGIN}>Back to login</NavLink>
+        <NavLink to={APP_ROUTES.LOGIN}>Back to login</NavLink>
       </div>
     </div>
   );

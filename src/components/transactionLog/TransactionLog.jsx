@@ -1,11 +1,11 @@
 import { useState, useMemo, useEffect } from "react";
 import { useSelector } from "react-redux";
-
-import { currentMonthAccountTransactions } from "../../redux/transactions/selectors/selectAccountTransactions";
-import { futureFixedTransactions } from "../../redux/transactions/selectors/selectFixedTransactions";
 import { Heading } from "monday-ui-react-core";
+
+import { selectCurrMonthAccountTransactions } from "../../redux/transactions/selectors/selectAccountTransactions";
+import { selectFutureFixed } from "../../redux/transactions/selectors/selectFixedTransactions";
+import { selectMonth } from "../../redux/date/selectors";
 import magnifyingGlass from "../../assets/magnifying-glass.png";
-import styles from "./transactionLog.module.css";
 import {
   makeDateTimestamp,
   makeDateFromDay,
@@ -14,24 +14,25 @@ import CardsContainer from "../cardsContainer/CardsContainer";
 import Card from "../card/Card";
 import TransactionLogHeader from "./components/transactionLogHeader/TransactionLogHeader";
 import TableTransactions from "./components/tableTransactions/TableTransactions";
+import styles from "./transactionLog.module.css";
 
 const TransactionLog = ({ onEditTransaction }) => {
-  const selectedMonth = useSelector(({ dateState }) => dateState.month);
+  const month = useSelector(selectMonth);
 
-  const fixed = useSelector(futureFixedTransactions);
+  const fixed = useSelector(selectFutureFixed);
   const futureTransactions = useMemo(
     () => [
       ...fixed.map((elem) => {
         return {
           ...elem,
-          date: makeDateFromDay(elem.dayOfMonth, selectedMonth + 1),
+          date: makeDateFromDay(elem.dayOfMonth, month + 1),
         };
       }),
     ],
-    [fixed, selectedMonth]
+    [fixed, month]
   );
 
-  const account = useSelector(currentMonthAccountTransactions);
+  const account = useSelector(selectCurrMonthAccountTransactions);
 
   const [filteredTransactions, setFilteredTransactions] = useState([]);
   const [filteredFutureTransactions, setFilteredFutureTransactions] = useState(
@@ -49,8 +50,6 @@ const TransactionLog = ({ onEditTransaction }) => {
   );
 
   const handleFilter = (value) => {
-    console.log("here");
-    console.log(value);
     switch (value) {
       case "all":
         setFilteredTransactions([...transactions]);

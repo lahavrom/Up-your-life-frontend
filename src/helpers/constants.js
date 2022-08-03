@@ -13,6 +13,12 @@ export const ABOUT_INFO = {
   ],
 };
 
+export const APP_ROUTES = {
+  LOGIN: "/login",
+  REGISTER: "/register",
+  UP_YOUR_LIFE: "/up-your-life",
+};
+
 export const SUCCESS_MESSAGES = {
   SUBMIT_TRANSACTION: "Transaction added successfully!",
   EDIT_TRANSACTION: "Transaction editted successfully!",

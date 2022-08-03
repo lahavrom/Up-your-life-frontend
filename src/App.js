@@ -1,21 +1,24 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getAuthToken } from "./helpers/authTokenUtils";
+import { selectIsError, selectErrorMessage } from "./redux/user/selectors";
 import { fetchUser } from "./redux/user/actions/fetchUser";
-import AppRouter from "./routes/AppRouter";
+import { getAuthToken } from "./helpers/authTokenUtils";
 import ErrorToast from "./components/toasts/ErrorToast";
-
-const token = getAuthToken();
+import AppRouter from "./routes/AppRouter";
 
 const App = () => {
   const dispatch = useDispatch();
 
-  const isError = useSelector(({ userState }) => userState.isError);
-  const errorMessage = useSelector(({ userState }) => userState.errorMessage);
+  const isError = useSelector(selectIsError);
+  const errorMessage = useSelector(selectErrorMessage);
 
-  if (token) {
-    dispatch(fetchUser());
-  }
+  useEffect(() => {
+    const token = getAuthToken();
+    if (token) {
+      dispatch(fetchUser());
+    }
+  }, [dispatch]);
 
   return (
     <>

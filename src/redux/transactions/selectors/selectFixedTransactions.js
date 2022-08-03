@@ -1,15 +1,18 @@
 import { createSelector } from "reselect";
 
+import { calculateSumsByType } from "../helpers/utils";
 import { getDayOfMonth } from "../../../helpers/dateTimeUtils";
 
-export const fixedTransactions = (state) => state.transactionsState.fixed;
+export const selectFixed = (state) => state.transactionsState.fixed;
 
-export const futureFixedTransactions = createSelector(
-  fixedTransactions,
-  (fixedTransactions) => {
-    const currentDayOfMonth = getDayOfMonth();
-    return fixedTransactions.filter(
-      (fixedTransaction) => fixedTransaction.dayOfMonth > currentDayOfMonth
-    );
+export const selectFutureFixed = createSelector(selectFixed, (fixed) => {
+  const currDayOfMonth = getDayOfMonth();
+  return fixed.filter((currFixed) => currFixed.dayOfMonth > currDayOfMonth);
+});
+
+export const selectSumsOfFutureFixedByType = createSelector(
+  selectFutureFixed,
+  (fixed) => {
+    return calculateSumsByType(fixed);
   }
 );

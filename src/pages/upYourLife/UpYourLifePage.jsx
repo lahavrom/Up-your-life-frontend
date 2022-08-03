@@ -1,9 +1,13 @@
 import { useState, useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { fetchAccountUsers } from "../../redux/account/actions/fetchAccountUsers";
-import { fetchAllFixedTransactions } from "../../redux/transactions/actions/fetchAllFixedTransactions";
-import { fetchAllAccountTransactions } from "../../redux/transactions/actions/fetchAllAccountTransactions";
+import { fetchAllData } from "../../redux/app/actions/fetchAllData";
+import {
+  selectIsSuccess,
+  selectSuccessMessage,
+  selectIsError,
+  selectErrorMessage,
+} from "../../redux/transactions/selectors";
 import TopBar from "../../components/topBar/TopBar";
 import Dashboard from "../../components/Dashboard";
 import TransactionLog from "../../components/transactionLog/TransactionLog";
@@ -16,18 +20,14 @@ import AboutComponent from "../../components/aboutComponent/AboutComponent";
 const UpYourLifePage = () => {
   const dispatch = useDispatch();
 
-  const isSuccess = useSelector(
-    ({ transactionsState }) => transactionsState.isSuccess
-  );
-  const successMessage = useSelector(
-    ({ transactionsState }) => transactionsState.successMessage
-  );
-  const isError = useSelector(
-    ({ transactionsState }) => transactionsState.isError
-  );
-  const errorMessage = useSelector(
-    ({ transactionsState }) => transactionsState.errorMessage
-  );
+  useEffect(() => {
+    dispatch(fetchAllData());
+  }, [dispatch]);
+
+  const isSuccess = useSelector(selectIsSuccess);
+  const successMessage = useSelector(selectSuccessMessage);
+  const isError = useSelector(selectIsError);
+  const errorMessage = useSelector(selectErrorMessage);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [transactionType, setTransactionType] = useState(null);
@@ -60,18 +60,6 @@ const UpYourLifePage = () => {
     },
     [onOpenModal]
   );
-
-  const handleFetchData = useCallback(async () => {
-    await Promise.all([
-      dispatch(fetchAccountUsers()),
-      dispatch(fetchAllFixedTransactions()),
-      dispatch(fetchAllAccountTransactions()),
-    ]);
-  }, [dispatch]);
-
-  useEffect(() => {
-    handleFetchData();
-  }, [handleFetchData]);
 
   return (
     <div className={styles.container}>
