@@ -8,7 +8,7 @@ import {
   FormTextField,
   FormSubmitButton,
 } from "../../../components/form";
-import { loginUser } from "../../../redux/users/actions/loginUser";
+import { loginUser } from "../../../redux/user/actions/loginUser";
 
 const initialValues = {
   email: "",
@@ -23,7 +23,7 @@ const validationSchema = Yup.object().shape({
 const LoginForm = () => {
   const dispatch = useDispatch();
 
-  const isLoading = useSelector(({ usersState }) => usersState.isLoading);
+  const isLoading = useSelector(({ userState }) => userState.isLoading);
 
   const onLoginUser = useCallback(
     (values) => {

@@ -32,7 +32,7 @@ const submitTransactionActionFail = (errorMessage) => ({
 
 export const submitTransaction =
   (type, values) => async (dispatch, getState) => {
-    const { accountId, userId } = getState().usersState.user;
+    const { accountId, userId } = getState().userState.user;
     try {
       dispatch(submitTransactionAction());
       const transaction = createTransaction(type, values, accountId, userId);
