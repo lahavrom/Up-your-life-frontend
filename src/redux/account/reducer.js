@@ -5,14 +5,12 @@ const initialState = {
   isSuccess: false,
   isError: false,
   errorMessage: "",
-  user: null,
+  users: [],
 };
 
-const usersReducer = (state = initialState, { type, payload }) => {
+const accountReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case ACTION_TYPES.REGISTER_USER:
-    case ACTION_TYPES.LOGIN_USER:
-    case ACTION_TYPES.FETCH_USER: {
+    case ACTION_TYPES.FETCH_ACCOUNT_USERS: {
       return {
         ...state,
         isLoading: true,
@@ -22,23 +20,19 @@ const usersReducer = (state = initialState, { type, payload }) => {
       };
     }
 
-    case ACTION_TYPES.REGISTER_USER_SUCCESS:
-    case ACTION_TYPES.LOGIN_USER_SUCCESS:
-    case ACTION_TYPES.FETCH_USER_SUCCESS: {
-      const { user } = payload;
+    case ACTION_TYPES.FETCH_ACCOUNT_USERS_SUCCESS: {
+      const { users } = payload;
       return {
         ...state,
         isLoading: false,
         isSuccess: true,
         isError: false,
         errorMessage: "",
-        user,
+        users,
       };
     }
 
-    case ACTION_TYPES.REGISTER_USER_FAIL:
-    case ACTION_TYPES.LOGIN_USER_FAIL:
-    case ACTION_TYPES.FETCH_USER_FAIL: {
+    case ACTION_TYPES.FETCH_ACCOUNT_USERS_FAIL: {
       const { errorMessage } = payload;
       return {
         ...state,
@@ -55,4 +49,4 @@ const usersReducer = (state = initialState, { type, payload }) => {
   }
 };
 
-export default usersReducer;
+export default accountReducer;

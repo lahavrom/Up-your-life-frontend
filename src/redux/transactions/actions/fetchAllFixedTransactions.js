@@ -20,7 +20,7 @@ const fetchAllFixedTransactionsActionFail = (errorMessage) => ({
 });
 
 export const fetchAllFixedTransactions = () => async (dispatch, getState) => {
-  const { accountId } = getState().usersState.user;
+  const { accountId } = getState().userState.user;
   try {
     dispatch(fetchAllFixedTransactionsAction());
     const transactions =
