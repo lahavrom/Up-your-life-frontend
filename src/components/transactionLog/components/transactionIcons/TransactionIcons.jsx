@@ -1,9 +1,18 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
+import { useDispatch } from "react-redux";
+import { deleteTransaction } from "../../../../redux/transactions/actions/deleteTransaction";
 import { IconButton, Button } from "monday-ui-react-core";
 import { Edit, Delete } from "monday-ui-react-core/dist/allIcons";
 
-const TransactionIcons = ({ onEditTransaction }) => {
+const TransactionIcons = ({ onEditTransaction, id, isFixed }) => {
+  const dispatch = useDispatch();
+
   const [showDeleteBtn, setShowDeleteBtn] = useState(false);
+
+  const onDeleteTransaction = useCallback(() => {
+    dispatch(deleteTransaction(id, isFixed));
+    setShowDeleteBtn(false);
+  }, [dispatch, id, isFixed]);
 
   return showDeleteBtn ? (
     <>
@@ -17,7 +26,7 @@ const TransactionIcons = ({ onEditTransaction }) => {
       <Button
         size={Button.sizes.SMALL}
         color={Button.colors.NEGATIVE}
-        onClick={""}
+        onClick={onDeleteTransaction}
       >
         Delete
       </Button>

@@ -47,6 +47,8 @@ const Transaction = ({ transaction, onEditTransaction }) => {
       <td className={styles.icons}>
         <TransactionIcons
           onEditTransaction={() => onEditTransaction(transaction)}
+          id={transaction.id}
+          isFixed={transaction.dayOfMonth ? true : false}
         />
       </td>
     </>

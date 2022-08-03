@@ -10,3 +10,7 @@
   align-self: flex-start;
   color: red;
 }
+
+.toolTip {
+  place-self: flex-start;
+}

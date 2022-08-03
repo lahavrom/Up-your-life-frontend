@@ -20,6 +20,7 @@ import {
 import { changeMonth } from "../../redux/date/actions/changeMonth";
 import logo from "../../../src/assets/up_logo.png";
 import { MONTHS } from "../../helpers/constants";
+import "./topBar.css";
 import styles from "./topBar.module.css";
 
 const TopBar = ({ onAddTransaction }) => {

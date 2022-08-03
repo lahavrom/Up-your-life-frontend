@@ -24,7 +24,7 @@ const ErrorToast = ({ isVisible, message }) => {
       className={styles.toast}
       open={isToastOpen}
       type={Toast.types.NEGATIVE}
-      autoHideDuration={10000}
+      autoHideDuration={5000}
       onClose={onCloseToast}
     >
       {message}

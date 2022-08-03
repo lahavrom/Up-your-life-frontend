@@ -24,7 +24,7 @@ const SuccessToast = ({ isVisible, message }) => {
       className={styles.toast}
       open={isToastOpen}
       type={Toast.types.POSITIVE}
-      autoHideDuration={10000}
+      autoHideDuration={5000}
       onClose={onCloseToast}
     >
       {message}
