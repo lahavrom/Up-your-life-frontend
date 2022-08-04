@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import styles from "./transactionFormModal.module.css";
-import Modal from "../modal/Modal";
+import AppModal from "../modal/AppModal";
 import TransactionForm from "./TransactionForm";
 
 const TransactionFormModal = ({
@@ -24,7 +24,7 @@ const TransactionFormModal = ({
   }, [isSuccess, onClose]);
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <AppModal isOpen={isOpen} onClose={onClose}>
       <Heading
         value={`${type} transaction`}
         type={Heading.types.h4}
@@ -35,7 +35,7 @@ const TransactionFormModal = ({
         isEdit={isEdit}
         transactionToEdit={transactionToEdit}
       />
-    </Modal>
+    </AppModal>
   );
 };
 

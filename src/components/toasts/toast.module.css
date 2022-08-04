@@ -1,3 +1,4 @@
 .toast {
-  z-index: 11;
+  z-index: 1400;
+  /* position: absolute; */
 }

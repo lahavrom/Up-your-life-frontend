@@ -33,14 +33,14 @@ const ProfileButton = ({ userId }) => {
     });
   };
 
-  const sendEmailInvites = () => {
+  const sendEmailInvites = async (mails) => {
     const params = {
-      email: ["lahavrom@gmail.com", "lahav.rom@mail.huji.ac.il"],
+      email: mails,
     };
 
     console.log(params);
 
-    // emailjs
+    // await emailjs
     //   .send("gmail", "invite-to-app-template", params, "fdRonV2APMX1lKewP")
     //   .then(
     //     (result) => {
@@ -66,14 +66,17 @@ const ProfileButton = ({ userId }) => {
         ref={inputImage}
         onChange={() => uploadImage()}
       />
-      <InviteModal isOpen={isModalOpen} />
+      <InviteModal
+        isOpen={isModalOpen}
+        onClose={onCloseModal}
+        sendEmailInvites={sendEmailInvites}
+      />
       <MenuButton component={Person}>
         <Menu id="menu" size={Menu.sizes.MEDIUM}>
           <MenuItem
             icon={Invite}
             iconType={MenuItem.iconType.SVG}
             title="Invite to account"
-            // onClick={() => sendEmailInvites()}
             onClick={() => onOpenModal()}
           />
           <MenuItem
