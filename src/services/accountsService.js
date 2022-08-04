@@ -15,6 +15,20 @@ const fetchAccountUsers = async (accountId) => {
   }
 };
 
+const addUserToAccount = async (values) => {
+  try {
+    const { data } = await accountsClient.post("", values, {
+      headers: {
+        "x-auth-token": getAuthToken(),
+      },
+    });
+    return data;
+  } catch (error) {
+    throw handleError(error);
+  }
+};
+
 export default {
   fetchAccountUsers,
+  addUserToAccount,
 };
