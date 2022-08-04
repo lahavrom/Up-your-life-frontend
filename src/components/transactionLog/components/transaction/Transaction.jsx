@@ -5,12 +5,12 @@ import TransactionAvatar from "../transactionAvatar/TransactionAvatar";
 import { CATEGORY_ICONS } from "../../../../helpers/categoryIcons";
 
 const Transaction = ({ transaction, onEditTransaction }) => {
-  const { description, value, type, category, date } = transaction;
+  const { description, value, type, category, date, userId } = transaction;
 
   return (
     <>
       <td>
-        <TransactionAvatar />
+        <TransactionAvatar userId={userId} />
       </td>
       <td>
         <Heading

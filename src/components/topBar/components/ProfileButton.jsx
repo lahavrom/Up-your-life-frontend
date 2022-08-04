@@ -1,6 +1,7 @@
 import { useRef, useState, useCallback } from "react";
 import axios from "axios";
 import emailjs from "emailjs-com";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Menu, MenuItem, MenuButton } from "monday-ui-react-core";
 import {
@@ -9,9 +10,14 @@ import {
   Invite,
   Image,
 } from "monday-ui-react-core/dist/allIcons";
+import { selectUser } from "../../../redux/user/selectors";
+import { addUserToAccount } from "../../../redux/account/actions/addUserToAccount";
 import InviteModal from "./InviteModal";
 
-const ProfileButton = ({ userId }) => {
+const ProfileButton = () => {
+  const dispatch = useDispatch();
+  const { userId } = useSelector(selectUser);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const onOpenModal = useCallback(() => {
@@ -33,23 +39,25 @@ const ProfileButton = ({ userId }) => {
     });
   };
 
-  const sendEmailInvites = async (mails) => {
+  const sendEmailInvites = async (emails) => {
     const params = {
-      email: mails,
+      email: emails,
     };
 
     console.log(params);
 
-    // await emailjs
-    //   .send("gmail", "invite-to-app-template", params, "fdRonV2APMX1lKewP")
-    //   .then(
-    //     (result) => {
-    //       console.log(result.text);
-    //     },
-    //     (error) => {
-    //       console.log(error.text);
-    //     }
-    //   );
+    await emailjs
+      .send("gmail", "invite-to-app-template", params, "fdRonV2APMX1lKewP")
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+
+    dispatch(addUserToAccount(emails));
   };
 
   const logOut = () => {

@@ -1,41 +1,47 @@
-import { useState, useRef } from "react";
-import axios from "axios";
+import { useMemo } from "react";
+import { useSelector } from "react-redux";
+
+import { selectUsers } from "../../../../redux/account/selectors";
 import { Avatar } from "monday-ui-react-core";
 
-const TransactionAvatar = (userId) => {
-  const getUserData = (userId) => {
-    // return real user data
-    return { userName: "Lahav Rom", userText: "LR", userPhoto: null };
+const AWS = require("aws-sdk");
+AWS.config.update({
+  accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+  region: "eu-west-3",
+});
+const S3 = new AWS.S3({ params: { Bucket: "up-your-life" } });
+
+const generateUserData = (users, userId) => {
+  const user = users.find((elem) => elem.userId === userId);
+  let userPhoto = null;
+
+  try {
+    // if user.image === '' -> userPhoto = null
+    // else user.image
+    userPhoto = S3.getSignedUrl("getObject", { Key: `images/${userId}` });
+  } catch (err) {
+    console.log(err);
+  }
+
+  return {
+    userName: `${user.firstName} ${user.lastName}`,
+    userText: `${user.firstName[0]}${user.lastName[0]}`,
+    userPhoto,
   };
+};
 
-  const { userName, userText, userPhoto } = getUserData(userId);
-  const inputImage = useRef(null);
-  const [newUserPhoto, setNewUserPhoto] = useState(userPhoto);
-  const [photo, setPhoto] = useState(userPhoto);
+const TransactionAvatar = ({ userId }) => {
+  const users = useSelector(selectUsers);
 
-  const uploadImage = async () => {
-    setNewUserPhoto(URL.createObjectURL(inputImage.current.files[0]));
-    setPhoto(true);
-    const formData = new FormData();
-    formData.append("image", inputImage.current.files[0], userId);
+  const { userName, userText, userPhoto } = useMemo(
+    () => generateUserData(users, userId),
+    [users, userId]
+  );
 
-    await axios.post("http://localhost:3001/users/upload-image", formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
-  };
-
-  return !photo ? (
+  return !userPhoto ? (
     <>
-      <input
-        type="file"
-        ref={inputImage}
-        style={{ display: "none" }}
-        onChange={() => {
-          uploadImage();
-        }}
-      />
       <Avatar
-        onClick={() => inputImage.current.click()}
         size={Avatar.sizes.MEDIUM}
         type={Avatar.types.TEXT}
         text={userText}
@@ -46,7 +52,7 @@ const TransactionAvatar = (userId) => {
   ) : (
     <Avatar
       size={Avatar.sizes.MEDIUM}
-      src={newUserPhoto}
+      src={userPhoto}
       type={Avatar.types.IMG}
       ariaLabel={userName}
     />
