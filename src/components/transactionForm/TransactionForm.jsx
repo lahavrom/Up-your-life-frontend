@@ -245,11 +245,7 @@ const TransactionForm = ({ type, isEdit, transactionToEdit }) => {
               />
             )}
             {/** submit */}
-            <Button
-              className={styles.submitButton}
-              type={Button.inputTags.SUBMIT}
-              loading={isLoading}
-            >
+            <Button type={Button.inputTags.SUBMIT} loading={isLoading}>
               Submit
             </Button>
           </Flex>
