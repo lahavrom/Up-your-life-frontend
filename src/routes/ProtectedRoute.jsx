@@ -1,13 +1,14 @@
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
-import { ROUTES } from "./AppRouter";
+import { selectUser } from "../redux/user/selectors";
+import { APP_ROUTES } from "../helpers/constants";
 
 const ProtectedRoute = ({ children }) => {
-  const user = useSelector(({ userState }) => userState.user);
+  const user = useSelector(selectUser);
 
   if (!user) {
-    return <Navigate to={ROUTES.LOGIN} replace />;
+    return <Navigate to={APP_ROUTES.LOGIN} replace />;
   }
   return children;
 };

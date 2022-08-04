@@ -5,12 +5,12 @@ import { Heading } from "monday-ui-react-core";
 
 import magnifyingGlass from "../../assets/magnifying-glass.png";
 import { COLORS } from "../../helpers/constants";
-import { currentMonthAccountExpensesSumsByCategory } from "../../redux/transactions/selectors/selectAccountTransactions";
+import { selectCurrMonthAccountExpensesByCategory } from "../../redux/transactions/selectors/selectAccountTransactions";
 import styles from "./expensesPieChart.module.css";
 
 const ExpensesPieChart = () => {
-  const currentMonthExpensesSumsByCategory = useSelector(
-    currentMonthAccountExpensesSumsByCategory
+  const expensesSumsByCategory = useSelector(
+    selectCurrMonthAccountExpensesByCategory
   );
 
   const [activeIndex, setActiveIndex] = useState(0);
@@ -25,7 +25,7 @@ const ExpensesPieChart = () => {
   return (
     <div className={styles.container}>
       <Heading value="Expenses by catagories" type={Heading.types.h2} />
-      {!currentMonthExpensesSumsByCategory.length ? (
+      {!expensesSumsByCategory.length ? (
         <>
           <Heading
             className={styles.heading}
@@ -48,7 +48,7 @@ const ExpensesPieChart = () => {
             <Pie
               activeIndex={activeIndex}
               activeShape={renderActiveShape}
-              data={currentMonthExpensesSumsByCategory}
+              data={expensesSumsByCategory}
               cx={250}
               cy={150}
               innerRadius={60}
@@ -57,7 +57,7 @@ const ExpensesPieChart = () => {
               dataKey="value"
               onMouseEnter={onPieEnter}
             >
-              {currentMonthExpensesSumsByCategory.map((_, index) => (
+              {expensesSumsByCategory.map((_, index) => (
                 <Cell
                   key={`cell-${index}`}
                   fill={COLORS[index % COLORS.length]}

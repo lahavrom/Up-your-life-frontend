@@ -11,53 +11,23 @@ import {
 } from "recharts";
 import { Heading } from "monday-ui-react-core";
 
-import { TRANSACTIONS_TYPES } from "../../helpers/constants";
-import { currentMonthAccountTransactions } from "../../redux/transactions/selectors/selectAccountTransactions";
-import { futureFixedTransactions } from "../../redux/transactions/selectors/selectFixedTransactions";
+import { selectSumsOfCurrMonthAccountByType } from "../../redux/transactions/selectors/selectAccountTransactions";
+import { selectSumsOfFutureFixedByType } from "../../redux/transactions/selectors/selectFixedTransactions";
 import styles from "./compareExpenesIncome.module.css";
 
-const calculateSumOfTransactionsByType = (transactions) => {
-  let incomes = 0;
-  let expenses = 0;
-  transactions.forEach(({ type, value }) => {
-    if (type === TRANSACTIONS_TYPES.INCOME) {
-      incomes += value;
-    } else {
-      expenses += value;
-    }
-  });
-
-  return { incomes, expenses };
-};
-const balanceCalculate = (sumsOfFutureFixedEvents, sumsOfAccountEvents) => {
-  const allExpenses =
-    sumsOfFutureFixedEvents.expenses + sumsOfAccountEvents.expenses;
-  const allIncomes =
-    sumsOfFutureFixedEvents.incomes + sumsOfAccountEvents.incomes;
-
-  const balance = allIncomes - allExpenses;
-  return balance;
+const calculateBalance = (fixed, account) => {
+  const incomes = fixed.incomes + account.incomes;
+  const expenses = fixed.expenses + account.expenses;
+  return { balance: incomes - expenses, incomes, expenses };
 };
 
 const CompareExpenesIncomes = () => {
-  const fixedTransactions = useSelector(futureFixedTransactions);
+  const fixed = useSelector(selectSumsOfFutureFixedByType);
+  const account = useSelector(selectSumsOfCurrMonthAccountByType);
 
-  const accountTransactions = useSelector(currentMonthAccountTransactions);
-
-  const sumsOfFutureFixedEvents = useMemo(
-    () => calculateSumOfTransactionsByType(fixedTransactions),
-    [fixedTransactions]
-  );
-
-  const sumsOfAccountEvents = useMemo(
-    () => calculateSumOfTransactionsByType(accountTransactions),
-    [accountTransactions]
-  );
-
-  const sumsOfCalculate = useMemo(
-    () => balanceCalculate(sumsOfFutureFixedEvents, sumsOfAccountEvents),
-
-    [sumsOfFutureFixedEvents, sumsOfAccountEvents]
+  const { balance, incomes, expenses } = useMemo(
+    () => calculateBalance(fixed, account),
+    [fixed, account]
   );
 
   return (
@@ -73,10 +43,8 @@ const CompareExpenesIncomes = () => {
         height={300}
         data={[
           {
-            Incomes:
-              sumsOfFutureFixedEvents.incomes + sumsOfAccountEvents.incomes,
-            Expenses:
-              sumsOfFutureFixedEvents.expenses + sumsOfAccountEvents.expenses,
+            Incomes: incomes,
+            Expenses: expenses,
             amt: 1000,
           },
         ]}
@@ -102,7 +70,7 @@ const CompareExpenesIncomes = () => {
       <Heading
         className={styles.heading}
         type={Heading.types.h2}
-        value={`At the end of the month your balance will be ${sumsOfCalculate}₪`}
+        value={`At the end of the month your balance will be ${balance}₪`}
         size="small"
       />
     </div>

@@ -1,56 +1,59 @@
 import { createSelector } from "reselect";
 
 import { CATEGORIES, TRANSACTIONS_TYPES } from "../../../helpers/constants";
-import { currentMonth } from "../../date/selectors/selectCurrentMonth";
+import { selectMonth } from "../../date/selectors";
 import { getMonthFromTimestamp } from "../../../helpers/dateTimeUtils";
+import { calculateSumsByType } from "../helpers/utils";
 
-export const accountTransactions = (state) => state.transactionsState.account;
+export const selectAccount = (state) => state.transactionsState.account;
 
-export const currentMonthAccountTransactions = createSelector(
-  accountTransactions,
-  currentMonth,
-  (accountTransactions, currentMonth) => {
-    return accountTransactions.filter(
-      ({ effectiveDate }) =>
-        getMonthFromTimestamp(effectiveDate) === currentMonth
+// current month transactions
+export const selectCurrMonthAccountTransactions = createSelector(
+  selectAccount,
+  selectMonth,
+  (account, month) => {
+    return account.filter(
+      ({ effectiveDate }) => getMonthFromTimestamp(effectiveDate) === month
     );
   }
 );
 
-export const currentMonthAccountExpenses = createSelector(
-  currentMonthAccountTransactions,
-  (currentMonthAccountTransactions) => {
-    return currentMonthAccountTransactions.filter(
-      ({ type }) => type === TRANSACTIONS_TYPES.EXPENSE
-    );
+// current month transactions sum by type
+export const selectSumsOfCurrMonthAccountByType = createSelector(
+  selectCurrMonthAccountTransactions,
+  (account) => {
+    return calculateSumsByType(account);
   }
 );
 
-export const currentMonthAccountExpensesSumsByCategory = createSelector(
-  currentMonthAccountExpenses,
-  (currentMonthAccountExpenses) => {
-    let sumsOfExpensesByCategory = {};
+// current month expenses
+export const selectCurrMonthAccountExpenses = createSelector(
+  selectCurrMonthAccountTransactions,
+  (account) => {
+    return account.filter(({ type }) => type === TRANSACTIONS_TYPES.EXPENSE);
+  }
+);
+
+// current month expenses by category
+export const selectCurrMonthAccountExpensesByCategory = createSelector(
+  selectCurrMonthAccountExpenses,
+  (account) => {
+    let sumObj = {};
     Object.values(CATEGORIES).forEach((category) => {
-      const currentCategorySumObj = { [category]: 0 };
-      sumsOfExpensesByCategory = Object.assign(
-        sumsOfExpensesByCategory,
-        currentCategorySumObj
-      );
+      const categorySumObj = { [category]: 0 };
+      sumObj = Object.assign(sumObj, categorySumObj);
     });
 
-    currentMonthAccountExpenses.forEach(({ category, value }) => {
-      sumsOfExpensesByCategory[category] += value;
+    account.forEach(({ category, value }) => {
+      sumObj[category] += value;
     });
 
-    let sumsOfExpensesByCategoryArray = [];
-    Object.entries(sumsOfExpensesByCategory).forEach(([key, value]) => {
+    let sumArray = [];
+    Object.entries(sumObj).forEach(([key, value]) => {
       if (value > 0) {
-        sumsOfExpensesByCategoryArray = [
-          ...sumsOfExpensesByCategoryArray,
-          { name: key, value },
-        ];
+        sumArray = [...sumArray, { name: key, value }];
       }
     });
-    return sumsOfExpensesByCategoryArray;
+    return sumArray;
   }
 );
