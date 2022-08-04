@@ -7,3 +7,7 @@ export const setAuthToken = (token) => {
 export const getAuthToken = () => {
   return sessionStorage.getItem(AUTH_TOKEN);
 };
+
+export const removeAuthToken = () => {
+  sessionStorage.removeItem(AUTH_TOKEN);
+};

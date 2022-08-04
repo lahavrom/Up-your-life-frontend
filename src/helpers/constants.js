@@ -16,14 +16,13 @@ export const ABOUT_INFO = {
 export const APP_ROUTES = {
   LOGIN: "/login",
   REGISTER: "/register",
-  UP_YOUR_LIFE: "/up-your-life",
+  UP_YOUR_LIFE: "/",
 };
 
 export const SUCCESS_MESSAGES = {
   SUBMIT_TRANSACTION: "Transaction added successfully!",
   EDIT_TRANSACTION: "Transaction editted successfully!",
   DELETE_TRANSACTION: "Transaction deleted successfully!",
-  ADD_USER_TO_ACCOUNT: "User added to the account successfully!",
 };
 
 export const MONTHS = [

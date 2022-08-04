@@ -23,7 +23,6 @@ const LoginPage = () => {
   return (
     <div className={styles.container}>
       <img src={logo} alt="" className={styles.logo} />
-
       <div className={styles.formContainer}>
         <LoginForm />
       </div>
