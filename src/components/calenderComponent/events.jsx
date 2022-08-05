@@ -5,14 +5,12 @@ export default [
 		id: 2,
 		title: "DTS STARTS",
 		start: new Date(2016, 2, 13, 0, 0, 0),
-		end: new Date(2016, 2, 20, 0, 0, 0),
 	},
 
 	{
 		id: 3,
 		title: "DTS ENDS",
 		start: new Date(2016, 10, 6, 0, 0, 0),
-		end: new Date(2016, 10, 13, 0, 0, 0),
 	},
 
 	{
@@ -39,5 +37,6 @@ export default [
 		title: "Point in Time Event",
 		start: now,
 		end: now,
+		desc: "Big conference for important people",
 	},
 ];

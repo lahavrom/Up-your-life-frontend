@@ -1,45 +1,60 @@
-import { useState } from "react";
 import { useSelector } from "react-redux";
+import { useMemo } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
-import { selectCurrMonthAccountTransactions } from "../../redux/transactions/selectors/selectAccountTransactions";
-// import events from "./events";
-
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import { generateEffectiveDate } from "../../helpers/dateTimeUtils";
+
+import "./calenderComponent.css";
+import { selectCurrMonthAccountTransactions } from "../../redux/transactions/selectors/selectAccountTransactions";
+import { useEffect } from "react";
+import events from "./events";
 
 moment.locale("en-GB");
 const localizer = momentLocalizer(moment);
 
-export default function CalenderComponent() {
-  const AccountExpenses = useSelector(selectCurrMonthAccountTransactions);
-  const [eventsData, setEventsData] = useState(AccountExpenses);
-  console.log(AccountExpenses);
+const generateStart = (effectiveDate) => {
+	const date = new Date(effectiveDate);
+	const year = date.getFullYear();
+	const month = date.getMonth() + 1;
+	const day = date.getDate();
+	return new Date();
+};
 
-  // const handleSelect = ({ start, end }) => {
-  // 	const title = window.prompt("New Event name");
-  // 	if (title)
-  // 		setEventsData([
-  // 			...eventsData,
-  // 			{
-  // 				start,
-  // 				title,
-  // 			},
-  // 		]);
-  // };
-  return (
-    <div>
-      <Calendar
-        views={["month"]}
-        selectable
-        localizer={localizer}
-        defaultDate={new Date()}
-        defaultView="month"
-        AccountExpenses={eventsData}
-        style={{ height: "100vh" }}
-        onSelectEvent={(event) => alert(event.title)}
-        // onSelectSlot={handleSelect}
-      />
-    </div>
-  );
+const generateAccountEvents = (account) => {
+	return account.map((currAccountTransaction) => ({
+		id: currAccountTransaction.id,
+		title: `${currAccountTransaction.type}`,
+		desc: `${currAccountTransaction.value}`,
+		start: generateStart(currAccountTransaction.effectiveDate),
+		end: generateStart(currAccountTransaction.effectiveDate),
+	}));
+};
+
+export default function CalenderComponent() {
+	const account = useSelector(selectCurrMonthAccountTransactions);
+
+	const accountEvents = useMemo(
+		() => generateAccountEvents(account),
+		[account]
+	);
+
+	useEffect(() => {
+		console.log(accountEvents);
+	}, [accountEvents]);
+
+	console.log(events);
+	return (
+		<div>
+			<Calendar
+				views={["month"]}
+				// selectable
+				localizer={localizer}
+				defaultDate={new Date()}
+				defaultView="month"
+				events={accountEvents}
+				style={{ height: "100vh" }}
+				onSelectEvent={(event) => alert(`${event.title} ${event.desc}`)}
+			/>
+		</div>
+	);
 }
