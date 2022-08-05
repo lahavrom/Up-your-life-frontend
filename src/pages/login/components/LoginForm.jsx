@@ -22,34 +22,34 @@ const validationSchema = Yup.object().shape({
 });
 
 const LoginForm = () => {
-  const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
   const isLoading = useSelector(selectIsLoading);
 
-  const onLoginUser = useCallback(
-    (values) => {
-      dispatch(loginUser(values));
-    },
-    [dispatch]
-  );
+	const onLoginUser = useCallback(
+		(values) => {
+			dispatch(loginUser(values));
+		},
+		[dispatch]
+	);
 
-  return (
-    <Form
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={onLoginUser}
-    >
-      <Flex gap={Flex.gaps.SMALL} direction={Flex.directions.COLUMN}>
-        <FormTextField field="email" placeholder="Email" autoFocus />
-        <FormTextField
-          field="password"
-          placeholder="Password"
-          type="password"
-        />
-        <FormSubmitButton label="Submit" isLoading={isLoading} />
-      </Flex>
-    </Form>
-  );
+	return (
+		<Form
+			initialValues={initialValues}
+			validationSchema={validationSchema}
+			onSubmit={onLoginUser}
+		>
+			<Flex gap={Flex.gaps.SMALL} direction={Flex.directions.COLUMN}>
+				<FormTextField field="email" placeholder="Email" autoFocus />
+				<FormTextField
+					field="password"
+					placeholder="Password"
+					type="password"
+				/>
+				<FormSubmitButton label="Login" isLoading={isLoading} />
+			</Flex>
+		</Form>
+	);
 };
 
 export default LoginForm;

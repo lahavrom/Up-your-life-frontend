@@ -1,0 +1,10 @@
+.container {
+	font-size: 20px;
+	position: inherit;
+	z-index: auto;
+}
+
+.calender {
+	position: relative;
+	z-index: auto;
+}

@@ -1,13 +1,13 @@
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
+	BarChart,
+	Bar,
+	XAxis,
+	YAxis,
+	CartesianGrid,
+	Tooltip,
+	Legend,
 } from "recharts";
 import { Heading } from "monday-ui-react-core";
 
