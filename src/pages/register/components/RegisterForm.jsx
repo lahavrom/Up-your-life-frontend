@@ -8,10 +8,10 @@ import {
   FormTextField,
   FormSubmitButton,
 } from "../../../components/form";
+import { selectIsLoading } from "../../../redux/user/selectors";
 import { registerUser } from "../../../redux/user/actions/registerUser";
 
 const initialValues = {
-  accountId: 1,
   firstName: "",
   lastName: "",
   email: "",
@@ -28,7 +28,7 @@ const validationSchema = Yup.object().shape({
 const RegisterForm = () => {
   const dispatch = useDispatch();
 
-  const isLoading = useSelector(({ userState }) => userState.isLoading);
+  const isLoading = useSelector(selectIsLoading);
 
   const onRegisterUser = useCallback(
     (values) => {

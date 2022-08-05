@@ -10,11 +10,10 @@ import ProtectedRoute from "./ProtectedRoute";
 const AppRouter = () => {
   return (
     <Routes>
-      <Route index element={<LoginPage />} />
       <Route path={APP_ROUTES.LOGIN} element={<LoginPage />} />
       <Route path={APP_ROUTES.REGISTER} element={<RegisterPage />} />
       <Route
-        path={APP_ROUTES.UP_YOUR_LIFE}
+        index
         element={
           <ProtectedRoute>
             <UpYourLifePage />

@@ -1,21 +1,21 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3001";
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 const usersClient = axios.create({
-  baseURL: `${API_URL}/users`,
+  baseURL: `${BACKEND_URL}/users`,
 });
 
 const accountsClient = axios.create({
-  baseURL: `${API_URL}/accounts`,
+  baseURL: `${BACKEND_URL}/accounts`,
 });
 
 const accountTransactionsClient = axios.create({
-  baseURL: `${API_URL}/account-transactions`,
+  baseURL: `${BACKEND_URL}/account-transactions`,
 });
 
 const fixedTransactionsClient = axios.create({
-  baseURL: `${API_URL}/fixed-transactions`,
+  baseURL: `${BACKEND_URL}/fixed-transactions`,
 });
 
 export {
