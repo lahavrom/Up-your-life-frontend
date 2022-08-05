@@ -39,8 +39,22 @@ const fetchUser = async () => {
   }
 };
 
+const updateProfileImage = async (profileImage) => {
+  try {
+    await usersClient.post("/update-profile-image", profileImage, {
+      headers: {
+        "x-auth-token": getAuthToken(),
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  } catch (error) {
+    throw handleError(error);
+  }
+};
+
 export default {
   registerUser,
   loginUser,
   fetchUser,
+  updateProfileImage,
 };
