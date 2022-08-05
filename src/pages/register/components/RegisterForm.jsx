@@ -10,6 +10,7 @@ import {
 } from "../../../components/form";
 import { selectIsLoading } from "../../../redux/user/selectors";
 import { registerUser } from "../../../redux/user/actions/registerUser";
+import { toUpperCaseFirstChar } from "../../../helpers/utils";
 
 const initialValues = {
   firstName: "",
@@ -32,7 +33,9 @@ const RegisterForm = () => {
 
   const onRegisterUser = useCallback(
     (values) => {
-      dispatch(registerUser(values));
+      const firstName = toUpperCaseFirstChar(values.firstName);
+      const lastName = toUpperCaseFirstChar(values.lastName);
+      dispatch(registerUser({ ...values, firstName, lastName }));
     },
     [dispatch]
   );
