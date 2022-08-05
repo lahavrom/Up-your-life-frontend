@@ -12,7 +12,9 @@ import {
 } from "monday-ui-react-core/dist/allIcons";
 import { selectUser } from "../../../redux/user/selectors";
 import { addUserToAccount } from "../../../redux/account/actions/addUserToAccount";
+import usersService from "../../../services/usersService";
 import InviteModal from "./InviteModal";
+// import { getAuthToken } from "../../../helpers/authTokenUtils";
 
 const ProfileButton = () => {
   const dispatch = useDispatch();
@@ -33,10 +35,11 @@ const ProfileButton = () => {
   const uploadImage = async () => {
     const formData = new FormData();
     formData.append("image", inputImage.current.files[0], userId);
-
-    await axios.post("http://localhost:3001/users/upload-image", formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
+    try {
+      await usersService.updateProfileImage(formData);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const sendEmailInvites = async (emails) => {
