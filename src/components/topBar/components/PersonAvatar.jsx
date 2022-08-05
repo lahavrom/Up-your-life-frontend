@@ -1,16 +1,21 @@
+import { useSelector } from "react-redux";
+
+import { selectUser } from "../../../redux/user/selectors";
 import { Avatar } from "monday-ui-react-core";
-import lahav_pic from "../../../assets/lahav_pic.png";
+import { Person } from "monday-ui-react-core/dist/allIcons";
+import { getImage } from "../../../helpers/s3";
 
 const PersonAvatar = () => {
-  return (
+  const { userId, isProfileImage } = useSelector(selectUser);
+
+  return isProfileImage ? (
     <Avatar
       size={Avatar.sizes.MEDIUM}
-      type={Avatar.types.TEXT}
-      //   src={}
-      //   text={"LR"}
-      backgroundColor={Avatar.colors.DARK_BLUE}
-      ariaLabel={"Lahav Rom"}
+      type={Avatar.types.IMG}
+      src={getImage(userId)}
     />
+  ) : (
+    <Person />
   );
 };
 
