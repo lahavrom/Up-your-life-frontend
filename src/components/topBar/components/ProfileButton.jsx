@@ -1,24 +1,24 @@
 import { useRef, useState, useCallback } from "react";
-import axios from "axios";
 import emailjs from "emailjs-com";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Menu, MenuItem, MenuButton } from "monday-ui-react-core";
-import {
-  Person,
-  LogOut,
-  Invite,
-  Image,
-} from "monday-ui-react-core/dist/allIcons";
+import { LogOut, Invite, Image } from "monday-ui-react-core/dist/allIcons";
+import styles from "./profileButton.module.css";
 import { selectUser } from "../../../redux/user/selectors";
 import { addUserToAccount } from "../../../redux/account/actions/addUserToAccount";
 import usersService from "../../../services/usersService";
 import InviteModal from "./InviteModal";
-// import { getAuthToken } from "../../../helpers/authTokenUtils";
+import PersonAvatar from "./PersonAvatar";
+import ErrorToast from "../../toasts/ErrorToast";
+import SuccessToast from "../../toasts/SuccessToast";
 
 const ProfileButton = () => {
   const dispatch = useDispatch();
   const { userId } = useSelector(selectUser);
+
+  const [errToast, setErrToast] = useState(false);
+  const [succToast, setSuccToast] = useState(false);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -40,25 +40,25 @@ const ProfileButton = () => {
     } catch (error) {
       console.error(error);
     }
+    window.location.reload();
+    setSuccToast(true);
   };
 
   const sendEmailInvites = async (emails) => {
     const params = {
       email: emails,
     };
-
-    console.log(params);
-
-    await emailjs
-      .send("gmail", "invite-to-app-template", params, "fdRonV2APMX1lKewP")
-      .then(
-        (result) => {
-          console.log(result.text);
-        },
-        (error) => {
-          console.log(error.text);
-        }
+    try {
+      await emailjs.send(
+        "gmail",
+        "invite-to-app-template",
+        params,
+        "fdRonV2APMX1lKewP"
       );
+    } catch (error) {
+      setErrToast(true);
+      setTimeout(() => setErrToast(false), 5000);
+    }
 
     dispatch(addUserToAccount(emails));
   };
@@ -71,6 +71,14 @@ const ProfileButton = () => {
 
   return (
     <>
+      <ErrorToast
+        isVisible={errToast}
+        message="Something went wrong, try again later"
+      />
+      <SuccessToast
+        isVisible={succToast}
+        message="Image uploaded successfully!"
+      />
       <input
         type="file"
         style={{ display: "none" }}
@@ -82,7 +90,7 @@ const ProfileButton = () => {
         onClose={onCloseModal}
         sendEmailInvites={sendEmailInvites}
       />
-      <MenuButton component={Person}>
+      <MenuButton className={styles.profileButton} component={PersonAvatar}>
         <Menu id="menu" size={Menu.sizes.MEDIUM}>
           <MenuItem
             icon={Invite}
