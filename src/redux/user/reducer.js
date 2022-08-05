@@ -3,6 +3,7 @@ import ACTION_TYPES from "./actions/constants/actionTypes";
 const initialState = {
   isLoading: false,
   isSuccess: false,
+  successMessage: "",
   isError: false,
   errorMessage: "",
   user: null,
@@ -17,6 +18,7 @@ const userReducer = (state = initialState, { type, payload }) => {
         ...state,
         isLoading: true,
         isSuccess: false,
+        successMessage: "",
         isError: false,
         errorMessage: "",
       };
@@ -36,6 +38,26 @@ const userReducer = (state = initialState, { type, payload }) => {
       };
     }
 
+    case ACTION_TYPES.LOGOUT_USER: {
+      return initialState;
+    }
+
+    case ACTION_TYPES.TOGGLE_IS_PROFILE_IMAGE: {
+      const { isProfileImage, successMessage } = payload;
+      return {
+        ...state,
+        isLoading: false,
+        isSuccess: true,
+        successMessage,
+        isError: false,
+        errorMessage: "",
+        user: {
+          ...state.user,
+          isProfileImage,
+        },
+      };
+    }
+
     case ACTION_TYPES.REGISTER_USER_FAIL:
     case ACTION_TYPES.LOGIN_USER_FAIL:
     case ACTION_TYPES.FETCH_USER_FAIL: {
@@ -44,6 +66,7 @@ const userReducer = (state = initialState, { type, payload }) => {
         ...state,
         isLoading: false,
         isSuccess: false,
+        successMessage: "",
         isError: true,
         errorMessage,
       };

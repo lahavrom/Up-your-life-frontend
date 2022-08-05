@@ -1,24 +1,33 @@
 import { useRef, useState, useCallback } from "react";
-import emailjs from "emailjs-com";
 import { useDispatch, useSelector } from "react-redux";
-
+import emailjs from "emailjs-com";
 import { Menu, MenuItem, MenuButton } from "monday-ui-react-core";
 import { LogOut, Invite, Image } from "monday-ui-react-core/dist/allIcons";
-import styles from "./profileButton.module.css";
-import { selectUser } from "../../../redux/user/selectors";
+
+import { fetchAccountUsers } from "../../../redux/account/actions/fetchAccountUsers";
+import { logoutUser } from "../../../redux/user/actions/logoutUser";
+import { toggleIsProfileImage } from "../../../redux/user/actions/toggleIsProfileImage";
+import {
+  selectIsSuccess,
+  selectSuccessMessage,
+  selectUser,
+} from "../../../redux/user/selectors";
 import { addUserToAccount } from "../../../redux/account/actions/addUserToAccount";
 import usersService from "../../../services/usersService";
 import InviteModal from "./InviteModal";
 import PersonAvatar from "./PersonAvatar";
 import ErrorToast from "../../toasts/ErrorToast";
 import SuccessToast from "../../toasts/SuccessToast";
+import styles from "./profileButton.module.css";
 
 const ProfileButton = () => {
   const dispatch = useDispatch();
+
+  const isSuccess = useSelector(selectIsSuccess);
+  const successMessage = useSelector(selectSuccessMessage);
   const { userId } = useSelector(selectUser);
 
   const [errToast, setErrToast] = useState(false);
-  const [succToast, setSuccToast] = useState(false);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -32,22 +41,20 @@ const ProfileButton = () => {
 
   const inputImage = useRef(null);
 
-  const uploadImage = async () => {
+  const onUploadImage = async () => {
     const formData = new FormData();
     formData.append("image", inputImage.current.files[0], userId);
     try {
       await usersService.updateProfileImage(formData);
+      dispatch(toggleIsProfileImage(true));
+      dispatch(fetchAccountUsers());
     } catch (error) {
       console.error(error);
     }
-    window.location.reload();
-    setSuccToast(true);
   };
 
-  const sendEmailInvites = async (emails) => {
-    const params = {
-      email: emails,
-    };
+  const onSendEmailInvites = async (emails) => {
+    const params = { email: emails };
     try {
       await emailjs.send(
         "gmail",
@@ -55,18 +62,15 @@ const ProfileButton = () => {
         params,
         "fdRonV2APMX1lKewP"
       );
+      dispatch(addUserToAccount(emails));
     } catch (error) {
       setErrToast(true);
       setTimeout(() => setErrToast(false), 5000);
     }
-
-    dispatch(addUserToAccount(emails));
   };
 
-  const logOut = () => {
-    window.localStorage.removeItem("AUTH_TOKEN");
-    window.sessionStorage.removeItem("AUTH_TOKEN");
-    window.location.reload();
+  const onLogout = () => {
+    dispatch(logoutUser());
   };
 
   return (
@@ -75,20 +79,17 @@ const ProfileButton = () => {
         isVisible={errToast}
         message="Something went wrong, try again later"
       />
-      <SuccessToast
-        isVisible={succToast}
-        message="Image uploaded successfully!"
-      />
+      <SuccessToast isVisible={isSuccess} message={successMessage} />
       <input
         type="file"
         style={{ display: "none" }}
         ref={inputImage}
-        onChange={() => uploadImage()}
+        onChange={onUploadImage}
       />
       <InviteModal
         isOpen={isModalOpen}
         onClose={onCloseModal}
-        sendEmailInvites={sendEmailInvites}
+        sendEmailInvites={onSendEmailInvites}
       />
       <MenuButton className={styles.profileButton} component={PersonAvatar}>
         <Menu id="menu" size={Menu.sizes.MEDIUM}>
@@ -96,7 +97,7 @@ const ProfileButton = () => {
             icon={Invite}
             iconType={MenuItem.iconType.SVG}
             title="Invite to account"
-            onClick={() => onOpenModal()}
+            onClick={onOpenModal}
           />
           <MenuItem
             icon={Image}
@@ -108,7 +109,7 @@ const ProfileButton = () => {
             icon={LogOut}
             iconType={MenuItem.iconType.SVG}
             title="Log Out"
-            onClick={() => logOut()}
+            onClick={onLogout}
           />
         </Menu>
       </MenuButton>
