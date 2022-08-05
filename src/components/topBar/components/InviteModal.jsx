@@ -5,14 +5,12 @@ import { Email, Add, Delete } from "monday-ui-react-core/dist/allIcons";
 import styles from "./inviteModal.module.css";
 import AppModal from "../../modal/AppModal";
 import SuccessToast from "../../toasts/SuccessToast";
-import ErrorToast from "../../toasts/ErrorToast";
 
 const InviteModal = ({ isOpen, onClose, sendEmailInvites }) => {
   const [currentEmail, setCurrentEmail] = useState("");
   const [emails, setEmails] = useState([]);
   const [mailErr, setMailErr] = useState(false);
   const [succToast, setSuccToast] = useState(false);
-  const [errToast, setErrToast] = useState(false);
   const [Loading, setLoading] = useState(false);
 
   const validateEmail = (email) => {
@@ -41,19 +39,14 @@ const InviteModal = ({ isOpen, onClose, sendEmailInvites }) => {
     setLoading(true);
     if (emails.length) {
       await sendEmailInvites(emails);
-      setLoading(false);
       setSuccToast(true);
       onCloseInvite();
-      return;
     }
     setLoading(false);
-    setErrToast(true);
-    setTimeout(() => setErrToast(false), 35000);
   };
 
   return (
     <>
-      <ErrorToast isVisible={errToast} message="test" />
       <SuccessToast
         isVisible={succToast}
         message="Invitations sent successfully!"
@@ -72,7 +65,9 @@ const InviteModal = ({ isOpen, onClose, sendEmailInvites }) => {
             event.key === "Enter" ? addEmail() : setMailErr(false);
           }}
           validation={
-            mailErr ? { status: "error", text: "Invalid email address" } : false
+            mailErr
+              ? { status: "error", text: "Invalid email address" }
+              : undefined
           }
         />
         <Divider />
@@ -93,7 +88,11 @@ const InviteModal = ({ isOpen, onClose, sendEmailInvites }) => {
         ) : (
           <></>
         )}
-        <Button onClick={() => handleInvite()} loading={Loading}>
+        <Button
+          disabled={emails.length === 0}
+          onClick={() => handleInvite()}
+          loading={Loading}
+        >
           Invite
         </Button>
       </AppModal>

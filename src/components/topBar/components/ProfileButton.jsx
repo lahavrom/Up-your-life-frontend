@@ -14,7 +14,7 @@ import { selectUser } from "../../../redux/user/selectors";
 import { addUserToAccount } from "../../../redux/account/actions/addUserToAccount";
 import usersService from "../../../services/usersService";
 import InviteModal from "./InviteModal";
-// import { getAuthToken } from "../../../helpers/authTokenUtils";
+import PersonAvatar from "./PersonAvatar";
 
 const ProfileButton = () => {
   const dispatch = useDispatch();
@@ -82,7 +82,7 @@ const ProfileButton = () => {
         onClose={onCloseModal}
         sendEmailInvites={sendEmailInvites}
       />
-      <MenuButton component={Person}>
+      <MenuButton component={PersonAvatar}>
         <Menu id="menu" size={Menu.sizes.MEDIUM}>
           <MenuItem
             icon={Invite}
