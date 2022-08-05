@@ -4,14 +4,14 @@ import { PieChart, Pie, Cell, Sector } from "recharts";
 import { Heading } from "monday-ui-react-core";
 
 import magnifyingGlass from "../../assets/magnifying-glass.png";
-import { COLORS } from "../../helpers/constants";
+import { COLORS, CATEGORIES_COLORS } from "../../helpers/constants";
 import { selectCurrMonthAccountExpensesByCategory } from "../../redux/transactions/selectors/selectAccountTransactions";
 import styles from "./expensesPieChart.module.css";
 
 const ExpensesPieChart = () => {
-  const expensesSumsByCategory = useSelector(
-    selectCurrMonthAccountExpensesByCategory
-  );
+	const expensesSumsByCategory = useSelector(
+		selectCurrMonthAccountExpensesByCategory
+	);
 
 	const [activeIndex, setActiveIndex] = useState(0);
 
@@ -22,53 +22,56 @@ const ExpensesPieChart = () => {
 		[setActiveIndex]
 	);
 
-  return (
-    <div className={styles.container}>
-      <Heading value="Expenses by catagories" type={Heading.types.h2} />
-      {!expensesSumsByCategory.length ? (
-        <>
-          <Heading
-            className={styles.heading}
-            type={Heading.types.h2}
-            value="No Expenses Found"
-            size="small"
-            customColor={"grey"}
-          />
-          <img src={magnifyingGlass} className={styles.img} alt="" />
-        </>
-      ) : (
-        <>
-          <Heading
-            className={styles.heading}
-            type={Heading.types.h2}
-            value="This month your expenses was :"
-            size="small"
-          />
-          <PieChart width={500} height={360}>
-            <Pie
-              activeIndex={activeIndex}
-              activeShape={renderActiveShape}
-              data={expensesSumsByCategory}
-              cx={250}
-              cy={150}
-              innerRadius={60}
-              outerRadius={80}
-              fill={COLORS[COLORS.length]}
-              dataKey="value"
-              onMouseEnter={onPieEnter}
-            >
-              {expensesSumsByCategory.map((_, index) => (
-                <Cell
-                  key={`cell-${index}`}
-                  fill={COLORS[index % COLORS.length]}
-                />
-              ))}
-            </Pie>
-          </PieChart>
-        </>
-      )}
-    </div>
-  );
+	return (
+		<div className={styles.container}>
+			<Heading value="Expenses by catagories" type={Heading.types.h2} />
+			{!expensesSumsByCategory.length ? (
+				<>
+					<Heading
+						className={styles.heading}
+						type={Heading.types.h2}
+						value="No Expenses Found"
+						size="small"
+						customColor={"grey"}
+					/>
+					<img src={magnifyingGlass} className={styles.img} alt="" />
+				</>
+			) : (
+				<>
+					<Heading
+						className={styles.heading}
+						type={Heading.types.h2}
+						value="This month your expenses was :"
+						size="small"
+					/>
+					<PieChart width={500} height={360}>
+						<Pie
+							activeIndex={activeIndex}
+							activeShape={renderActiveShape}
+							data={expensesSumsByCategory}
+							cx={250}
+							cy={150}
+							innerRadius={60}
+							outerRadius={80}
+							dataKey="value"
+							onMouseEnter={onPieEnter}
+						>
+							{expensesSumsByCategory.map((_, index) => {
+								console.log(expensesSumsByCategory[index]);
+								return (
+									<Cell
+										key={`cell-${index}`}
+										// fill={COLORS[index % COLORS.length]}
+										fill={CATEGORIES_COLORS[expensesSumsByCategory[index].name]}
+									/>
+								);
+							})}
+						</Pie>
+					</PieChart>
+				</>
+			)}
+		</div>
+	);
 };
 
 export default ExpensesPieChart;

@@ -41,15 +41,6 @@ export const MONTHS = [
 	"December",
 ];
 
-export const COLORS = [
-	"#C60F7B",
-	"#168AAD",
-	"#d89d6a",
-	"#1A759F",
-	"#184E77",
-	"#FBB454",
-];
-
 export const DAYS_OF_MONTH = [
 	1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
 	23, 24, 25, 26, 27, 28, 29, 30, 31,
@@ -66,6 +57,28 @@ export const CATEGORIES = {
 	SCHOOL: "School",
 	SHOPPING: "Shopping",
 	VACATION: "Vacation",
+};
+
+export const COLORS = [
+	"#C60F7B",
+	"#168AAD",
+	"#d89d6a",
+	"#1A759F",
+	"#184E77",
+	"#FBB454",
+];
+
+export const CATEGORIES_COLORS = {
+	Car: "#1C3879",
+	Construction: "#DEB6AB",
+	Food: "#C60F7B",
+	Paycheck: "#FFF89C",
+	Pets: "#FBB454",
+	Rent: "#184E77",
+	School: "#1A759F",
+	Shopping: "#d89d6a",
+	Vacation: "#168AAD",
+	Other: "#FFDEB4",
 };
 
 export const TRANSACTIONS_TYPES = {
