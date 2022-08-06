@@ -6,3 +6,10 @@
 .barChart {
   align-self: center;
 }
+
+.avatars {
+  width: 70%;
+  display: flex;
+  align-self: center;
+  justify-content: space-around;
+}
