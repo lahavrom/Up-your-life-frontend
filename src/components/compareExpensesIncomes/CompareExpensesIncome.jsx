@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import {
   BarChart,
@@ -11,24 +10,11 @@ import {
 } from "recharts";
 import { Heading } from "monday-ui-react-core";
 
-import { selectSumsOfCurrMonthAccountByType } from "../../redux/transactions/selectors/selectAccountTransactions";
-import { selectSumsOfFutureFixedByType } from "../../redux/transactions/selectors/selectFixedTransactions";
+import { selectSumOfTransactionsByType } from "../../redux/transactions/selectors/selectSumOfTransactionsByType";
 import styles from "./compareExpenesIncome.module.css";
 
-const calculateBalance = (fixed, account) => {
-  const incomes = fixed.incomes + account.incomes;
-  const expenses = fixed.expenses + account.expenses;
-  return { balance: incomes - expenses, incomes, expenses };
-};
-
 const CompareExpenesIncomes = () => {
-  const fixed = useSelector(selectSumsOfFutureFixedByType);
-  const account = useSelector(selectSumsOfCurrMonthAccountByType);
-
-  const { balance, incomes, expenses } = useMemo(
-    () => calculateBalance(fixed, account),
-    [fixed, account]
-  );
+  const { incomes, expenses } = useSelector(selectSumOfTransactionsByType);
 
   return (
     <div className={styles.container}>
@@ -70,7 +56,9 @@ const CompareExpenesIncomes = () => {
       <Heading
         className={styles.heading}
         type={Heading.types.h2}
-        value={`At the end of the month your balance will be ${balance}$`}
+        value={`At the end of the month your balance will be ${
+          incomes - expenses
+        }$`}
         size="small"
       />
     </div>
