@@ -6,25 +6,25 @@ import NotFoundPage from "../pages/notFound/NotFoundPage";
 import RegisterPage from "../pages/register/RegisterPage";
 import UpYourLifePage from "../pages/upYourBiz/UpYourLifeBiz";
 import ProtectedRoute from "./ProtectedRoute";
-import AboutPage from "../pages/about/AboutPage";
+import AboutComponent from "../components/aboutComponent/AboutComponent";
 
 const AppRouter = () => {
-  return (
-    <Routes>
-      <Route path={APP_ROUTES.LOGIN} element={<LoginPage />} />
-      <Route path={APP_ROUTES.REGISTER} element={<RegisterPage />} />
-      <Route path={APP_ROUTES.ABOUT} element={<AboutPage />} />
-      <Route
-        index
-        element={
-          <ProtectedRoute>
-            <UpYourLifePage />
-          </ProtectedRoute>
-        }
-      />
-      <Route path="*" element={<NotFoundPage />} />
-    </Routes>
-  );
+	return (
+		<Routes>
+			<Route path={APP_ROUTES.LOGIN} element={<LoginPage />} />
+			<Route path={APP_ROUTES.REGISTER} element={<RegisterPage />} />
+			<Route
+				index
+				element={
+					<ProtectedRoute>
+						<UpYourLifePage />
+					</ProtectedRoute>
+				}
+			/>
+			<Route path="*" element={<NotFoundPage />} />
+			<Route path={APP_ROUTES.ABOUT} element={<AboutComponent />} />
+		</Routes>
+	);
 };
 
 export default AppRouter;

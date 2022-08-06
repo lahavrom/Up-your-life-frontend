@@ -1,0 +1,23 @@
+.container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	grid-template-columns: 1fr 1fr 1fr;
+	border-top: 1px solid rgb(186, 186, 186);
+	align-items: center;
+	margin-right: 5px;
+	margin-inline: auto;
+	padding: 0 10px 0 10px;
+}
+
+.Heading {
+	border-bottom: 2px;
+	font-size: 16px;
+	color: black;
+}
+
+.navLink {
+	border: 0;
+	justify-content: space-around;
+	padding: 0 10px 0 10px;
+}
