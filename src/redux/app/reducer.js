@@ -2,16 +2,16 @@ import ACTION_TYPES from "./actions/constants/actionTypes";
 
 const initialState = {
   isLoading: false,
-  isFinish: false,
+  isReady: false,
 };
 
-const appReducer = (state = initialState, { type, payload }) => {
+const appReducer = (state = initialState, { type }) => {
   switch (type) {
     case ACTION_TYPES.FETCH_ALL_DATA: {
       return {
         ...state,
         isLoading: true,
-        isFinish: false,
+        isReady: false,
       };
     }
 
@@ -19,7 +19,7 @@ const appReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         isLoading: false,
-        isFinish: true,
+        isReady: true,
       };
     }
 

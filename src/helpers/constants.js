@@ -16,8 +16,8 @@ export const ABOUT_INFO = {
 export const APP_ROUTES = {
   LOGIN: "/login",
   REGISTER: "/register",
-  LOADING: "/loading",
-  UP_YOUR_LIFE: "/",
+  ABOUT: "/about",
+  UP_YOUR_BIZ: "/",
 };
 
 export const SUCCESS_MESSAGES = {

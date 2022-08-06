@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 import { Flex } from "monday-ui-react-core";
 
@@ -8,7 +8,6 @@ import {
   FormTextField,
   FormSubmitButton,
 } from "../../../components/form";
-import { selectIsLoading } from "../../../redux/user/selectors";
 import { registerUser } from "../../../redux/user/actions/registerUser";
 import { toUpperCaseFirstChar } from "../../../helpers/utils";
 
@@ -28,8 +27,6 @@ const validationSchema = Yup.object().shape({
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
-
-  const isLoading = useSelector(selectIsLoading);
 
   const onRegisterUser = useCallback(
     (values) => {
@@ -55,7 +52,7 @@ const RegisterForm = () => {
           placeholder="Password"
           type="password"
         />
-        <FormSubmitButton label="Register" isLoading={isLoading} />
+        <FormSubmitButton label="Register" />
       </Flex>
     </Form>
   );
