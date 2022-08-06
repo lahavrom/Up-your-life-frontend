@@ -1,13 +1,13 @@
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import {
-	BarChart,
-	Bar,
-	XAxis,
-	YAxis,
-	CartesianGrid,
-	Tooltip,
-	Legend,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
 } from "recharts";
 import { Heading } from "monday-ui-react-core";
 
@@ -70,7 +70,7 @@ const CompareExpenesIncomes = () => {
       <Heading
         className={styles.heading}
         type={Heading.types.h2}
-        value={`At the end of the month your balance will be ${balance}₪`}
+        value={`At the end of the month your balance will be ${balance}$`}
         size="small"
       />
     </div>

@@ -5,12 +5,12 @@ import lahavPic from "../../assets/lahav_pic.png";
 import nitzanPic from "../../assets/nitzan_pic.png";
 import ayeletPic from "../../assets/ayelet_pic.png";
 import itayPic from "../../assets/user.png";
-import CardsContainer from "../cardsContainer/CardsContainer";
-import Card from "../card/Card";
+import CardsContainer from "../../components/cardsContainer/CardsContainer";
+import Card from "../../components/card/Card";
 import Email from "monday-ui-react-core/dist/icons/Email";
-import styles from "./aboutComponent.module.css";
+import styles from "./aboutPage.module.css";
 
-const AboutComponent = () => {
+const AboutPage = () => {
   return (
     <CardsContainer>
       <Card>
@@ -100,14 +100,14 @@ const AboutComponent = () => {
           <Heading
             type={Heading.types.h4}
             size="small"
-            value="Join our new idea to help you Up Your Life!"
+            value="Join our new idea to help you Up Your Biz!"
             brandFont
             customColor={"green"}
           />
           <Heading
             type={Heading.types.h3}
             size="small"
-            value="Contact Us on UpYourLife@gmail.com"
+            value="Contact Us on UpYourBiz@gmail.com"
             brandFont
           />
           <Icon
@@ -122,4 +122,4 @@ const AboutComponent = () => {
   );
 };
 
-export default AboutComponent;
+export default AboutPage;
