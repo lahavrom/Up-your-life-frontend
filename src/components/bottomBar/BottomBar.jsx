@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 import styles from "./bottomBar.module.css";
 const BottomBar = () => {
 	return (
-		<span className={styles.container}>
+		<div className={styles.container}>
 			<NavLink
 				className={styles.navLink}
 				to={APP_ROUTES.UP_YOUR_LIFE}
@@ -32,7 +32,32 @@ const BottomBar = () => {
 				className={styles.Heading}
 				value="Careers"
 			/>
-		</span>
+			<Heading
+				type={Heading.types.h4}
+				className={styles.Heading}
+				value="Associates"
+			/>
+			<Heading
+				type={Heading.types.h4}
+				className={styles.Heading}
+				value="Packages"
+			/>
+			<Heading
+				type={Heading.types.h4}
+				className={styles.Heading}
+				value="Terms"
+			/>
+			<Heading
+				type={Heading.types.h4}
+				className={styles.Heading}
+				value="Contact"
+			/>
+			<Heading
+				type={Heading.types.h4}
+				className={styles.Heading}
+				value="Help"
+			/>
+		</div>
 	);
 };
 
