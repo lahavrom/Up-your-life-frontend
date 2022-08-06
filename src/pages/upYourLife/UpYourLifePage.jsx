@@ -16,10 +16,9 @@ import TransactionFormModal from "../../components/transactionForm/TransactionFo
 import SuccessToast from "../../components/toasts/SuccessToast";
 import ErrorToast from "../../components/toasts/ErrorToast";
 import styles from "./upYourLife.module.css";
-import AboutComponent from "../../components/aboutComponent/AboutComponent";
 
 const UpYourLifePage = () => {
-	const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchAllData());
@@ -35,53 +34,52 @@ const UpYourLifePage = () => {
   const [transactionToEdit, setTransactionToEdit] = useState({});
   const [isEdit, setIsEdit] = useState(false);
 
-	const onOpenModal = useCallback(() => {
-		setIsModalOpen(true);
-	}, [setIsModalOpen]);
+  const onOpenModal = useCallback(() => {
+    setIsModalOpen(true);
+  }, [setIsModalOpen]);
 
-	const onCloseModal = useCallback(() => {
-		setIsModalOpen(false);
-		setIsEdit(false);
-	}, [setIsModalOpen]);
+  const onCloseModal = useCallback(() => {
+    setIsModalOpen(false);
+    setIsEdit(false);
+  }, [setIsModalOpen]);
 
-	const onAddTransaction = useCallback(
-		(type) => {
-			setTransactionType(type);
-			onOpenModal();
-		},
-		[setTransactionType, onOpenModal]
-	);
+  const onAddTransaction = useCallback(
+    (type) => {
+      setTransactionType(type);
+      onOpenModal();
+    },
+    [setTransactionType, onOpenModal]
+  );
 
-	const onEditTransaction = useCallback(
-		(transaction) => {
-			setTransactionType(transaction.type);
-			setIsEdit(true);
-			setTransactionToEdit(transaction);
-			onOpenModal();
-		},
-		[onOpenModal]
-	);
+  const onEditTransaction = useCallback(
+    (transaction) => {
+      setTransactionType(transaction.type);
+      setIsEdit(true);
+      setTransactionToEdit(transaction);
+      onOpenModal();
+    },
+    [onOpenModal]
+  );
 
-	return (
-		<div className={styles.container}>
-			<SuccessToast isVisible={isSuccess} message={successMessage} />
-			<ErrorToast isVisible={isError} message={errorMessage} />
-			<TopBar onAddTransaction={onAddTransaction} />
-			<div className={styles.contentContainer}>
-				<Dashboard />
-				<CalenderContainer />
-				<TransactionLog onEditTransaction={onEditTransaction} />
-				<AboutComponent />
-			</div>
-			<TransactionFormModal
-				type={transactionType}
-				isEdit={isEdit}
-				transactionToEdit={transactionToEdit}
-				isOpen={isModalOpen}
-				onClose={onCloseModal}
-			/>
-		</div>
-	);
+  return (
+    <div className={styles.container}>
+      <SuccessToast isVisible={isSuccess} message={successMessage} />
+      <ErrorToast isVisible={isError} message={errorMessage} />
+      <TopBar onAddTransaction={onAddTransaction} />
+      <div className={styles.contentContainer}>
+        <Dashboard />
+        <CalenderContainer />
+        <TransactionLog onEditTransaction={onEditTransaction} />
+      </div>
+      <TransactionFormModal
+        type={transactionType}
+        isEdit={isEdit}
+        transactionToEdit={transactionToEdit}
+        isOpen={isModalOpen}
+        onClose={onCloseModal}
+      />
+    </div>
+  );
 };
 
 export default UpYourLifePage;
