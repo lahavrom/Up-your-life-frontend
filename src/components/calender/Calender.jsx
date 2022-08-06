@@ -6,15 +6,16 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 
 import CardsContainer from "../cardsContainer/CardsContainer";
 import Card from "../card/Card";
-import { selectFutureFixed } from "../../redux/transactions/selectors/selectFixedTransactions";
-import { selectCurrMonthAccountTransactions } from "../../redux/transactions/selectors/selectAccountTransactions";
+import { selectFixed } from "../../redux/transactions/selectors/selectFixed";
+import { selectAccount } from "../../redux/transactions/selectors/selectAccount";
 import "./calender.css";
 
 moment.locale("en-GB");
 const localizer = momentLocalizer(moment);
 
 const generateEvents = (fixed, account) => {
-  return [...fixed, ...account].map((currTransaction) => ({
+  const transactions = [...fixed, ...account];
+  return transactions.map((currTransaction) => ({
     id: currTransaction.id,
     title: `${currTransaction.type}`,
     desc: `${currTransaction.value}`,
@@ -28,13 +29,12 @@ const generateEvents = (fixed, account) => {
 };
 
 export default function CalenderComponent() {
-  const futureFixed = useSelector(selectFutureFixed);
-
-  const account = useSelector(selectCurrMonthAccountTransactions);
+  const fixed = useSelector(selectFixed);
+  const account = useSelector(selectAccount);
 
   const events = useMemo(
-    () => generateEvents(futureFixed, account),
-    [futureFixed, account]
+    () => generateEvents(fixed, account),
+    [fixed, account]
   );
 
   return (
