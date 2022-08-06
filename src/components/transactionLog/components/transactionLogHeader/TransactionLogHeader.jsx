@@ -44,7 +44,6 @@ const TransactionLogHeader = ({
             size={IconButton.sizes.SMALL}
           />
           <Checkbox
-            disabled={month < new Date().getMonth()}
             label="Future Transactions"
             onChange={() => setShowFutureTransactions(!showFutureTransactions)}
           />

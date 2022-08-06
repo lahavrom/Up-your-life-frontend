@@ -20,6 +20,8 @@ const TransactionLog = ({ onEditTransaction }) => {
   const month = useSelector(selectMonth);
 
   const fixed = useSelector(selectFixed);
+  const account = useSelector(selectAccount);
+
   const futureTransactions = useMemo(
     () => [
       ...fixed.map((elem) => {
@@ -28,11 +30,14 @@ const TransactionLog = ({ onEditTransaction }) => {
           date: makeDateFromDay(elem.dayOfMonth, month + 1),
         };
       }),
+      ...account
+        .filter((elem) => new Date(elem.effectiveDate) > new Date())
+        .map((elem) => {
+          return { ...elem, date: makeDateTimestamp(elem.effectiveDate) };
+        }),
     ],
-    [fixed, month]
+    [fixed, account, month]
   );
-
-  const account = useSelector(selectAccount);
 
   const [filteredTransactions, setFilteredTransactions] = useState([]);
   const [filteredFutureTransactions, setFilteredFutureTransactions] = useState(
@@ -42,9 +47,11 @@ const TransactionLog = ({ onEditTransaction }) => {
 
   const transactions = useMemo(
     () => [
-      ...account.map((elem) => {
-        return { ...elem, date: makeDateTimestamp(elem.effectiveDate) };
-      }),
+      ...account
+        .map((elem) => {
+          return { ...elem, date: makeDateTimestamp(elem.effectiveDate) };
+        })
+        .filter((elem) => new Date(elem.effectiveDate) <= new Date()),
     ],
     [account]
   );
