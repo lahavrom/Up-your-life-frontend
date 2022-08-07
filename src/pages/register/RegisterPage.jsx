@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import Loader from "../../components/loader/Loader";
@@ -10,7 +10,6 @@ import RegisterForm from "./components/RegisterForm";
 import styles from "./registerPage.module.css";
 
 const RegisterPage = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const isLoading = useSelector(selectIsLoading);
@@ -20,7 +19,7 @@ const RegisterPage = () => {
     if (user) {
       navigate(APP_ROUTES.UP_YOUR_BIZ);
     }
-  }, [dispatch, navigate, user]);
+  }, [navigate, user]);
 
   return (
     <>

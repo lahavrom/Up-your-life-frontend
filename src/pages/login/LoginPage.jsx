@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import Loader from "../../components/loader/Loader";
@@ -10,7 +10,6 @@ import logo from "../../assets/up_logo.png";
 import styles from "./loginPage.module.css";
 
 const LoginPage = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const isLoading = useSelector(selectIsLoading);
@@ -20,7 +19,7 @@ const LoginPage = () => {
     if (user) {
       navigate(APP_ROUTES.UP_YOUR_BIZ);
     }
-  }, [dispatch, navigate, user]);
+  }, [navigate, user]);
 
   return (
     <>
