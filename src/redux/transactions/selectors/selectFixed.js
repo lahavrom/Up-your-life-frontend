@@ -4,7 +4,7 @@ import { TRANSACTIONS_TYPES } from "../../../helpers/constants";
 import { selectMonth } from "../../date/selectors";
 import { getDayOfMonth } from "../../../helpers/dateTimeUtils";
 
-export const selectFixedTransactions = (state) => state.transactionsState.fixed;
+const selectFixedTransactions = (state) => state.transactionsState.fixed;
 
 export const selectFixed = createSelector(
   selectFixedTransactions,

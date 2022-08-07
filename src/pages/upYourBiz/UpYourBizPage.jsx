@@ -13,7 +13,7 @@ import Loader from "../../components/loader/Loader";
 import BottomBar from "../../components/bottomBar/BottomBar";
 import TopBar from "../../components/topBar/TopBar";
 import Dashboard from "../../components/Dashboard";
-import Calender from "../../components/calender/Calender";
+import TransactionsCalendar from "../../components/transactionsCalendar/TransactionsCalendar";
 import TransactionLog from "../../components/transactionLog/TransactionLog";
 import TransactionFormModal from "../../components/transactionForm/TransactionFormModal";
 import SuccessToast from "../../components/toasts/SuccessToast";
@@ -74,15 +74,15 @@ const UpYourBizPage = () => {
       {isLoading && <Loader />}
       {isReady && (
         <div className={styles.container}>
-          <SuccessToast isVisible={isSuccess} message={successMessage} />
-          <ErrorToast isVisible={isError} message={errorMessage} />
           <TopBar onAddTransaction={onAddTransaction} />
           <div className={styles.contentContainer}>
             <Dashboard />
-            <Calender />
+            <TransactionsCalendar />
             <TransactionLog onEditTransaction={onEditTransaction} />
             <BottomBar />
           </div>
+          <SuccessToast isVisible={isSuccess} message={successMessage} />
+          <ErrorToast isVisible={isError} message={errorMessage} />
           <TransactionFormModal
             type={transactionType}
             isEdit={isEdit}

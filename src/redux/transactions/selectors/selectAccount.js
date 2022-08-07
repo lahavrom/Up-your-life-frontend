@@ -4,8 +4,7 @@ import { TRANSACTIONS_TYPES } from "../../../helpers/constants";
 import { selectMonth } from "../../date/selectors";
 import { getMonthFromTimestamp } from "../../../helpers/dateTimeUtils";
 
-export const selectAccountTransactions = (state) =>
-  state.transactionsState.account;
+const selectAccountTransactions = (state) => state.transactionsState.account;
 
 export const selectAccount = createSelector(
   selectAccountTransactions,
