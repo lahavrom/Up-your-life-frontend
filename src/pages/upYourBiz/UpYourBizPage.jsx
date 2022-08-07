@@ -13,12 +13,11 @@ import Loader from "../../components/loader/Loader";
 import BottomBar from "../../components/bottomBar/BottomBar";
 import TopBar from "../../components/topBar/TopBar";
 import Dashboard from "../../components/Dashboard";
-import TransactionsCalendar from "../../components/transactionsCalendar/TransactionsCalendar";
-import TransactionLog from "../../components/transactionLog/TransactionLog";
 import TransactionFormModal from "../../components/transactionForm/TransactionFormModal";
 import SuccessToast from "../../components/toasts/SuccessToast";
 import ErrorToast from "../../components/toasts/ErrorToast";
 import ExpensesPerUser from "../../components/expensesPerUser/ExpensesPerUser";
+import TransactionLogCalender from "../../components/transactionLogCalender/TransactionLogCalendar";
 import styles from "./upYourBizPage.module.css";
 
 const UpYourBizPage = () => {
@@ -78,8 +77,7 @@ const UpYourBizPage = () => {
           <TopBar onAddTransaction={onAddTransaction} />
           <div className={styles.contentContainer}>
             <Dashboard />
-            <TransactionsCalendar />
-            <TransactionLog onEditTransaction={onEditTransaction} />
+            <TransactionLogCalender onEditTransaction={onEditTransaction} />
             <ExpensesPerUser />
             <BottomBar />
           </div>

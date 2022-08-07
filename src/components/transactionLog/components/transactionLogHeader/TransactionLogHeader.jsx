@@ -7,6 +7,8 @@ const TransactionLogHeader = ({
   handleFilter,
   showFutureTransactions,
   setShowFutureTransactions,
+  flipCard,
+  isFlipped,
 }) => {
   const options = useMemo(
     () => [
@@ -33,16 +35,32 @@ const TransactionLogHeader = ({
           searchable={false}
           onChange={(value) => handleFilter(value.value)}
         />
-        <div className={styles.futureCheckBox}>
-          <IconButton
-            icon={Info}
-            ariaLabel="check the box to show future incomes and expenses"
-            size={IconButton.sizes.SMALL}
-          />
-          <Checkbox
-            label="Future Transactions"
-            onChange={() => setShowFutureTransactions(!showFutureTransactions)}
-          />
+        <div>
+          <div className={styles.checkBox}>
+            <IconButton
+              icon={Info}
+              ariaLabel="Check the box to show future incomes and expenses"
+              size={IconButton.sizes.SMALL}
+            />
+            <Checkbox
+              label="Future Transactions"
+              onChange={() =>
+                setShowFutureTransactions(!showFutureTransactions)
+              }
+            />
+          </div>
+          <div className={styles.checkBox}>
+            <IconButton
+              icon={Info}
+              ariaLabel="Check the box to show calender view"
+              size={IconButton.sizes.SMALL}
+            />
+            <Checkbox
+              label="Calendar View"
+              checked={isFlipped}
+              onChange={() => flipCard()}
+            />
+          </div>
         </div>
       </div>
     </>
