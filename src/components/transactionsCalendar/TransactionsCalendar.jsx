@@ -25,6 +25,10 @@ const TransactionsCalender = () => {
           events={transactionsByDate}
           style={{ height: "70vh" }}
           toolbar={false}
+          eventPropGetter={(event) => {
+            const backgroundColor = event.color;
+            return { style: { backgroundColor } };
+          }}
         />
       </Card>
     </CardsContainer>
