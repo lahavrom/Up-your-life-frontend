@@ -18,6 +18,7 @@ import TransactionLog from "../../components/transactionLog/TransactionLog";
 import TransactionFormModal from "../../components/transactionForm/TransactionFormModal";
 import SuccessToast from "../../components/toasts/SuccessToast";
 import ErrorToast from "../../components/toasts/ErrorToast";
+import ExpensesPerUser from "../../components/expensesPerUser/ExpensesPerUser";
 import styles from "./upYourBizPage.module.css";
 
 const UpYourBizPage = () => {
@@ -79,6 +80,7 @@ const UpYourBizPage = () => {
             <Dashboard />
             <TransactionsCalendar />
             <TransactionLog onEditTransaction={onEditTransaction} />
+            <ExpensesPerUser />
             <BottomBar />
           </div>
           <SuccessToast isVisible={isSuccess} message={successMessage} />
