@@ -1,17 +1,13 @@
 import { useMemo } from "react";
-import { useSelector } from "react-redux";
 import { Heading, Dropdown, Checkbox, IconButton } from "monday-ui-react-core";
 import { Info } from "monday-ui-react-core/dist/allIcons";
 import styles from "./transactionLogHeader.module.css";
-import { selectMonth } from "../../../../redux/date/selectors";
 
 const TransactionLogHeader = ({
   handleFilter,
   showFutureTransactions,
   setShowFutureTransactions,
 }) => {
-  const month = useSelector(selectMonth);
-
   const options = useMemo(
     () => [
       { value: "all", label: "Show All" },
