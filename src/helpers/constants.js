@@ -6,6 +6,7 @@ export const ERROR_MESSAGES = {
 export const ABOUT_INFO = {
 	DESCRIPTION:
 		"Up Your Biz is an app that will help you save money by tracking your expenses and incomes",
+	USERS: "Now you can compare the expenses of each user",
 	FEATURES: [
 		"Multiple users per account",
 		"Show expenses by categories",
@@ -17,8 +18,9 @@ export const APP_ROUTES = {
 	LOGIN: "/login",
 	REGISTER: "/register",
 	LOADING: "/loading",
-	UP_YOUR_LIFE: "/",
+	UP_YOUR_LIFE: "/home",
 	ABOUT: "/about",
+	LANDING_PAGE: "/",
 };
 
 export const SUCCESS_MESSAGES = {

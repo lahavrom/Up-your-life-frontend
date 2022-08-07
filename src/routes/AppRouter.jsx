@@ -6,15 +6,17 @@ import NotFoundPage from "../pages/notFound/NotFoundPage";
 import RegisterPage from "../pages/register/RegisterPage";
 import UpYourLifePage from "../pages/upYourBiz/UpYourBizPage";
 import ProtectedRoute from "./ProtectedRoute";
-import AboutComponent from "../components/aboutComponent/AboutComponent";
+import AboutComponent from "../pages/about/AboutPage";
+import LandingPage from "../pages/landingPage/LandingPage";
 
 const AppRouter = () => {
 	return (
 		<Routes>
+			<Route path={APP_ROUTES.LANDING_PAGE} element={<LandingPage />} />
 			<Route path={APP_ROUTES.LOGIN} element={<LoginPage />} />
 			<Route path={APP_ROUTES.REGISTER} element={<RegisterPage />} />
 			<Route
-				index
+				path={APP_ROUTES.UP_YOUR_LIFE}
 				element={
 					<ProtectedRoute>
 						<UpYourLifePage />

@@ -27,6 +27,7 @@ const BottomBar = () => {
 			>
 				About
 			</NavLink>
+
 			<Heading
 				type={Heading.types.h4}
 				className={styles.Heading}

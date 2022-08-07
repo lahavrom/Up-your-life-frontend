@@ -5,13 +5,12 @@ import { selectUser } from "../redux/user/selectors";
 import { APP_ROUTES } from "../helpers/constants";
 
 const ProtectedRoute = ({ children }) => {
-  const user = useSelector(selectUser);
+	const user = useSelector(selectUser);
 
-  if (!user) {
-    return <Navigate to={APP_ROUTES.LOGIN} replace />;
-  }
-
-  return children;
+	if (!user) {
+		return <Navigate to={APP_ROUTES.LANDING_PAGE} replace />;
+	}
+	return children;
 };
 
 export default ProtectedRoute;

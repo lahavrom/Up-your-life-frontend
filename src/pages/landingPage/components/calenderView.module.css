@@ -1,0 +1,19 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.calender {
+	width: 100px;
+	height: 100px;
+}
+
+.text {
+	font-size: 20px;
+}
+
+.avatars {
+	width: 200px;
+	height: 250px;
+}
