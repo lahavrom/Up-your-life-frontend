@@ -1,20 +1,15 @@
 .container {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .moneySave {
-	width: 100px;
-	height: 100px;
+  width: 100px;
+  height: 100px;
 }
 
 .text {
-	font-size: 20px;
-	text-align: center;
-}
-
-.avatars {
-	width: 200px;
-	height: 250px;
+  font-size: 20px;
+  text-align: center;
 }

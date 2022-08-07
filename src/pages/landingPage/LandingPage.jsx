@@ -4,7 +4,7 @@ import { useNavigate, NavLink } from "react-router-dom";
 import { Heading, Divider } from "monday-ui-react-core";
 
 import { selectUser, selectIsLoading } from "../../redux/user/selectors";
-import { APP_ROUTES, ABOUT_INFO } from "../../helpers/constants";
+import { APP_ROUTES } from "../../helpers/constants";
 import Loader from "../../components/loader/Loader";
 import logo from "../../assets/up_logo.png";
 import facebook from "../../assets/facebook.png";
@@ -73,15 +73,16 @@ const LandingPage = () => {
               <div className={styles.container2}>
                 <div className={styles.container3}>
                   <img src={pic} alt="pic" className={styles.pic} />
-                  <Heading
-                    type={Heading.types.h1}
-                    className={styles.Heading}
-                    value="Ready to start managing your business ?"
-                    brandFont
-                  />
+                  <p className={`${styles.text} ${styles.Heading}`}>
+                    Start managing your cash flow{" "}
+                    <span className={styles.colorText}>correctly</span>
+                  </p>
                 </div>
                 <div className={styles.container3}>
-                  <p className={styles.text}>{ABOUT_INFO.DESCRIPTION}</p>
+                  <p className={styles.text}>
+                    <span className={styles.colorText}>Up Your Biz</span> will
+                    save you money by tracking all of your expenses and incomes
+                  </p>
                   <img src={hands} alt="hands" className={styles.pic} />
                 </div>
                 <Divider direction={Divider.directions.HORIZONTAL} />
