@@ -16,9 +16,9 @@ import TransactionLog from "../../components/transactionLog/TransactionLog";
 import TransactionFormModal from "../../components/transactionForm/TransactionFormModal";
 import SuccessToast from "../../components/toasts/SuccessToast";
 import ErrorToast from "../../components/toasts/ErrorToast";
-import styles from "./upYourLife.module.css";
+import styles from "./upYourBiz.module.css";
 
-const UpYourLifePage = () => {
+const UpYourBizPage = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -84,4 +84,4 @@ const UpYourLifePage = () => {
 	);
 };
 
-export default UpYourLifePage;
+export default UpYourBizPage;

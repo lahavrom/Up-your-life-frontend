@@ -4,7 +4,7 @@ import { APP_ROUTES } from "../helpers/constants";
 import LoginPage from "../pages/login/LoginPage";
 import NotFoundPage from "../pages/notFound/NotFoundPage";
 import RegisterPage from "../pages/register/RegisterPage";
-import UpYourLifePage from "../pages/upYourBiz/UpYourLifeBiz";
+import UpYourLifePage from "../pages/upYourBiz/UpYourBizPage";
 import ProtectedRoute from "./ProtectedRoute";
 import AboutComponent from "../components/aboutComponent/AboutComponent";
 
