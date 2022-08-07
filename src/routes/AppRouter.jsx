@@ -4,27 +4,29 @@ import { APP_ROUTES } from "../helpers/constants";
 import LoginPage from "../pages/login/LoginPage";
 import NotFoundPage from "../pages/notFound/NotFoundPage";
 import RegisterPage from "../pages/register/RegisterPage";
-import UpYourLifePage from "../pages/upYourBiz/UpYourLifeBiz";
+import UpYourLifePage from "../pages/upYourBiz/UpYourBizPage";
 import ProtectedRoute from "./ProtectedRoute";
-import AboutPage from "../pages/about/AboutPage";
+import AboutComponent from "../pages/about/AboutPage";
+import LandingPage from "../pages/landingPage/LandingPage";
 
 const AppRouter = () => {
-  return (
-    <Routes>
-      <Route path={APP_ROUTES.LOGIN} element={<LoginPage />} />
-      <Route path={APP_ROUTES.REGISTER} element={<RegisterPage />} />
-      <Route path={APP_ROUTES.ABOUT} element={<AboutPage />} />
-      <Route
-        index
-        element={
-          <ProtectedRoute>
-            <UpYourLifePage />
-          </ProtectedRoute>
-        }
-      />
-      <Route path="*" element={<NotFoundPage />} />
-    </Routes>
-  );
+	return (
+		<Routes>
+			<Route path={APP_ROUTES.LANDING_PAGE} element={<LandingPage />} />
+			<Route path={APP_ROUTES.LOGIN} element={<LoginPage />} />
+			<Route path={APP_ROUTES.REGISTER} element={<RegisterPage />} />
+			<Route
+				path={APP_ROUTES.UP_YOUR_LIFE}
+				element={
+					<ProtectedRoute>
+						<UpYourLifePage />
+					</ProtectedRoute>
+				}
+			/>
+			<Route path="*" element={<NotFoundPage />} />
+			<Route path={APP_ROUTES.ABOUT} element={<AboutComponent />} />
+		</Routes>
+	);
 };
 
 export default AppRouter;
