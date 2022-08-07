@@ -1,7 +1,7 @@
 import { Divider } from "monday-ui-react-core";
 
 import avatars from "../../../assets/avatars.png";
-import network from "../../../assets/network.png";
+import network from "../../../assets/network1.gif";
 import { ABOUT_INFO } from "../../../helpers/constants";
 
 import styles from "./usersView.module.css";

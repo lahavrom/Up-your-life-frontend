@@ -3,12 +3,8 @@
 	flex-direction: column;
 	align-items: center;
 }
-.container2 {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-}
-.network {
+
+.moneySave {
 	width: 100px;
 	height: 100px;
 }
