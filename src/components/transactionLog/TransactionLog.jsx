@@ -16,7 +16,7 @@ import TransactionLogHeader from "./components/transactionLogHeader/TransactionL
 import TableTransactions from "./components/tableTransactions/TableTransactions";
 import styles from "./transactionLog.module.css";
 
-const TransactionLog = ({ onEditTransaction }) => {
+const TransactionLog = ({ onEditTransaction, flipCard, isFlipped }) => {
   const month = useSelector(selectMonth);
 
   const fixed = useSelector(selectFixed);
@@ -95,6 +95,8 @@ const TransactionLog = ({ onEditTransaction }) => {
             handleFilter={handleFilter}
             showFutureTransactions={showFutureTransactions}
             setShowFutureTransactions={setShowFutureTransactions}
+            flipCard={flipCard}
+            isFlipped={isFlipped}
           />
           {noTransactionsToShow() ? (
             <>

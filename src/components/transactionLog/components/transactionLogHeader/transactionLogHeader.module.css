@@ -8,7 +8,7 @@
   width: 20%;
 }
 
-.futureCheckBox {
+.checkBox {
   display: flex;
   align-items: center;
 }
