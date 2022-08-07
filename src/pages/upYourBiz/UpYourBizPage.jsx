@@ -2,86 +2,98 @@ import { useState, useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { fetchAllData } from "../../redux/app/actions/fetchAllData";
+import { selectIsLoading, selectIsReady } from "../../redux/app/selectors";
 import {
-	selectIsSuccess,
-	selectSuccessMessage,
-	selectIsError,
-	selectErrorMessage,
+  selectIsSuccess,
+  selectSuccessMessage,
+  selectIsError,
+  selectErrorMessage,
 } from "../../redux/transactions/selectors";
-import TopBar from "../../components/topBar/TopBar";
+import Loader from "../../components/loader/Loader";
 import BottomBar from "../../components/bottomBar/BottomBar";
+import TopBar from "../../components/topBar/TopBar";
 import Dashboard from "../../components/Dashboard";
-import CalenderContainer from "../../components/calenderContainer/CalenderContainer";
+import Calender from "../../components/calender/Calender";
 import TransactionLog from "../../components/transactionLog/TransactionLog";
 import TransactionFormModal from "../../components/transactionForm/TransactionFormModal";
 import SuccessToast from "../../components/toasts/SuccessToast";
 import ErrorToast from "../../components/toasts/ErrorToast";
-import styles from "./upYourBiz.module.css";
+import styles from "./upYourBizPage.module.css";
 
 const UpYourBizPage = () => {
-	const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-	useEffect(() => {
-		dispatch(fetchAllData());
-	}, [dispatch]);
+  useEffect(() => {
+    dispatch(fetchAllData());
+  }, [dispatch]);
 
-	const isSuccess = useSelector(selectIsSuccess);
-	const successMessage = useSelector(selectSuccessMessage);
-	const isError = useSelector(selectIsError);
-	const errorMessage = useSelector(selectErrorMessage);
+  // app
+  const isLoading = useSelector(selectIsLoading);
+  const isReady = useSelector(selectIsReady);
 
-	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [transactionType, setTransactionType] = useState(null);
-	const [transactionToEdit, setTransactionToEdit] = useState({});
-	const [isEdit, setIsEdit] = useState(false);
+  // transactions
+  const isSuccess = useSelector(selectIsSuccess);
+  const successMessage = useSelector(selectSuccessMessage);
+  const isError = useSelector(selectIsError);
+  const errorMessage = useSelector(selectErrorMessage);
 
-	const onOpenModal = useCallback(() => {
-		setIsModalOpen(true);
-	}, [setIsModalOpen]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [transactionType, setTransactionType] = useState(null);
+  const [transactionToEdit, setTransactionToEdit] = useState({});
+  const [isEdit, setIsEdit] = useState(false);
 
-	const onCloseModal = useCallback(() => {
-		setIsModalOpen(false);
-		setIsEdit(false);
-	}, [setIsModalOpen]);
+  const onOpenModal = useCallback(() => {
+    setIsModalOpen(true);
+  }, [setIsModalOpen]);
 
-	const onAddTransaction = useCallback(
-		(type) => {
-			setTransactionType(type);
-			onOpenModal();
-		},
-		[setTransactionType, onOpenModal]
-	);
+  const onCloseModal = useCallback(() => {
+    setIsModalOpen(false);
+    setIsEdit(false);
+  }, [setIsModalOpen]);
 
-	const onEditTransaction = useCallback(
-		(transaction) => {
-			setTransactionType(transaction.type);
-			setIsEdit(true);
-			setTransactionToEdit(transaction);
-			onOpenModal();
-		},
-		[onOpenModal]
-	);
+  const onAddTransaction = useCallback(
+    (type) => {
+      setTransactionType(type);
+      onOpenModal();
+    },
+    [setTransactionType, onOpenModal]
+  );
 
-	return (
-		<div className={styles.container}>
-			<SuccessToast isVisible={isSuccess} message={successMessage} />
-			<ErrorToast isVisible={isError} message={errorMessage} />
-			<TopBar onAddTransaction={onAddTransaction} />
-			<div className={styles.contentContainer}>
-				<Dashboard />
-				<CalenderContainer />
-				<TransactionLog onEditTransaction={onEditTransaction} />
-			</div>
-			<TransactionFormModal
-				type={transactionType}
-				isEdit={isEdit}
-				transactionToEdit={transactionToEdit}
-				isOpen={isModalOpen}
-				onClose={onCloseModal}
-			/>
-			<BottomBar />
-		</div>
-	);
+  const onEditTransaction = useCallback(
+    (transaction) => {
+      setTransactionType(transaction.type);
+      setIsEdit(true);
+      setTransactionToEdit(transaction);
+      onOpenModal();
+    },
+    [onOpenModal]
+  );
+
+  return (
+    <>
+      {isLoading && <Loader />}
+      {isReady && (
+        <div className={styles.container}>
+          <SuccessToast isVisible={isSuccess} message={successMessage} />
+          <ErrorToast isVisible={isError} message={errorMessage} />
+          <TopBar onAddTransaction={onAddTransaction} />
+          <div className={styles.contentContainer}>
+            <Dashboard />
+            <Calender />
+            <TransactionLog onEditTransaction={onEditTransaction} />
+            <BottomBar />
+          </div>
+          <TransactionFormModal
+            type={transactionType}
+            isEdit={isEdit}
+            transactionToEdit={transactionToEdit}
+            isOpen={isModalOpen}
+            onClose={onCloseModal}
+          />
+        </div>
+      )}
+    </>
+  );
 };
 
 export default UpYourBizPage;
