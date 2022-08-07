@@ -1,0 +1,15 @@
+.header {
+  margin: 10px;
+  align-self: center;
+}
+
+.barChart {
+  align-self: center;
+}
+
+.avatars {
+  width: 70%;
+  display: flex;
+  align-self: center;
+  justify-content: space-around;
+}
