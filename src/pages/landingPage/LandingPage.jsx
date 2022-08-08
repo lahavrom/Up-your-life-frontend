@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Heading, Divider, Button } from "monday-ui-react-core";
+import { Heading, Divider, Tab, Button } from "monday-ui-react-core";
 
 import LoginModal from "../../modals/login/LoginModal";
 import RegisterModal from "../../modals/register/RegisterModal";
@@ -71,9 +71,9 @@ const LandingPage = () => {
             <img src={logo} alt="Logo" className={styles.logo} />
             <span>
               <span className={styles.topBarButtonContainer}>
-                <Button onClick={onOpenLoginModal}>Login</Button>
+                <Tab onClick={onOpenLoginModal}>Login</Tab>
               </span>
-              <Button onClick={onOpenRegisterodal}>Register</Button>
+              <Tab onClick={onOpenRegisterodal}>Register</Tab>
             </span>
           </span>
           <div className={styles.container}>
@@ -86,7 +86,7 @@ const LandingPage = () => {
                       Start managing your cash flow{" "}
                       <span className={styles.colorText}>correctly</span>
                     </p>
-                    <Button>Join now!</Button>
+                    <Button onClick={onOpenRegisterodal}>Join now!</Button>
                   </div>
                 </div>
                 <div className={styles.container3}>
@@ -96,7 +96,7 @@ const LandingPage = () => {
                       save you money by tracking all of your expenses and
                       incomes
                     </p>
-                    <Button>Join now!</Button>
+                    <Button onClick={onOpenRegisterodal}>Join now!</Button>
                   </div>
                   <img src={hands} alt="hands" className={styles.pic} />
                 </div>
