@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, NavLink } from "react-router-dom";
-import { Heading, Divider } from "monday-ui-react-core";
+import { Heading, Divider, Button } from "monday-ui-react-core";
 
 import { selectUser, selectIsLoading } from "../../redux/user/selectors";
 import { APP_ROUTES } from "../../helpers/constants";
@@ -73,16 +73,23 @@ const LandingPage = () => {
               <div className={styles.container2}>
                 <div className={styles.container3}>
                   <img src={pic} alt="pic" className={styles.pic} />
-                  <p className={`${styles.text} ${styles.Heading}`}>
-                    Start managing your cash flow{" "}
-                    <span className={styles.colorText}>correctly</span>
-                  </p>
+                  <div style={{ textAlign: "center" }}>
+                    <p className={`${styles.text} ${styles.Heading}`}>
+                      Start managing your cash flow{" "}
+                      <span className={styles.colorText}>correctly</span>
+                    </p>
+                    <Button>Join now!</Button>
+                  </div>
                 </div>
                 <div className={styles.container3}>
-                  <p className={styles.text}>
-                    <span className={styles.colorText}>Up Your Biz</span> will
-                    save you money by tracking all of your expenses and incomes
-                  </p>
+                  <div style={{ textAlign: "center" }}>
+                    <p className={styles.text}>
+                      <span className={styles.colorText}>Up Your Biz</span> will
+                      save you money by tracking all of your expenses and
+                      incomes
+                    </p>
+                    <Button>Register now</Button>
+                  </div>
                   <img src={hands} alt="hands" className={styles.pic} />
                 </div>
                 <Divider direction={Divider.directions.HORIZONTAL} />
