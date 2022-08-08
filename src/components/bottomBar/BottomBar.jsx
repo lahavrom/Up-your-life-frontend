@@ -1,32 +1,20 @@
 import { Heading } from "monday-ui-react-core";
-import { NavLink } from "react-router-dom";
 
-import { APP_ROUTES } from "../../helpers/constants";
 import styles from "./bottomBar.module.css";
 
 const BottomBar = () => {
   return (
     <div className={styles.container}>
-      <NavLink
-        className={styles.navLink}
-        to={APP_ROUTES.UP_YOUR_BIZ}
-        style={({ isActive }) => ({
-          color: isActive ? "green" : "black",
-          textDecoration: "none",
-        })}
-      >
-        Home
-      </NavLink>
-      <NavLink
-        className={styles.navLink}
-        to={APP_ROUTES.ABOUT}
-        style={({ isActive }) => ({
-          color: isActive ? "green" : "black",
-          textDecoration: "none",
-        })}
-      >
-        About
-      </NavLink>
+      <Heading
+        type={Heading.types.h4}
+        className={styles.Heading}
+        value="Home"
+      />
+      <Heading
+        type={Heading.types.h4}
+        className={styles.Heading}
+        value="About"
+      />
       <Heading
         type={Heading.types.h4}
         className={styles.Heading}

@@ -1,9 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Heading, Divider, Button } from "monday-ui-react-core";
 
-import { selectUser, selectIsLoading } from "../../redux/user/selectors";
+import LoginModal from "../../modals/login/LoginModal";
+import RegisterModal from "../../modals/register/RegisterModal";
+import ErrorToast from "../../components/toasts/ErrorToast";
+import {
+  selectIsLoading,
+  selectIsSuccess,
+  selectIsError,
+  selectErrorMessage,
+} from "../../redux/user/selectors";
 import { APP_ROUTES } from "../../helpers/constants";
 import Loader from "../../components/loader/Loader";
 import logo from "../../assets/up_logo.png";
@@ -23,50 +31,50 @@ const LandingPage = () => {
   const navigate = useNavigate();
 
   const isLoading = useSelector(selectIsLoading);
-  const user = useSelector(selectUser);
+  const isSuccess = useSelector(selectIsSuccess);
+  const isError = useSelector(selectIsError);
+  const errorMessage = useSelector(selectErrorMessage);
+
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
+
+  const onOpenLoginModal = useCallback(() => {
+    setIsLoginModalOpen(true);
+  }, []);
+
+  const onCloseLoginModal = useCallback(() => {
+    setIsLoginModalOpen(false);
+  }, []);
+
+  const onOpenRegisterodal = useCallback(() => {
+    setIsRegisterModalOpen(true);
+  }, []);
+
+  const onCloseRegisterModal = useCallback(() => {
+    setIsRegisterModalOpen(false);
+  }, []);
 
   useEffect(() => {
-    if (user) {
+    if (isSuccess) {
       navigate(APP_ROUTES.UP_YOUR_BIZ);
     }
-  }, [navigate, user]);
+  }, [navigate, isSuccess]);
 
   return (
     <>
       {isLoading ? (
         <Loader />
       ) : (
-        <div>
+        <>
+          <ErrorToast isVisible={isError} message={errorMessage} />
           <span className={styles.topBar}>
             <img src={logo} alt="Logo" className={styles.logo} />
-            <div className={styles.nav}>
-              <div className={styles.navItem}>
-                <NavLink
-                  to={APP_ROUTES.LOGIN}
-                  style={{
-                    color: "black",
-                    borderBottom: "10px",
-                    textDecoration: "none",
-                    padding: "5px",
-                  }}
-                >
-                  Login
-                </NavLink>
-              </div>
-              <div className={styles.navItem}>
-                <NavLink
-                  to={APP_ROUTES.REGISTER}
-                  style={{
-                    color: "black",
-                    borderBottom: "10px",
-                    textDecoration: "none",
-                    padding: "5px",
-                  }}
-                >
-                  Register
-                </NavLink>
-              </div>
-            </div>
+            <span>
+              <span className={styles.topBarButtonContainer}>
+                <Button onClick={onOpenLoginModal}>Login</Button>
+              </span>
+              <Button onClick={onOpenRegisterodal}>Register</Button>
+            </span>
           </span>
           <div className={styles.container}>
             <CardsContainer>
@@ -126,7 +134,12 @@ const LandingPage = () => {
             </CardsContainer>
           </div>
           <BottomBar />
-        </div>
+          <LoginModal isOpen={isLoginModalOpen} onClose={onCloseLoginModal} />
+          <RegisterModal
+            isOpen={isRegisterModalOpen}
+            onClose={onCloseRegisterModal}
+          />
+        </>
       )}
     </>
   );

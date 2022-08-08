@@ -52,7 +52,7 @@ const RegisterForm = () => {
           placeholder="Password"
           type="password"
         />
-        <FormSubmitButton label="Register" />
+        <FormSubmitButton label="Submit" />
       </Flex>
     </Form>
   );
