@@ -88,7 +88,7 @@ const LandingPage = () => {
                       save you money by tracking all of your expenses and
                       incomes
                     </p>
-                    <Button>Register now</Button>
+                    <Button>Join now!</Button>
                   </div>
                   <img src={hands} alt="hands" className={styles.pic} />
                 </div>
