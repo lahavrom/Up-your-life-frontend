@@ -21,7 +21,7 @@ const NotFoundPage = () => {
       ></Heading>
       <img src={tapHand} className={styles.tapHand} alt="" />
       <div className={styles.linkContainer}>
-        <NavLink to={APP_ROUTES.LOGIN}>Back to login</NavLink>
+        <NavLink to={APP_ROUTES.LANDING_PAGE}>Back to login</NavLink>
       </div>
     </div>
   );

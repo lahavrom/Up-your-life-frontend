@@ -138,17 +138,10 @@
   align-items: center;
 }
 
-.nav {
-  margin-right: 10px;
-  display: flex;
-  flex-direction: row;
-}
-
-.navItem:hover {
-  background: transparent;
-  border-bottom: 2px solid black;
-}
-
 .colorText {
   color: green;
+}
+
+.topBarButtonContainer {
+  margin: 0 5px;
 }

@@ -43,7 +43,7 @@ const LoginForm = () => {
           placeholder="Password"
           type="password"
         />
-        <FormSubmitButton label="Login" />
+        <FormSubmitButton label="Submit" />
       </Flex>
     </Form>
   );
