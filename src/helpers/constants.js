@@ -15,8 +15,8 @@ export const ABOUT_INFO = {
 };
 
 export const APP_ROUTES = {
-  LANDING_PAGE: "/",
-  UP_YOUR_BIZ: "/home",
+  LANDING_PAGE: "/home",
+  UP_YOUR_BIZ: "/",
 };
 
 export const SUCCESS_MESSAGES = {
