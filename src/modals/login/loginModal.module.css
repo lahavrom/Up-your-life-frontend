@@ -7,6 +7,10 @@
 }
 
 .formContainer {
-  margin-top: 20px;
   width: 450px;
+}
+
+.header {
+  margin: 0;
+  text-align: center;
 }
